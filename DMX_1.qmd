@@ -7,10 +7,6 @@ output:
 ---
 
 ```{r setup, warning = FALSE, message = FALSE, echo = T}
-purp.gather   <- T
-purp.analysis <- F
-purp.debug    <- F
-purp.mcmc     <- F
 library(tidyverse)
 library(psych)
 library(mascutils)
@@ -18,9 +14,7 @@ library(printr)
 #library(lavaan)
 options(mc.cores = 5)
 
-
-if(!purp.gather) {load("D_1.Rda")}
-
+purp.analysis <- T
 
 ## Functions
 
@@ -97,39 +91,39 @@ item_rel <- function(Data){
 
 ```
 
-# The psychometric fallacy in design research
+# Introduction
 
 The ISO 9241-11 defines usability by three components: effectiveness, efficiency and satisfaction. The first two factors are rooted in a well established human performance perspective. The third, satisfaction, with its vaguely emotional frame of reference remained poorly understood to many researchers and practitioners and was often associated with "this you have to measure with a rating scale". Then the UX age dawned and researchers began to paint a more detailed picture of elusive concepts, such as user's feelings (e.g. Eeriness), their aesthetic judgments and even their dreams (Hedonic Quality).
 
 <!-- It was a wonder to observe how the pale definition of user satisfaction had to make space for a big party. And everybody was bringing their own rating scales! (Bargas-Avila & Hoernbaek, Old wine in new bottles) -->
 
-In modern industrial practice, rating scales have their place as an always available and cheap method for comparing or benchmarking designs. In the decision process, the value of a rating scales stands and falls with two properties: validity and reliability.
+In modern industrial practice, rating scales have their place as an always available and cheap method for comparing or benchmarking designs. In the decision process, the everyday value of a rating scales stands and falls with two properties: validity and reliability.
 
-*Developing* a valid and reliable rating scale is quite an undertaking, if done right. Only few rating scale inventories pervading industry and research have been designed with *best effort*, which is almost equivalent as using a dedicated *psychometric workflow* to establish an item set that measures the construct of interest with the desired validity and reliability.
+*Developing* a valid and reliable rating scale is quite an undertaking. *Psychometrics* is the science of assigning numbers to persons so that they can be compared by psychological functioning. Traditionally, this served to measure skills, such as mathematical intelligence or comprehension of language. With the time, researchers also became more interested in elusive properties of persons, such as psycho-social tendencies (known as the Big Five).
 
-*Psychometrics* is the science of assigning numbers to persons so that they can be compared. Traditionally this served to measure skills, such as mathematical intelligence or comprehension of language. With time, researchers became more interested in more elusive properties of persons, such as psycho-social tendencies (the Big Five). Also, modern psycho-diagnostics relied heavily on rating scales.
+After the landrush phase  of the UX revolution,  Bargas-Avila & Hoernbaek [Old wine in new bottles] counted hundreds of new rating scale instruments. Barely any of these instrument underwent the same scrutiny as, for example, a rating scale for psycho-pathological diagnosis would have to. But, frequently some psychometric tools were used at one point during development time, for example by reporting reliability estimates. Also for users of such instruments, it is common to perform basic psychometric sanity checks on their data. The central point of this paper is a certain catch that can occur when translating between psychological research and design research, which we call the *psychometric fallacy*.
 
-Many design researchers readily adopted more or less sophisticated methods from psychometrics to improve and validate their rating scales. (But see Bargas-Avila & Hoernbaek, Old wine in new bottles). Unfortunately, practically all of them failed to recognize that there is a catch when transferring psychometric tools to design research. In psychometric situations, the atomic observation is an encounter of a person with a test item. This is repeated with more items to estimate a *person score* with precision. If many persons are assessed this way, the result is a Person X Item *response matrix*, which is commonly used in the process of scale construction, using various psychometric tools.
+In psychometric situations, the atomic observation is an encounter of a person with a test item. This is repeated with more items to improve scale reliability. If many persons are assessed this way, the result is a Person X Item *response matrix*, from *person scores* can be extracted for ranking, or *items scores*, but mostly during scale development. On contrast, rating scale in design research exist to rank designs and the atomic observation is an encounter of a design with a person and an item. If repeated, sets, this produces a Design X Person x Item *response cuboid*. Most psychometric methods are designed for flat matrices as input, making it necessary to collapse the cuboid by one factor, for example by taking the average.
 
-The purpose of a rating scale in design research is to measure properties of designs and the atomic observation is an encounter of a design with a person and an item. If repeated over all three sets, this produces a Design X Person x Item *response cube*. The fallacy is to reduce the response cube to a Person x Item response matrix and apply psychometric tools as usual. The psychometric fallacy comes in two forms:
+In design research, design scores are extracted from Design x Item matrices. The psychometric fallacy is to collapse along Design and work with the resulting Person x Item response matrix, where a Design x Item matrix would be correct. Obviously, an instruments capacity to compare designs cannot be evaluated on data that has all differences removed. If the data has been collected along all axis with sufficient repetition, this situation is repairable. In contrast, the *fatal psychometric fallacy* is when data has been collected on a one-and-only design, or a few at best.
 
-1.  The repairable psychometric fallacy is to collect data in form of a proper response cube (with multiple designs, persons and items). Subsequently, the cube is collapsed to a Person x Item response matrix by averaging over designs. This is incorrect for the simple reason that the whole purpose ios to compare designs, but all information about differences between designs is lost in the process. A sufficient repair is to collapse the cube to a Design x Item matrix and treat designs as if they were persons.
+Aim of this study is to develop the logical arguments and seek empirical evidence that the psychometric fallacy is not just sophistry, but can result in real biases when developing or using rating scales. For this purpose, data from five experiments was subjected to typical rating scale validation techniques under both perspectives, psychometric (pretending the fallacy) and designometric (using the proper response matrix).
 
-2.  The fatal psychometric fallacy is to assess multiple persons and items on a single (or just very few) designs and directly apply psychometric tools to this matrix. By mere logic, it is possible to assess an instruments capability to compare designs with a single design.
+## The psychometrics lifecyle
 
-Aim of this study is to seek further evidence that the psychometric fallacy is not just statistical sophistry, but can result in real biases when developing a rating scale. For this purpose, data from five experiments was subjected to typical rating scale validation techniques under both perspectives, psychometric (pretending the fallacy) and designometric (using the proper response matrix).
+It only takes a single probe to accurately estimate the body temperature of a person. Why is estimating a psychological property of the same person, e.g. language skills or neuroticism, so much harder?
 
-## Psychometrics
+The primary use of psychological measurements is to make *predictions* about a person, which in turn helps to make the best decision about that person. A good score in a driver test predicts that a person will make fewer errors on the road. A more direct way to measure error-proneness would be to send the person into traffic and count the collisions. As illustrated by this extreme example, a good instrument also needs to be cost-effective. 
 
-It only takes a single probe to accurately estimate the body temperature of a person. Why is estimating a psychological property of the same person, e.g. language capability or neuroticism, so much harder? The reasons are manifold and are tightly linked to core psychometric principles.
+Psychometric scales can be seen as simulations of real situations that supposedly trigger the same areas of psychological functioning, but in a safe and cost-efficient way. This equally holds for designometric scales. For example, a company may decide to roll out a new design only if perceived effectiveness, efficiency and satisfaction is affirmed by a sample of test users.
 
-The primary use of psychological measurements is to make *predictions* about a person, which in turn helps to make the best decision about that person. A good score in a driver test predicts that a person will make fewer errors on the road. A more direct way to find would be to send the person into traffic and see how it goes. Obviously, this defies the whole purpose because, when the driver causes an accident, a lot is learned about the skill level, but at immense costs. Psychometric scales can be seen as simulations of real situations that supposedly trigger the same areas of psychological functioning, but in a safe and cost-efficient way. This equally holds for designometric scales. For example, a company may decide to roll out a new design only if perceived effectiveness, efficiency and satisfaction is affirmed by a sample of test users.
+The first challenge when designing a rating scale inventory is to understand the involved areas of psychological functioning to a degree that effective triggers, i.e. test items, can be derived. Two general strategies exist, depending on whether these areas of functioning are indicated by existing theory, or are derived from data itself. Both cases will be covered in more depth below. Here it suffices to say, that at the beginning a researcher creates a candidate item pool, which is usually much larger than the targeted final set of items. In the process of *item selection* several psychometric methods can be used to successively remove ineffective items.
 
-The first challenge when designing a rating scale inventory is to understand the involved areas of psychological functioning to a degree that effective triggers, i.e. test items, can be derived. Two general strategies exist, depending on whether these areas of functioning are indicated by existing theory, or are derived from data itself. Both cases will be covered in more depth below. Here it suffices to say, that at the beginning a researcher creates a candidate item pool, which is usually much larger than the targetted final set of items. In a process called *item selection* several psychometric methods are used in iterations, to remove any ineffective items.
+But why are multiple items required in the first place? This goes back to so-called *classic test theory*, which states that all items contain an amount of error, which is usually to large to be practical. Classic test theory solves this problem by decomposing every measure into a relevant *systematic component* and a nuisance *error component*. By definition, the systematic component is repeatable, whereas errors are random. With a single item it is impossible to separate these components, but the more items are used, the more the error terms cancel each other out. When certain conditions are met, it is possible to create an arbitrary precise measure by adding more items.
 
-But why are multiple items required in the first place to measure a psychological property? This goes back to so-called classic test theory, which states that all items contain a certain amount of error, which is usually considered too large. Classic test theory solves this problem by decomposing every measure into a relevant systematic component and a nuisance error component. By definition, the systematic component is repeatable, whereas errors are random. With a single item it is impossible to separate these components, but the more items are used, the more the error terms cancel each other out. The more a systematic component begins to dominate over noise, the more . The relative strength of the
+In modern psychometrics, the relation between a supposed true property and multiple imperfect measure is known as the distinction between *latent variables* (not observable, but true) and *indicator variables* (observable, but imperfect). And this gives rise to a variety of methods used in psychometric workflows.
 
-In modern psychometrics, the relation between a supposed true property and multiple imperfect measure is known as the distinction between *latent variables* (not directly observable) and *indicator variables* (observable, but imperfect). And this gives rise to the methods used in psychometric workflows.
+
 
 ### Reliability
 
@@ -282,9 +276,12 @@ D_1 %>%
 
 ### Data analysis
 
-## Results
+Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to  on several data sets: scale consistency 
 
-### Scale consistency
+
+# Results
+
+## Scale consistency
 
 ```{r message=FALSE, warning=FALSE}
 Scale_rel <-
@@ -437,126 +434,13 @@ parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")
 parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
 ```
 
-# Confirmatory Factor Analysis on Inventories
 
-Several of the original studies employed more than one scale (QB, DN, SP). CFA is commonly used on multi-scale inventories to assess advanced psychometric qualities. In particular,
-
-discriminant validity. If the scales measure genuinely different aspects of a person or a design,
-
-```{r eval = purp.mcmc}
-library(blavaan)
-
-tbl_post.blavaan <- function(x, model = NA){
-  x %>% 
-    blavaan::standardizedposterior() %>% 
-    coda::as.mcmc() %>% 
-    coda::as.mcmc.list() %>% 
-    tidybayes::tidy_draws() %>% 
-    rename(chain = .chain, iter = .iteration) %>% 
-    select(-.draw) %>% 
-    gather(parameter, value, -chain, -iter) %>% 
-    mutate(type = case_when(str_detect(parameter, "=~") ~ "std.coef",
-                            str_detect(parameter, "~~") ~ "std.vcov")) %>% 
-    separate(parameter, into = c("lhs", "rhs"), remove = F)
-}
-
-F_6 <- "nEeriness =~ nE1 + nE2 + nE3 + nE4 + nE5 + nE6 + nE7 + nE8"
-
-M_6_psycho <- 
-  bcfa(model = F_6,
-  data = rm_psycho(D_Eer) ,
-  n.chains = 5,
-  burnin = 12000,
-  sample = 2000)
-
-save(M_6_psycho, file = "M_6.Rda")
-
-
-M_6_design <- 
-  bcfa(model = F_6,
-       data = rm_design(D_Eer),
-       n.chains = 5,
-       burnin = 20000,
-       sample = 2000)
-
-
-
-
-save(M_6_design, M_6_psycho, file = "M_6.Rda")
-
-
-
-
-P_6 <- 
-  bind_rows(
-    tbl_post.blavaan(M_6_design) %>% mutate(model = "designometric"),
-    tbl_post.blavaan(M_6_psycho) %>% mutate(model = "psychometric")
-  ) 
-
-save(M_6_design, M_6_psycho, P_6, file = "M_6.Rda")
-```
-
-```{r}
-load("M_6.Rda")
-```
-
-```{r}
-clu <- function(x)
-  x %>% 
-  group_by(model, parameter, type, lhs, rhs) %>% 
-  summarize(center = median(value),
-            lower = quantile(value, .025),
-            upper = quantile(value, .025)) %>% 
-  ungroup()
-
-
-P_6 %>% 
-  mutate(parameter = NA) %>% 
-  filter(type == "std.coef") %>% 
-  clu() %>% 
-  mascutils::discard_redundant() %>% 
-  rename(Item = rhs)
-
-
-```
-
-```{r}
-CLU_6 <- 
-  P_6 %>% 
-  filter(type == "std.coef") %>% 
-  clu() %>% 
-  rename(Item = rhs)
-
-CLU_6
-
-P_6 %>% 
-  filter(type == "std.coef") %>% 
-  rename(Item = rhs) %>% 
-  ggplot(aes(x = Item, color = model, fill = model, y = value)) +
-  geom_violin() +
-  geom_point(data = CLU_6, aes(y = center)) +
-  geom_line(data = CLU_6, aes(y = center, group = model))
-```
-
-# Using designometric scales as psychometrics
-
-Up to this point we have taken a purely designometric stance, that such rating scales must primarily discriminate between designs. In some research situations, however, a designometric scale could well be used psychometrically. For example, a common stereotype is that male adolescents expose themselves more to imagery of robots, zombies and humanoid extraterrestrians than young women. One could assume that the feeling of eeriness wears off, which would then produce weaker responses of male respondents averaged over designs.
-
-```{r}
-AH %>% 
-  group_by(Part, Item, Gender) %>%
-  summarize(nEeriness = mean(response)) %>% 
-  ggplot(aes(x = Item, color = Gender, y = nEeriness)) +
-  geom_boxplot()
-
-
-```
 
 # Discussion
 
 Rating scales are commonly used in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.
 
-## Run time
+## Run time implications
 
 When looking at real data from commonly used rating scales, a clear bias appears, but this time the Designometric perspective significantly improves reliability. This is good news for future users of these scales, as they can reduce their sample sizes.
 
@@ -566,13 +450,12 @@ With better item-level reliability, experiments can also be streamlined by using
 
 A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score
 
-### AttrakDiff2
-
-The two scales HQI and HQS showed only moderate reliability under both perspectives.
-
-...
 
 ## Implications for scale development
+
+The UX revolution in design research brought with iIn the present, two emerging domains of human-technology interaction are gaining significant momentum:  
+
+
 
 ## Limitations
 

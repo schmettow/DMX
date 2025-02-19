@@ -125,6 +125,6 @@ D_HUB <-
   D_1 %>% 
   filter(Study == "DN")
 
-save(D_1, D_Eer, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
+save(D_1, D_Eer, D_Att, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
 ```
 

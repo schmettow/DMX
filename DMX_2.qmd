@@ -1,0 +1,116 @@
+---
+title: "Advanced DMX"
+---
+
+# Confirmatory Factor Analysis on Inventories
+
+Several of the original studies employed more than one scale (QB, DN, SP). CFA is commonly used on multi-scale inventories to assess advanced psychometric qualities.
+
+```{r eval = purp.mcmc}
+library(blavaan)
+
+tbl_post.blavaan <- function(x, model = NA){
+  x %>% 
+    blavaan::standardizedposterior() %>% 
+    coda::as.mcmc() %>% 
+    coda::as.mcmc.list() %>% 
+    tidybayes::tidy_draws() %>% 
+    rename(chain = .chain, iter = .iteration) %>% 
+    select(-.draw) %>% 
+    gather(parameter, value, -chain, -iter) %>% 
+    mutate(type = case_when(str_detect(parameter, "=~") ~ "std.coef",
+                            str_detect(parameter, "~~") ~ "std.vcov")) %>% 
+    separate(parameter, into = c("lhs", "rhs"), remove = F)
+}
+
+F_6 <- "nEeriness =~ nE1 + nE2 + nE3 + nE4 + nE5 + nE6 + nE7 + nE8"
+
+M_6_psycho <- 
+  bcfa(model = F_6,
+  data = rm_psycho(D_Eer) ,
+  n.chains = 5,
+  burnin = 12000,
+  sample = 2000)
+
+save(M_6_psycho, file = "M_6.Rda")
+
+
+M_6_design <- 
+  bcfa(model = F_6,
+       data = rm_design(D_Eer),
+       n.chains = 5,
+       burnin = 20000,
+       sample = 2000)
+
+
+
+
+save(M_6_design, M_6_psycho, file = "M_6.Rda")
+
+
+
+
+P_6 <- 
+  bind_rows(
+    tbl_post.blavaan(M_6_design) %>% mutate(model = "designometric"),
+    tbl_post.blavaan(M_6_psycho) %>% mutate(model = "psychometric")
+  ) 
+
+save(M_6_design, M_6_psycho, P_6, file = "M_6.Rda")
+```
+
+```{r}
+load("M_6.Rda")
+```
+
+```{r}
+clu <- function(x)
+  x %>% 
+  group_by(model, parameter, type, lhs, rhs) %>% 
+  summarize(center = median(value),
+            lower = quantile(value, .025),
+            upper = quantile(value, .025)) %>% 
+  ungroup()
+
+
+P_6 %>% 
+  mutate(parameter = NA) %>% 
+  filter(type == "std.coef") %>% 
+  clu() %>% 
+  mascutils::discard_redundant() %>% 
+  rename(Item = rhs)
+
+
+```
+
+```{r}
+CLU_6 <- 
+  P_6 %>% 
+  filter(type == "std.coef") %>% 
+  clu() %>% 
+  rename(Item = rhs)
+
+CLU_6
+
+P_6 %>% 
+  filter(type == "std.coef") %>% 
+  rename(Item = rhs) %>% 
+  ggplot(aes(x = Item, color = model, fill = model, y = value)) +
+  geom_violin() +
+  geom_point(data = CLU_6, aes(y = center)) +
+  geom_line(data = CLU_6, aes(y = center, group = model))
+```
+
+# Using designometric scales as psychometrics
+
+Up to this point we have taken a purely designometric stance, that such rating scales must primarily discriminate between designs. In some research situations, however, a designometric scale could well be used psychometrically. For example, a common stereotype is that male adolescents expose themselves more to imagery of robots, zombies and humanoid extraterrestrians than young women. One could assume that the feeling of eeriness wears off, which would then produce weaker responses of male respondents averaged over monster designs.
+
+```{r}
+AH %>% 
+  group_by(Part, Item, Gender) %>%
+  summarize(nEeriness = mean(response)) %>% 
+  ggplot(aes(x = Item, color = Gender, y = nEeriness)) +
+  geom_boxplot()
+
+
+```
