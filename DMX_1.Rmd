@@ -1,0 +1,720 @@
+---
+title: 'Designometric models for the evaluation of designs.'
+author: "Martin Schmettow and Simone Borsci"
+output:
+  html_document:
+    number_sections: yes
+---
+
+```{r setup, warning = FALSE, message = FALSE, echo = T}
+purp.gather   <- T
+purp.analysis <- F
+purp.debug    <- F
+purp.mcmc     <- F
+library(tidyverse)
+library(psych)
+library(mascutils)
+library(printr)
+#library(lavaan)
+options(mc.cores = 5)
+
+
+if(!purp.gather) {load("D_1.Rda")}
+
+
+## Functions
+
+rm_psycho <- function(Data) 
+  Data %>% 
+  group_by(Part, Item) %>% 
+  summarize(mean_resp = mean(response)) %>% 
+  ungroup() %>% 
+  arrange(Item) %>% 
+  spread(Item, value = mean_resp) %>% 
+  select(-Part)
+
+rm_design <- function(Data) 
+  Data %>% 
+  group_by(Design, Item) %>%
+  summarize(mean_resp = mean(response)) %>% 
+  ungroup() %>% 
+  spread(Item, value = mean_resp) %>% 
+  select(-Design)
+
+alpha_ci <- function(Data){
+  Scale <- str_c(distinct(Data, Scale)$Scale) 
+  model_psych <- 
+    psych::alpha(rm_psycho(Data), check.keys = FALSE, n.iter = 100)$boot %>% 
+    as_tibble() %>% 
+    mutate(Perspective = "psychometric")
+  model_design <- 
+    psych::alpha(rm_design(Data), check.keys = FALSE, n.iter = 100)$boot %>% 
+    as_tibble() %>% 
+    mutate(Perspective = "designometric")
+  out <- 
+    bind_rows(model_psych,
+              model_design) %>% 
+    select(Perspective, std.alpha) %>% 
+    group_by(Perspective) %>% 
+    summarize(center = mean(std.alpha),
+              lower = quantile(std.alpha, .025),
+              upper = quantile(std.alpha, .975)) %>% 
+    mutate(Scale = Scale) %>% 
+    go_first(Scale, Perspective)
+  out
+}
+
+# D_1 %>% 
+#   filter(Scale == "Attractiveness") %>% 
+#   alpha_ci()
+
+
+item_rel <- function(Data){
+  #Data <- D_1 %>% filter(Scale == "HQI")
+  Scale <- str_c(distinct(Data, Scale)$Scale)
+  model_psych <- 
+    psych::alpha(rm_psycho(Data), check.keys = FALSE)$item.stats %>% 
+    as_tibble(rownames = "Item") %>% 
+    mutate(Perspective = "psychometric")
+  model_design <- 
+    psych::alpha(rm_design(Data), check.keys = FALSE)$item.stats %>% 
+    as_tibble(rownames = "Item") %>% 
+    mutate(Perspective = "designometric")
+  
+#  model <- M_1_design
+  out <- 
+    bind_rows(model_psych,
+              model_design) %>% 
+    mutate(Scale = Scale) %>% 
+    go_first(Scale, Item, Perspective) %>% 
+    arrange(Scale, Item, Perspective)
+  out
+}
+
+# D_1 %>% 
+#   filter(Scale == "Attractiveness") %>% 
+#   item_rel()
+
+```
+
+# The psychometric fallacy in design research
+
+The ISO 9241-11 defines usability by three components: effectiveness, efficiency and satisfaction. The first two factors are rooted in a well established human performance perspective. The third, satisfaction, with its vaguely emotional frame of reference remained poorly understood to many researchers and practitioners and was often associated with "this you have to measure with a rating scale". Then the UX age dawned and researchers began to paint a more detailed picture of elusive concepts, such as user's feelings (e.g. Eeriness), their aesthetic judgments and even their dreams (Hedonic Quality).
+
+<!-- It was a wonder to observe how the pale definition of user satisfaction had to make space for a big party. And everybody was bringing their own rating scales! (Bargas-Avila & Hoernbaek, Old wine in new bottles) -->
+
+In modern industrial practice, rating scales have their place as an always available and cheap method for comparing or benchmarking designs. In the decision process, the value of a rating scales stands and falls with two properties: validity and reliability.
+
+*Developing* a valid and reliable rating scale is quite an undertaking, if done right. Only few rating scale inventories pervading industry and research have been designed with *best effort*, which is almost equivalent as using a dedicated *psychometric workflow* to establish an item set that measures the construct of interest with the desired validity and reliability.
+
+*Psychometrics* is the science of assigning numbers to persons so that they can be compared. Traditionally this served to measure skills, such as mathematical intelligence or comprehension of language. With time, researchers became more interested in more elusive properties of persons, such as psycho-social tendencies (the Big Five). Also, modern psycho-diagnostics relied heavily on rating scales.
+
+Many design researchers readily adopted more or less sophisticated methods from psychometrics to improve and validate their rating scales. (But see Bargas-Avila & Hoernbaek, Old wine in new bottles). Unfortunately, practically all of them failed to recognize that there is a catch when transferring psychometric tools to design research. In psychometric situations, the atomic observation is an encounter of a person with a test item. This is repeated with more items to estimate a *person score* with precision. If many persons are assessed this way, the result is a Person X Item *response matrix*, which is commonly used in the process of scale construction, using various psychometric tools.
+
+The purpose of a rating scale in design research is to measure properties of designs and the atomic observation is an encounter of a design with a person and an item. If repeated over all three sets, this produces a Design X Person x Item *response cube*. The fallacy is to reduce the response cube to a Person x Item response matrix and apply psychometric tools as usual. The psychometric fallacy comes in two forms:
+
+1.  The repairable psychometric fallacy is to collect data in form of a proper response cube (with multiple designs, persons and items). Subsequently, the cube is collapsed to a Person x Item response matrix by averaging over designs. This is incorrect for the simple reason that the whole purpose ios to compare designs, but all information about differences between designs is lost in the process. A sufficient repair is to collapse the cube to a Design x Item matrix and treat designs as if they were persons.
+
+2.  The fatal psychometric fallacy is to assess multiple persons and items on a single (or just very few) designs and directly apply psychometric tools to this matrix. By mere logic, it is possible to assess an instruments capability to compare designs with a single design.
+
+Aim of this study is to seek further evidence that the psychometric fallacy is not just statistical sophistry, but can result in real biases when developing a rating scale. For this purpose, data from five experiments was subjected to typical rating scale validation techniques under both perspectives, psychometric (pretending the fallacy) and designometric (using the proper response matrix).
+
+## Psychometrics
+
+It only takes a single probe to accurately estimate the body temperature of a person. Why is estimating a psychological property of the same person, e.g. language capability or neuroticism, so much harder? The reasons are manifold and are tightly linked to core psychometric principles.
+
+The primary use of psychological measurements is to make *predictions* about a person, which in turn helps to make the best decision about that person. A good score in a driver test predicts that a person will make fewer errors on the road. A more direct way to find would be to send the person into traffic and see how it goes. Obviously, this defies the whole purpose because, when the driver causes an accident, a lot is learned about the skill level, but at immense costs. Psychometric scales can be seen as simulations of real situations that supposedly trigger the same areas of psychological functioning, but in a safe and cost-efficient way. This equally holds for designometric scales. For example, a company may decide to roll out a new design only if perceived effectiveness, efficiency and satisfaction is affirmed by a sample of test users.
+
+The first challenge when designing a rating scale inventory is to understand the involved areas of psychological functioning to a degree that effective triggers, i.e. test items, can be derived. Two general strategies exist, depending on whether these areas of functioning are indicated by existing theory, or are derived from data itself. Both cases will be covered in more depth below. Here it suffices to say, that at the beginning a researcher creates a candidate item pool, which is usually much larger than the targetted final set of items. In a process called *item selection* several psychometric methods are used in iterations, to remove any ineffective items.
+
+But why are multiple items required in the first place to measure a psychological property? This goes back to so-called classic test theory, which states that all items contain a certain amount of error, which is usually considered too large. Classic test theory solves this problem by decomposing every measure into a relevant systematic component and a nuisance error component. By definition, the systematic component is repeatable, whereas errors are random. With a single item it is impossible to separate these components, but the more items are used, the more the error terms cancel each other out. The more a systematic component begins to dominate over noise, the more . The relative strength of the
+
+In modern psychometrics, the relation between a supposed true property and multiple imperfect measure is known as the distinction between *latent variables* (not directly observable) and *indicator variables* (observable, but imperfect). And this gives rise to the methods used in psychometric workflows.
+
+### Reliability
+
+### Validity
+
+### Factor structures
+
+## Designometrics
+
+### Simulation on Reliability
+
+When a scale validation study in design research falls into the psychomnetric fallacy by using a psychometric response matrix for reliability analysis, what is shown is that the scale reliably measures a person's tendency to judge websites beautiful or robot faces spine-tingling. This is obviously not the same as measuring a websites perceived beauty or a robot faces eeriness. The following example demonstrates the difference by simulating an extreme situation, where a fictive three-item scale of Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 undertaker company websites, and 50 participants.
+
+```{r}
+set.seed(42)
+
+n_Design = 20
+n_Part   = 20
+n_Item  =  4
+n_Obs = n_Design * n_Part * n_Item
+
+Designs <- tibble(Design      = as.factor(1:n_Design),
+                  cool_Design = rnorm(n_Design, 0, .02)) ## little variance in Coolness
+
+Parts   <- tibble(Part        = as.factor(1:n_Part),
+                  cool_Part   = rnorm(n_Part, 0, .2)) ## strong variance in tendeny to judge sth. cool
+
+Items   <- tibble(Scale       = "Coolness",
+                  Item        = as.factor(1:4),
+                  cool_Item   = rnorm(n_Item,  0, .2)) ## item strength: understating items get lower values
+
+Coolness     <- expand_grid(Design = Designs$Design,
+                       Part   = Parts$Part,
+                       Item   = Items$Item) %>% 
+  left_join(Designs) %>% 
+  left_join(Parts) %>% 
+  left_join(Items) %>% 
+  mutate(response = mascutils::rescale_zero_one(cool_Design + cool_Part - cool_Item + rnorm(n_Obs, 0, .5)))
+```
+
+```{r}
+Coolness %>% 
+  ggplot(aes(y = response, x = Design)) +
+  geom_violin()
+
+Coolness %>% 
+  ggplot(aes(y = response, x = Part)) +
+  geom_violin()
+```
+
+```{r}
+alpha_ci(Coolness)
+```
+
+This simple example demonstrate that a scale can produce excellent reliability when measuring persons, but rather poor reliability on designs. In all psychometric fallacy study, this could have happened to some degree and would go completely unnoticed. The way we constructed this simulation, producing a sample of designs with little difference in Coolness, also highlights the importance of careful sampling the designs in a designometric validation study. In many classes of designs, we can expect some properties to vary strongly and others to be relatively stable across designs. In our example, undertaker websites will probably not so much differ in how much they enthuse users, which makes them a poor sample for a Coolness scale, but could still vary a lot in visual simplicity.
+
+Still, falling into the psychometric fallacy does not neccessarily mean that a scale is unreliable under the designometric perspective. It is not too unlikely, that the two mental processes of *appreciating* coolness (psychometric perspective) and *discerning* coolness (designometric perspective) share some mental processes and therefore result in sufficient reliability (or factors structure) under both perspectives. It is even possible that the real situation is the opposite of the previous simulation, where persons vary little in appreciation, whereas designs vary strongly. In the present study we use data from several previous experiments that had produced designometric data sets.
+
+# Methods
+
+From a theoretical perspective the psychometric fallacy is obvious and we have demonstrated by simulation that the worst case is possible , but little is known how the fallacy effects the quality of rating scales. Here, we explore only the basics psychometric qualities: scale consistency and item reliability.
+
+## Data sets
+
+The data used for analysis originates from five experiments (DK, PS, AH, QB, DN). While these experiments were carried out to test their own hypotheses, they have in common that participants saw pictures of many designs and were asked to respond to items taken from one or more scales. In QB and DN participants saw pictures of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. Some of the original experiments used manipualtion of presentation time to collect data on subconscious cognitive processing. For the analysis here, only responses at presentation times of 500ms and 2000m were used.
+
+As in these experiments only single items were used per presented design, the designometric cuboid is very sparse. However, when collapsing the cuboid to either psychometric RM or designometric RM, the result is completely filled response matrices.
+
+```{r gather_data, include = purp.gather, eval = purp.gather}
+
+norm_cols <- 
+  function(Data) 
+    Data %>% 
+    mutate(Part = str_c(Study, as.character(Part)),
+         Item = as.character(Item),
+         Scale = as.character(Scale),
+         Design = as.character(Design)) %>% 
+    mutate(response = mascutils::rescale_unit(response)) %>% 
+  arrange(Study, Part, Scale , Item, Anchor, Design)
+
+mini_cols <- 
+  function(Data)
+    Data %>% select(Study, Part, Scale , Item, Anchor, Design, response)
+    
+
+Items <- readxl::read_excel("Items.xlsx")
+
+load("DK1.Rda")
+DK <- 
+  DK1 %>% 
+  filter(Condition == "long") %>% 
+  mutate(Study = "DK",
+         Design = str_remove(Stimulus, "^c")) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()  
+
+
+load("PS.Rda")
+PS <- 
+  PS_1 %>% 
+  filter(Condition == 2) %>% 
+  mutate(Study = "PS",
+         Design = Stimulus) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()
+
+
+load("AH.Rda")
+AH <- D$AH1 %>% 
+  rename(Part = Participant,
+         trial = Trial,
+         Design = Face,
+         Gender = sex) %>% 
+  mutate(Study = "AH",
+         Scale = "nEeriness",
+         Item = str_c("n", Item),
+         Gender = as.factor(Gender),
+         response = 1 - mascutils::rescale_unit(response)) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>%  
+  norm_cols()
+
+
+load("Tuch1.Rda")
+QB <- 
+  Tuch1 %>% 
+  mutate(Anchor = str_c(AnchorLow, AnchorHi, sep = "_"),
+         Study = "QB") %>%
+  group_by(Scale) %>% 
+  mutate(Item = str_c(Scale, as.integer(as.factor(Anchor)))) %>% 
+  ungroup() %>% 
+  filter(Condition == "0.5s") %>% 
+  rename(Part = Subj, 
+         Design = Stimulus, 
+         response = Judgement) %>%  
+  norm_cols()
+
+
+load("Tuch2.Rda")
+SP <- 
+  Tuch2 %>% 
+  rename(Part = Participant, Design = Stimulus, response = Response) %>% 
+  mutate(Study = "SP") %>% 
+  filter(Inventory == "UEQ" &
+         Scale == "Attractiveness" &
+         Condition %in% c("unlimited", "500ms")) %>% 
+  mutate(response = mascutils::rescale_unit(response)) %>% 
+  mutate(response = if_else(Item %in% c("Att3", "Att4"), 
+                            1 - response, 
+                            response)) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()
+
+
+load("DN.Rda")
+DN <- 
+  DN %>% 
+  mutate(Study = "DN",
+         response = mascutils::rescale_zero_one(Response),
+         Anchor = "") %>% 
+  rename(Part = subject_nr,
+         Design = SSName) %>% 
+  norm_cols()
+
+
+
+D_1 <- bind_rows(mini_cols(PS), mini_cols(DK), mini_cols(QB), mini_cols(SP), mini_cols(DN), mini_cols(AH)) |> 
+  mutate(Scale = if_else(Scale %in% c("beauty", "hedonism", "usability"), str_to_sentence(Scale), Scale))
+
+D_Eer <- 
+  D_1 %>% 
+  filter(Scale == "nEeriness",
+         str_detect(Item, "[[:digit:]]+")) ## only M&R stimuli
+
+distinct(D_1, Scale, Study) |> 
+  arrange(Scale)
+
+D_Att <- 
+  D_1 %>% 
+  filter(Scale %in% c("HQI", "HQS", "Credib") )
+  
+
+D_HUB <- 
+  D_1 %>% 
+  filter(Study == "DN")
+
+save(D_1, D_Eer, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
+
+```
+
+```{r}
+load("DMX_data.Rda")
+```
+
+```{r}
+D_1 %>% 
+  ggplot(aes(x = response)) +
+  geom_histogram() +
+  facet_wrap(~Study, scale = "free_y")
+```
+
+```{r}
+D_Eer %>% 
+  ggplot(aes(x = Item, y = response, color = Study)) +
+  geom_violin()
+```
+
+```{r echo = purp.analysis}
+D_1 %>% 
+  distinct(Study, Design) %>% 
+  group_by(Study) %>% 
+  summarize(n_Design = n()) %>% 
+  ungroup() %>% 
+  left_join(D_1 %>% 
+              distinct(Study, Part) %>% 
+              group_by(Study) %>% 
+              summarize(n_Part = n())%>% 
+              ungroup()) %>% 
+  left_join(D_1 %>% 
+              group_by(Study) %>% 
+              summarize(n_Obs = n())%>% 
+              ungroup()
+  )
+```
+
+```{r echo = purp.analysis}
+D_1 %>% 
+  distinct(Scale, Design) %>% 
+  group_by(Scale) %>% 
+  summarize(n_Design = n()) %>% 
+  ungroup() %>% 
+  left_join(D_1 %>% 
+              distinct(Scale, Part) %>% 
+              group_by(Scale) %>% 
+              summarize(n_Part = n())%>% 
+              ungroup()) %>% 
+  left_join(D_1 %>% 
+              group_by(Scale) %>% 
+              summarize(n_Obs = n())%>% 
+              ungroup()
+  )
+```
+
+### Scales
+
+For the following rating scales responses have been extracted from the original experimental data:
+
+The *Eeriness* scale has been developed for measuring negative emotional responses towards robot faces and is primarily use for research on the Uncanny Valles phenomenon. Ho & MacDorman(2017) present an advanced psychometric validation of the scale. The study made use of 12 animated characters (Designs), avoiding the level 1 fallacy to some degree, but the data analysis is under psychometric perspective (level 2 fallacy).
+
+The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory. Is has been vaidated by [Bettina Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and Evaluation of a User Experience Questionnaire. . 63–76. <https://doi.org/10.1007/978-3-540-89350-9_6>] The UEQ has undergone basic psychometric evaluation in six studies with a single design each (level 1 fallacy).
+
+The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory. AttrakDiff2 underwent basic evaluation using only three Designs under psychometric perspective (level 1 fallacy) [Hassenzahl, M., Burmester, M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener hedonischer und pragmatischer Qualität].
+
+The Credibility scale ... \#### [HERE]
+
+The following table gives an overview on inventory and scales:
+
+```{r}
+
+  
+```
+
+```{r echo = purp.analysis}
+D_1 %>% 
+  group_by(Study, Scale) %>% 
+  summarize(n_Items = n_distinct(Item),
+            n_Part = n_distinct(Part),
+            n_Design = n_distinct(Design),
+            n_Obs = n()) %>% 
+  ungroup()
+```
+
+### Data analysis
+
+## Results
+
+### Scale consistency
+
+```{r message=FALSE, warning=FALSE}
+Scale_rel <-
+  D_1 %>% 
+  #mutate(Scale = str_c(Study, Scale, sep = "_")) %>% 
+  split(.$Scale) %>% 
+  map_df(alpha_ci)
+
+Scale_rel
+
+```
+
+```{r fig.height = 16, fig.width = 12}
+Scale_rel %>% 
+  ggplot(aes(color = Scale,
+             label = Scale,
+             x = Perspective,
+             y = center,
+             ymin = lower,
+             ymax = upper)) +
+  geom_point() +
+  geom_line(aes(group = Scale)) +
+  ylab("std. Cronbach alpha") +
+  geom_label() +
+  ylim(0,1)
+```
+
+### Item reliability
+
+```{r message=FALSE, warning=FALSE}
+Item_rel <-
+  D_1 %>% 
+  split(.$Scale) %>% 
+  map_df(item_rel)
+
+Item_rel
+
+```
+
+```{r}
+G_Item_rel <-
+  Item_rel %>% 
+  ggplot(aes(color = Scale,
+             x = Perspective,
+             y = r.cor)) +
+  # geom_point() +
+  geom_line(aes(group = Item)) +
+  ylab("Item-whole correlation")
+
+G_Item_rel
+
+```
+
+```{r fig.width = 16, fig.height = 24}
+
+G_Item_rel +
+  geom_label(aes( label = Item)) +
+  facet_wrap(~Scale, ncol = 2) +
+  geom_point(data = rename(Scale_rel, alpha = center),
+             aes(x = Perspective, 
+                 y = alpha,
+                 col = "Whole Cronbach alpha")) +
+  geom_line(data = rename(Scale_rel, alpha = center),
+             aes(x = Perspective, 
+                 y = alpha,
+                 group = Scale,
+                 col = "Whole Cronbach alpha"))
+
+
+```
+
+## Number of factors
+
+Often, different scales are used in combination to create a more complete picture. It is usually aimed for that every scale measures exactly one construct (or latent variable) and that different scales measure different constructs. As a counter-example, MacDorman found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling". In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.
+
+Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors.
+
+```{r}
+parallel_analysis <- function(data, n, persp, scales){
+  if (persp == "D") {
+    data <- rm_design(data)
+    main <- str_c("Designometric Parallel Analysis of ", scales)
+  }
+  if (persp == "P") {
+    data <- rm_psycho(data)
+    main <- str_c("Psychometric Parallel Analysis of ", scales)
+  }
+  psych::fa.parallel(data,
+                   fa = "fa",
+                   fm = "minres",
+                   nfactors=n,
+                   main=main)
+    
+}
+```
+
+<!-- Item reliability measures how coherent any particular item is with the scale as a whole. This criterion regularly used during item selection, where an item may be discarded if it does not correlate with the remaining items. However, if some items are out-of-tune, this can mean that they represent a different facet of the construct under examination.  -->
+
+<!-- Exploratory factor analysis is frequently used to find such factors in response matrices. The first step typically is to determine the number of factors. -->
+
+## Eeriness scale
+
+Eeriness is usually considered a one-dimensional construct. Nevertheless, it has been suggested that it comprises two slightly different factors.
+
+```{r}
+parallel_analysis(D_Eer, 2, "D", "Eeriness")
+
+parallel_analysis(D_Eer, 2, "P", "Eeriness")
+
+```
+
+The results suggest that under psychometric perspective there is only one latent variables, whereas whereas the designometric perspective produces two.
+
+```{r}
+E_psycho <- tibble(Perspective = "psychometric",
+                   Item = str_c("nE", 1:8),
+                   loading = psych::fa(rm_psycho(D_Eer))$loadings)
+
+E_design <- tibble(Perspective = "designometric",
+                   Item = str_c("nE", 1:8),
+                   loading = psych::fa(rm_design(D_Eer))$loadings)
+
+# bind_rows(E_psycho, E_design) %>% 
+#   ggplot(aes(x = Perspective, group = Item))
+# 
+# 
+# str(E_psycho)
+```
+
+## AttrakDiff and Credibility
+
+On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is separate right from the start.
+
+```{r}
+parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility")
+
+parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility")
+
+```
+
+Under a psychometric perspective, all items represent a single latent construct. In contrast, the designometric analysis yielded five factors.
+
+## Hedonism, Usability and Beauty
+
+In DN three separate scales were used, but parallel analysis suggests that these capture the same latent variable under both perspectives.
+
+```{r}
+parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")
+
+parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
+```
+
+# Confirmatory Factor Analysis on Inventories
+
+Several of the original studies employed more than one scale (QB, DN, SP). CFA is commonly used on multi-scale inventories to assess advanced psychometric qualities. In particular,
+
+discriminant validity. If the scales measure genuinely different aspects of a person or a design,
+
+```{r eval = purp.mcmc}
+library(blavaan)
+
+tbl_post.blavaan <- function(x, model = NA){
+  x %>% 
+    blavaan::standardizedposterior() %>% 
+    coda::as.mcmc() %>% 
+    coda::as.mcmc.list() %>% 
+    tidybayes::tidy_draws() %>% 
+    rename(chain = .chain, iter = .iteration) %>% 
+    select(-.draw) %>% 
+    gather(parameter, value, -chain, -iter) %>% 
+    mutate(type = case_when(str_detect(parameter, "=~") ~ "std.coef",
+                            str_detect(parameter, "~~") ~ "std.vcov")) %>% 
+    separate(parameter, into = c("lhs", "rhs"), remove = F)
+}
+
+F_6 <- "nEeriness =~ nE1 + nE2 + nE3 + nE4 + nE5 + nE6 + nE7 + nE8"
+
+M_6_psycho <- 
+  bcfa(model = F_6,
+  data = rm_psycho(D_Eer) ,
+  n.chains = 5,
+  burnin = 12000,
+  sample = 2000)
+
+save(M_6_psycho, file = "M_6.Rda")
+
+
+M_6_design <- 
+  bcfa(model = F_6,
+       data = rm_design(D_Eer),
+       n.chains = 5,
+       burnin = 20000,
+       sample = 2000)
+
+
+
+
+save(M_6_design, M_6_psycho, file = "M_6.Rda")
+
+
+
+
+P_6 <- 
+  bind_rows(
+    tbl_post.blavaan(M_6_design) %>% mutate(model = "designometric"),
+    tbl_post.blavaan(M_6_psycho) %>% mutate(model = "psychometric")
+  ) 
+
+save(M_6_design, M_6_psycho, P_6, file = "M_6.Rda")
+```
+
+```{r}
+load("M_6.Rda")
+```
+
+```{r}
+clu <- function(x)
+  x %>% 
+  group_by(model, parameter, type, lhs, rhs) %>% 
+  summarize(center = median(value),
+            lower = quantile(value, .025),
+            upper = quantile(value, .025)) %>% 
+  ungroup()
+
+
+P_6 %>% 
+  mutate(parameter = NA) %>% 
+  filter(type == "std.coef") %>% 
+  clu() %>% 
+  mascutils::discard_redundant() %>% 
+  rename(Item = rhs)
+
+
+```
+
+```{r}
+CLU_6 <- 
+  P_6 %>% 
+  filter(type == "std.coef") %>% 
+  clu() %>% 
+  rename(Item = rhs)
+
+CLU_6
+
+P_6 %>% 
+  filter(type == "std.coef") %>% 
+  rename(Item = rhs) %>% 
+  ggplot(aes(x = Item, color = model, fill = model, y = value)) +
+  geom_violin() +
+  geom_point(data = CLU_6, aes(y = center)) +
+  geom_line(data = CLU_6, aes(y = center, group = model))
+```
+
+# Using designometric scales as psychometrics
+
+Up to this point we have taken a purely designometric stance, that such rating scales must primarily discriminate between designs. In some research situations, however, a designometric scale could well be used psychometrically. For example, a common stereotype is that male adolescents expose themselves more to imagery of robots, zombies and humanoid extraterrestrians than young women. One could assume that the feeling of eeriness wears off, which would then produce weaker responses of male respondents averaged over designs.
+
+```{r}
+AH %>% 
+  group_by(Part, Item, Gender) %>%
+  summarize(nEeriness = mean(response)) %>% 
+  ggplot(aes(x = Item, color = Gender, y = nEeriness)) +
+  geom_boxplot()
+
+
+```
+
+
+
+# Discussion
+
+Rating scales are commonly used in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.
+
+## Run time
+
+When looking at real data from commonly used rating scales, a clear bias appears, but this time the Designometric perspective significantly improves reliability. This is good news for future users of these scales, as they can reduce their sample sizes. 
+
+Past users may have scratched their heads more often than we know.
+The techniques used in the comparison of perspectives are commonly applied as quick sanity checks, whenever multi-item scales are used in running studies (run time). Everyone in the past who used designometric scales and followed APA guidelines,  was likely to the psychometric fallacy and experience some unnecessary headaches. 
+
+With better item-level reliability, experiments can also be streamlined by using a reduced set of items. Reducing a scale is basically item selection and several strategies are possible, as long as it is carried out on a design-by-item matrix. 
+
+A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score 
+
+
+
+
+
+### AttrakDiff2
+
+The two scales HQI and HQS showed only moderate reliability under both perspectives.
+
+...
+
+## Implications for scale development
+
+
+
+
+## Limitations
+
+-   Populations in the samples were rather homogenous (students). Too little variance in the sample?
+-   just stimuli, no use. we can assume dominance of system 1.
+-   Tested conditions were on finalized scales, rather than initial item pools.
+
+## The ideal designometric scale
+
+The comparison of item-level reliability suggests that the scales fall into two clusters: beauty and hedonism have overall excellent item and scale reliability. Reliability under psychometric perspective is still good. What is striking is that item reliability seem to drop *by a constant*
