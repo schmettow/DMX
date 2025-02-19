@@ -1,0 +1,130 @@
+---
+title: "Data preparation"
+author: "M Schmettow"
+---
+
+```{r}
+{r gather_data, include = purp.gather, eval = purp.gather}
+
+norm_cols <- 
+  function(Data) 
+    Data %>% 
+    mutate(Part = str_c(Study, as.character(Part)),
+         Item = as.character(Item),
+         Scale = as.character(Scale),
+         Design = as.character(Design)) %>% 
+    mutate(response = mascutils::rescale_unit(response)) %>% 
+  arrange(Study, Part, Scale , Item, Anchor, Design)
+
+mini_cols <- 
+  function(Data)
+    Data %>% select(Study, Part, Scale , Item, Anchor, Design, response)
+    
+
+Items <- readxl::read_excel("Items.xlsx")
+
+load("DK1.Rda")
+DK <- 
+  DK1 %>% 
+  filter(Condition == "long") %>% 
+  mutate(Study = "DK",
+         Design = str_remove(Stimulus, "^c")) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()  
+
+
+load("PS.Rda")
+PS <- 
+  PS_1 %>% 
+  filter(Condition == 2) %>% 
+  mutate(Study = "PS",
+         Design = Stimulus) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()
+
+
+load("AH.Rda")
+AH <- D$AH1 %>% 
+  rename(Part = Participant,
+         trial = Trial,
+         Design = Face,
+         Gender = sex) %>% 
+  mutate(Study = "AH",
+         Scale = "nEeriness",
+         Item = str_c("n", Item),
+         Gender = as.factor(Gender),
+         response = 1 - mascutils::rescale_unit(response)) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>%  
+  norm_cols()
+
+
+load("Tuch1.Rda")
+QB <- 
+  Tuch1 %>% 
+  mutate(Anchor = str_c(AnchorLow, AnchorHi, sep = "_"),
+         Study = "QB") %>%
+  group_by(Scale) %>% 
+  mutate(Item = str_c(Scale, as.integer(as.factor(Anchor)))) %>% 
+  ungroup() %>% 
+  filter(Condition == "0.5s") %>% 
+  rename(Part = Subj, 
+         Design = Stimulus, 
+         response = Judgement) %>%  
+  norm_cols()
+
+
+load("Tuch2.Rda")
+SP <- 
+  Tuch2 %>% 
+  rename(Part = Participant, Design = Stimulus, response = Response) %>% 
+  mutate(Study = "SP") %>% 
+  filter(Inventory == "UEQ" &
+         Scale == "Attractiveness" &
+         Condition %in% c("unlimited", "500ms")) %>% 
+  mutate(response = mascutils::rescale_unit(response)) %>% 
+  mutate(response = if_else(Item %in% c("Att3", "Att4"), 
+                            1 - response, 
+                            response)) %>% 
+  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
+  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
+  norm_cols()
+
+
+load("DN.Rda")
+DN <- 
+  DN %>% 
+  mutate(Study = "DN",
+         response = mascutils::rescale_zero_one(Response),
+         Anchor = "") %>% 
+  rename(Part = subject_nr,
+         Design = SSName) %>% 
+  norm_cols()
+
+
+
+D_1 <- bind_rows(mini_cols(PS), mini_cols(DK), mini_cols(QB), mini_cols(SP), mini_cols(DN), mini_cols(AH)) |> 
+  mutate(Scale = if_else(Scale %in% c("beauty", "hedonism", "usability"), str_to_sentence(Scale), Scale))
+
+D_Eer <- 
+  D_1 %>% 
+  filter(Scale == "nEeriness",
+         str_detect(Item, "[[:digit:]]+")) ## only M&R stimuli
+
+distinct(D_1, Scale, Study) |> 
+  arrange(Scale)
+
+D_Att <- 
+  D_1 %>% 
+  filter(Scale %in% c("HQI", "HQS", "Credib") )
+  
+
+D_HUB <- 
+  D_1 %>% 
+  filter(Study == "DN")
+
+save(D_1, D_Eer, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
+```
+

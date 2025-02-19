@@ -198,131 +198,6 @@ The data used for analysis originates from five experiments (DK, PS, AH, QB, DN)
 
 As in these experiments only single items were used per presented design, the designometric cuboid is very sparse. However, when collapsing the cuboid to either psychometric RM or designometric RM, the result is completely filled response matrices.
 
-```{r gather_data, include = purp.gather, eval = purp.gather}
-
-norm_cols <- 
-  function(Data) 
-    Data %>% 
-    mutate(Part = str_c(Study, as.character(Part)),
-         Item = as.character(Item),
-         Scale = as.character(Scale),
-         Design = as.character(Design)) %>% 
-    mutate(response = mascutils::rescale_unit(response)) %>% 
-  arrange(Study, Part, Scale , Item, Anchor, Design)
-
-mini_cols <- 
-  function(Data)
-    Data %>% select(Study, Part, Scale , Item, Anchor, Design, response)
-    
-
-Items <- readxl::read_excel("Items.xlsx")
-
-load("DK1.Rda")
-DK <- 
-  DK1 %>% 
-  filter(Condition == "long") %>% 
-  mutate(Study = "DK",
-         Design = str_remove(Stimulus, "^c")) %>% 
-  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
-  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
-  norm_cols()  
-
-
-load("PS.Rda")
-PS <- 
-  PS_1 %>% 
-  filter(Condition == 2) %>% 
-  mutate(Study = "PS",
-         Design = Stimulus) %>% 
-  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
-  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
-  norm_cols()
-
-
-load("AH.Rda")
-AH <- D$AH1 %>% 
-  rename(Part = Participant,
-         trial = Trial,
-         Design = Face,
-         Gender = sex) %>% 
-  mutate(Study = "AH",
-         Scale = "nEeriness",
-         Item = str_c("n", Item),
-         Gender = as.factor(Gender),
-         response = 1 - mascutils::rescale_unit(response)) %>% 
-  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
-  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>%  
-  norm_cols()
-
-
-load("Tuch1.Rda")
-QB <- 
-  Tuch1 %>% 
-  mutate(Anchor = str_c(AnchorLow, AnchorHi, sep = "_"),
-         Study = "QB") %>%
-  group_by(Scale) %>% 
-  mutate(Item = str_c(Scale, as.integer(as.factor(Anchor)))) %>% 
-  ungroup() %>% 
-  filter(Condition == "0.5s") %>% 
-  rename(Part = Subj, 
-         Design = Stimulus, 
-         response = Judgement) %>%  
-  norm_cols()
-
-
-load("Tuch2.Rda")
-SP <- 
-  Tuch2 %>% 
-  rename(Part = Participant, Design = Stimulus, response = Response) %>% 
-  mutate(Study = "SP") %>% 
-  filter(Inventory == "UEQ" &
-         Scale == "Attractiveness" &
-         Condition %in% c("unlimited", "500ms")) %>% 
-  mutate(response = mascutils::rescale_unit(response)) %>% 
-  mutate(response = if_else(Item %in% c("Att3", "Att4"), 
-                            1 - response, 
-                            response)) %>% 
-  left_join(select(Items, Scale, Item, AnchorLow_EN, AnchorHigh_EN)) %>% 
-  mutate(Anchor = str_c(AnchorHigh_EN, AnchorLow_EN, sep = " - ")) %>% 
-  norm_cols()
-
-
-load("DN.Rda")
-DN <- 
-  DN %>% 
-  mutate(Study = "DN",
-         response = mascutils::rescale_zero_one(Response),
-         Anchor = "") %>% 
-  rename(Part = subject_nr,
-         Design = SSName) %>% 
-  norm_cols()
-
-
-
-D_1 <- bind_rows(mini_cols(PS), mini_cols(DK), mini_cols(QB), mini_cols(SP), mini_cols(DN), mini_cols(AH)) |> 
-  mutate(Scale = if_else(Scale %in% c("beauty", "hedonism", "usability"), str_to_sentence(Scale), Scale))
-
-D_Eer <- 
-  D_1 %>% 
-  filter(Scale == "nEeriness",
-         str_detect(Item, "[[:digit:]]+")) ## only M&R stimuli
-
-distinct(D_1, Scale, Study) |> 
-  arrange(Scale)
-
-D_Att <- 
-  D_1 %>% 
-  filter(Scale %in% c("HQI", "HQS", "Credib") )
-  
-
-D_HUB <- 
-  D_1 %>% 
-  filter(Study == "DN")
-
-save(D_1, D_Eer, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
-
-```
-
 ```{r}
 load("DMX_data.Rda")
 ```
@@ -677,26 +552,19 @@ AH %>%
 
 ```
 
-
-
 # Discussion
 
 Rating scales are commonly used in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.
 
 ## Run time
 
-When looking at real data from commonly used rating scales, a clear bias appears, but this time the Designometric perspective significantly improves reliability. This is good news for future users of these scales, as they can reduce their sample sizes. 
+When looking at real data from commonly used rating scales, a clear bias appears, but this time the Designometric perspective significantly improves reliability. This is good news for future users of these scales, as they can reduce their sample sizes.
 
-Past users may have scratched their heads more often than we know.
-The techniques used in the comparison of perspectives are commonly applied as quick sanity checks, whenever multi-item scales are used in running studies (run time). Everyone in the past who used designometric scales and followed APA guidelines,  was likely to the psychometric fallacy and experience some unnecessary headaches. 
+Past users may have scratched their heads more often than we know. The techniques used in the comparison of perspectives are commonly applied as quick sanity checks, whenever multi-item scales are used in running studies (run time). Everyone in the past who used designometric scales and followed APA guidelines, was likely to the psychometric fallacy and experience some unnecessary headaches.
 
-With better item-level reliability, experiments can also be streamlined by using a reduced set of items. Reducing a scale is basically item selection and several strategies are possible, as long as it is carried out on a design-by-item matrix. 
+With better item-level reliability, experiments can also be streamlined by using a reduced set of items. Reducing a scale is basically item selection and several strategies are possible, as long as it is carried out on a design-by-item matrix.
 
-A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score 
-
-
-
-
+A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score
 
 ### AttrakDiff2
 
@@ -705,9 +573,6 @@ The two scales HQI and HQS showed only moderate reliability under both perspecti
 ...
 
 ## Implications for scale development
-
-
-
 
 ## Limitations
 
