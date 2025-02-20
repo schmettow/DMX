@@ -54,7 +54,7 @@ alpha_ci <- function(Data){
               lower = quantile(std.alpha, .025),
               upper = quantile(std.alpha, .975)) %>% 
     mutate(Scale = Scale) %>% 
-    go_first(Scale, Perspective)
+    mascutils::go_first(Scale, Perspective)
   out
 }
 
@@ -101,7 +101,7 @@ In modern industrial practice, rating scales have their place as an always avail
 
 *Developing* a valid and reliable rating scale is quite an undertaking. *Psychometrics* is the science of assigning numbers to persons so that they can be compared by psychological functioning. Traditionally, this served to measure skills, such as mathematical intelligence or comprehension of language. With the time, researchers also became more interested in elusive properties of persons, such as psycho-social tendencies (known as the Big Five).
 
-After the landrush phase  of the UX revolution,  Bargas-Avila & Hoernbaek [Old wine in new bottles] counted hundreds of new rating scale instruments. Barely any of these instrument underwent the same scrutiny as, for example, a rating scale for psycho-pathological diagnosis would have to. But, frequently some psychometric tools were used at one point during development time, for example by reporting reliability estimates. Also for users of such instruments, it is common to perform basic psychometric sanity checks on their data. The central point of this paper is a certain catch that can occur when translating between psychological research and design research, which we call the *psychometric fallacy*.
+After the landrush phase of the UX revolution, Bargas-Avila & Hoernbaek \[Old wine in new bottles\] counted hundreds of new rating scale instruments. Barely any of these instrument underwent the same scrutiny as, for example, a rating scale for psycho-pathological diagnosis would have to. But, frequently some psychometric tools were used at one point during development time, for example by reporting reliability estimates. Also for users of such instruments, it is common to perform basic psychometric sanity checks on their data. The central point of this paper is a certain catch that can occur when translating between psychological research and design research, which we call the *psychometric fallacy*.
 
 In psychometric situations, the atomic observation is an encounter of a person with a test item. This is repeated with more items to improve scale reliability. If many persons are assessed this way, the result is a Person X Item *response matrix*, from *person scores* can be extracted for ranking, or *items scores*, but mostly during scale development. On contrast, rating scale in design research exist to rank designs and the atomic observation is an encounter of a design with a person and an item. If repeated, sets, this produces a Design X Person x Item *response cuboid*. Most psychometric methods are designed for flat matrices as input, making it necessary to collapse the cuboid by one factor, for example by taking the average.
 
@@ -113,7 +113,7 @@ Aim of this study is to develop the logical arguments and seek empirical evidenc
 
 It only takes a single probe to accurately estimate the body temperature of a person. Why is estimating a psychological property of the same person, e.g. language skills or neuroticism, so much harder?
 
-The primary use of psychological measurements is to make *predictions* about a person, which in turn helps to make the best decision about that person. A good score in a driver test predicts that a person will make fewer errors on the road. A more direct way to measure error-proneness would be to send the person into traffic and count the collisions. As illustrated by this extreme example, a good instrument also needs to be cost-effective. 
+The primary use of psychological measurements is to make *predictions* about a person, which in turn helps to make the best decision about that person. A good score in a driver test predicts that a person will make fewer errors on the road. A more direct way to measure error-proneness would be to send the person into traffic and count the collisions. As illustrated by this extreme example, a good instrument also needs to be cost-effective.
 
 Psychometric scales can be seen as simulations of real situations that supposedly trigger the same areas of psychological functioning, but in a safe and cost-efficient way. This equally holds for designometric scales. For example, a company may decide to roll out a new design only if perceived effectiveness, efficiency and satisfaction is affirmed by a sample of test users.
 
@@ -122,8 +122,6 @@ The first challenge when designing a rating scale inventory is to understand the
 But why are multiple items required in the first place? This goes back to so-called *classic test theory*, which states that all items contain an amount of error, which is usually to large to be practical. Classic test theory solves this problem by decomposing every measure into a relevant *systematic component* and a nuisance *error component*. By definition, the systematic component is repeatable, whereas errors are random. With a single item it is impossible to separate these components, but the more items are used, the more the error terms cancel each other out. When certain conditions are met, it is possible to create an arbitrary precise measure by adding more items.
 
 In modern psychometrics, the relation between a supposed true property and multiple imperfect measure is known as the distinction between *latent variables* (not observable, but true) and *indicator variables* (observable, but imperfect). And this gives rise to a variety of methods used in psychometric workflows.
-
-
 
 ### Reliability
 
@@ -251,11 +249,11 @@ For the following rating scales responses have been extracted from the original 
 
 The *Eeriness* scale has been developed for measuring negative emotional responses towards robot faces and is primarily use for research on the Uncanny Valles phenomenon. Ho & MacDorman(2017) present an advanced psychometric validation of the scale. The study made use of 12 animated characters (Designs), avoiding the level 1 fallacy to some degree, but the data analysis is under psychometric perspective (level 2 fallacy).
 
-The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory. Is has been vaidated by [Bettina Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and Evaluation of a User Experience Questionnaire. . 63–76. <https://doi.org/10.1007/978-3-540-89350-9_6>] The UEQ has undergone basic psychometric evaluation in six studies with a single design each (level 1 fallacy).
+The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory. Is has been vaidated by \[Bettina Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and Evaluation of a User Experience Questionnaire. . 63–76. <https://doi.org/10.1007/978-3-540-89350-9_6>\] The UEQ has undergone basic psychometric evaluation in six studies with a single design each (level 1 fallacy).
 
-The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory. AttrakDiff2 underwent basic evaluation using only three Designs under psychometric perspective (level 1 fallacy) [Hassenzahl, M., Burmester, M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener hedonischer und pragmatischer Qualität].
+The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory. AttrakDiff2 underwent basic evaluation using only three Designs under psychometric perspective (level 1 fallacy) \[Hassenzahl, M., Burmester, M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener hedonischer und pragmatischer Qualität\].
 
-The Credibility scale ... \#### [HERE]
+The Credibility scale ... \#### \[HERE\]
 
 The following table gives an overview on inventory and scales:
 
@@ -276,8 +274,7 @@ D_1 %>%
 
 ### Data analysis
 
-Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to  on several data sets: scale consistency 
-
+Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to on several data sets: scale consistency
 
 # Results
 
@@ -355,7 +352,7 @@ G_Item_rel +
 
 ## Number of factors
 
-Often, different scales are used in combination to create a more complete picture. It is usually aimed for that every scale measures exactly one construct (or latent variable) and that different scales measure different constructs. As a counter-example, MacDorman found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling". In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.
+Often, different scales are used in combination to create a more complete picture. It is usually the aim that a scale measures exactly one construct (or latent variable) and that different scales measure different constructs. As a counter-example, MacDorman found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling". In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.
 
 Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors.
 
@@ -416,9 +413,9 @@ E_design <- tibble(Perspective = "designometric",
 On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is separate right from the start.
 
 ```{r}
-parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility")
+# parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility")
 
-parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility")
+# parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility")
 
 ```
 
@@ -429,16 +426,14 @@ Under a psychometric perspective, all items represent a single latent construct.
 In DN three separate scales were used, but parallel analysis suggests that these capture the same latent variable under both perspectives.
 
 ```{r}
-parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")
+# parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")
 
-parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
+# parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
 ```
-
-
 
 # Discussion
 
-Rating scales are commonly used in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.
+Rating scales in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.
 
 ## Run time implications
 
@@ -450,12 +445,9 @@ With better item-level reliability, experiments can also be streamlined by using
 
 A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score
 
-
 ## Implications for scale development
 
-The UX revolution in design research brought with iIn the present, two emerging domains of human-technology interaction are gaining significant momentum:  
-
-
+The UX revolution in design research brought with iIn the present, two emerging domains of human-technology interaction are gaining significant momentum:
 
 ## Limitations
 

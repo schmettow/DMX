@@ -4,7 +4,6 @@ author: "M Schmettow"
 ---
 
 ```{r}
-{r gather_data, include = purp.gather, eval = purp.gather}
 
 norm_cols <- 
   function(Data) 
@@ -127,4 +126,3 @@ D_HUB <-
 
 save(D_1, D_Eer, D_Att, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
 ```
-
