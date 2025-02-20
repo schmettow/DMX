@@ -4,6 +4,7 @@ author: "M Schmettow"
 ---
 
 ```{r}
+library(tidyverse)
 
 norm_cols <- 
   function(Data) 
@@ -23,6 +24,7 @@ mini_cols <-
 Items <- readxl::read_excel("Items.xlsx")
 
 load("DK1.Rda")
+
 DK <- 
   DK1 %>% 
   filter(Condition == "long") %>% 
@@ -124,5 +126,5 @@ D_HUB <-
   D_1 %>% 
   filter(Study == "DN")
 
-save(D_1, D_Eer, D_Att, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
+save(D_1, D_Eer, D_Att, D_HUB, PS, DK, AH, QB, SP, DN, file = "DMX_data.Rda")
 ```
