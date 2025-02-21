@@ -1,0 +1,2537 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Martin Schmettow and Simone Borsci">
+
+<title>Designometrics - A primer - 2&nbsp; Designometric models for the evaluation of designs.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DMX_1.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Designometric models for the evaluation of designs.</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Designometrics - A primer</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DMX_1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Designometric models for the evaluation of designs.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#psychometrics" id="toc-psychometrics" class="nav-link" data-scroll-target="#psychometrics"><span class="header-section-number">3.1</span> Psychometrics</a>
+  <ul class="collapse">
+  <li><a href="#item-selection" id="toc-item-selection" class="nav-link" data-scroll-target="#item-selection"><span class="header-section-number">3.1.1</span> Item selection</a></li>
+  <li><a href="#factor-structures" id="toc-factor-structures" class="nav-link" data-scroll-target="#factor-structures"><span class="header-section-number">3.1.2</span> Factor structures</a></li>
+  <li><a href="#the-response-matrix" id="toc-the-response-matrix" class="nav-link" data-scroll-target="#the-response-matrix"><span class="header-section-number">3.1.3</span> The Response Matrix</a></li>
+  </ul></li>
+  <li><a href="#designometrics" id="toc-designometrics" class="nav-link" data-scroll-target="#designometrics"><span class="header-section-number">3.2</span> Designometrics</a></li>
+  <li><a href="#the-psychometric-fallacy" id="toc-the-psychometric-fallacy" class="nav-link" data-scroll-target="#the-psychometric-fallacy"><span class="header-section-number">3.3</span> The psychometric fallacy</a></li>
+  </ul></li>
+  <li><a href="#simulation-study" id="toc-simulation-study" class="nav-link" data-scroll-target="#simulation-study"><span class="header-section-number">4</span> Simulation study</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">5</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-sets" id="toc-data-sets" class="nav-link" data-scroll-target="#data-sets"><span class="header-section-number">5.1</span> Data sets</a>
+  <ul class="collapse">
+  <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales"><span class="header-section-number">5.1.1</span> Scales</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><span class="header-section-number">5.1.2</span> Data analysis</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">6</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#scale-consistency" id="toc-scale-consistency" class="nav-link" data-scroll-target="#scale-consistency"><span class="header-section-number">6.1</span> Scale consistency</a></li>
+  <li><a href="#item-reliability" id="toc-item-reliability" class="nav-link" data-scroll-target="#item-reliability"><span class="header-section-number">6.2</span> Item reliability</a></li>
+  <li><a href="#number-of-factors" id="toc-number-of-factors" class="nav-link" data-scroll-target="#number-of-factors"><span class="header-section-number">6.3</span> Number of factors</a></li>
+  <li><a href="#eeriness-scale" id="toc-eeriness-scale" class="nav-link" data-scroll-target="#eeriness-scale"><span class="header-section-number">6.4</span> Eeriness scale</a></li>
+  <li><a href="#attrakdiff-and-credibility" id="toc-attrakdiff-and-credibility" class="nav-link" data-scroll-target="#attrakdiff-and-credibility"><span class="header-section-number">6.5</span> AttrakDiff and Credibility</a></li>
+  <li><a href="#hedonism-usability-and-beauty" id="toc-hedonism-usability-and-beauty" class="nav-link" data-scroll-target="#hedonism-usability-and-beauty"><span class="header-section-number">6.6</span> Hedonism, Usability and Beauty</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">7</span> Discussion</a>
+  <ul class="collapse">
+  <li><a href="#run-time-implications" id="toc-run-time-implications" class="nav-link" data-scroll-target="#run-time-implications"><span class="header-section-number">7.1</span> Run time implications</a></li>
+  <li><a href="#implications-for-scale-development" id="toc-implications-for-scale-development" class="nav-link" data-scroll-target="#implications-for-scale-development"><span class="header-section-number">7.2</span> Implications for scale development</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">7.3</span> Limitations</a></li>
+  <li><a href="#the-ideal-designometric-scale" id="toc-the-ideal-designometric-scale" class="nav-link" data-scroll-target="#the-ideal-designometric-scale"><span class="header-section-number">7.4</span> The ideal designometric scale</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Designometric models for the evaluation of designs.</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Martin Schmettow and Simone Borsci </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mascutils)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(printr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#library(lavaan)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> <span class="dv">5</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>purp.analysis <span class="ot">&lt;-</span> T</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># D_1 |&gt; </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(Scale == "Attractiveness") |&gt; </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   item_rel()</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Functions to create response matrices from long data</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>rm_psycho <span class="ot">&lt;-</span> <span class="cf">function</span>(Data)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  Data <span class="sc">|&gt;</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Part, Item) <span class="sc">|&gt;</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_resp =</span> <span class="fu">mean</span>(response)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Item) <span class="sc">|&gt;</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(Item, <span class="at">value =</span> mean_resp) <span class="sc">|&gt;</span> </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Part)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>rm_design <span class="ot">&lt;-</span> <span class="cf">function</span>(Data) </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  Data <span class="sc">|&gt;</span> </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Design, Item) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_resp =</span> <span class="fu">mean</span>(response)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(Item, <span class="at">value =</span> mean_resp) <span class="sc">|&gt;</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Design)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>alpha_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(Data){</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  Scale <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="fu">distinct</span>(Data, Scale)<span class="sc">$</span>Scale) </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  model_psych <span class="ot">&lt;-</span> </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">rm_psycho</span>(Data), <span class="at">check.keys =</span> <span class="cn">FALSE</span>, <span class="at">n.iter =</span> <span class="dv">100</span>)<span class="sc">$</span>boot <span class="sc">|&gt;</span> </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Perspective =</span> <span class="st">"psychometric"</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  model_design <span class="ot">&lt;-</span> </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">rm_design</span>(Data), <span class="at">check.keys =</span> <span class="cn">FALSE</span>, <span class="at">n.iter =</span> <span class="dv">100</span>)<span class="sc">$</span>boot <span class="sc">|&gt;</span> </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Perspective =</span> <span class="st">"designometric"</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(model_psych,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>              model_design) <span class="sc">|&gt;</span> </span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Perspective, std.alpha) <span class="sc">|&gt;</span> </span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Perspective) <span class="sc">|&gt;</span> </span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">center =</span> <span class="fu">mean</span>(std.alpha),</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower =</span> <span class="fu">quantile</span>(std.alpha, .<span class="dv">025</span>),</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>              <span class="at">upper =</span> <span class="fu">quantile</span>(std.alpha, .<span class="dv">975</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Scale =</span> Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    mascutils<span class="sc">::</span><span class="fu">go_first</span>(Scale, Perspective)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co"># D_1 |&gt; </span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(Scale == "Attractiveness") |&gt; </span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">#   alpha_ci()</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>item_rel <span class="ot">&lt;-</span> <span class="cf">function</span>(Data){</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Data &lt;- D_1 |&gt; filter(Scale == "HQI")</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  Scale <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="fu">distinct</span>(Data, Scale)<span class="sc">$</span>Scale)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  model_psych <span class="ot">&lt;-</span> </span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">rm_psycho</span>(Data), <span class="at">check.keys =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>item.stats <span class="sc">|&gt;</span> </span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Item"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Perspective =</span> <span class="st">"psychometric"</span>)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  model_design <span class="ot">&lt;-</span> </span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">rm_design</span>(Data), <span class="at">check.keys =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>item.stats <span class="sc">|&gt;</span> </span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Item"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Perspective =</span> <span class="st">"designometric"</span>)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">#  model &lt;- M_1_design</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> </span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(model_psych,</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>              model_design) <span class="sc">|&gt;</span> </span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Scale =</span> Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">go_first</span>(Scale, Item, Perspective) <span class="sc">|&gt;</span> </span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Scale, Item, Perspective)</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="introduction" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Introduction</h1>
+<p>The ISO 9241-11 defines usability by three components: effectiveness, efficiency and satisfaction. The first two factors are rooted in a well established human performance perspective. The third, satisfaction, with its vaguely emotional frame of reference remained poorly understood to many researchers and practitioners and was often associated with “this you have to measure with a rating scale”. Then the UX age dawned and researchers began to paint a more detailed picture of elusive concepts, such as user’s feelings (e.g.&nbsp;Eeriness), their aesthetic judgments and even their dreams (Hedonic Quality).</p>
+<!-- It was a wonder to observe how the pale definition of user satisfaction had to make space for a big party. And everybody was bringing their own rating scales! (Bargas-Avila & Hoernbaek, Old wine in new bottles) -->
+<p>In modern industrial practice, rating scales have their place as an always available and cheap method for comparing or benchmarking designs. In the decision process, the everyday value of a rating scales stands and falls with two properties: validity and reliability.</p>
+<p><em>Developing</em> a valid and reliable rating scale is quite an undertaking. <em>Psychometrics</em> is the science of assigning numbers to persons so that they can be compared by psychological functioning. Traditionally, this served to measure skills, such as mathematical intelligence or comprehension of language. With the time, researchers also became more interested in elusive properties of persons, such as psycho-social tendencies (known as the Big Five).</p>
+<p>After the landrush phase of the UX revolution, Bargas-Avila &amp; Hoernbaek [Old wine in new bottles] counted hundreds of new rating scale instruments. Barely any of these instrument underwent the same scrutiny as, for example, a rating scale for psycho-pathological diagnosis would have to. But, frequently some psychometric tools were used at one point during development time, for example by reporting reliability estimates. Also for users of such instruments, it is common to perform basic psychometric sanity checks on their data. The central point of this paper is a certain catch that can occur when translating between psychological research and design research, which we call the <em>psychometric fallacy</em>.</p>
+<p>In psychometric situations, the atomic observation is an encounter of a person with a test item. This is repeated with more items to improve scale reliability. If many persons are assessed this way, the result is a Person X Item <em>response matrix</em>, from <em>person scores</em> can be extracted for ranking, or <em>items scores</em>, but mostly during scale development. On contrast, rating scale in design research exist to rank designs and the atomic observation is an encounter of a design with a person and an item. If repeated, sets, this produces a Design X Person x Item <em>response cuboid</em>. Most psychometric methods are designed for flat matrices as input, making it necessary to collapse the cuboid by one factor, for example by taking the average.</p>
+<p>In design research, design scores are extracted from Design x Item matrices. The psychometric fallacy is to collapse along Design and work with the resulting Person x Item response matrix, where a Design x Item matrix would be correct. Obviously, an instruments capacity to compare designs cannot be evaluated on data that has all differences removed. If the data has been collected along all axis with sufficient repetition, this situation is repairable. In contrast, the <em>fatal psychometric fallacy</em> is when data has been collected on a one-and-only design, or a few at best.</p>
+<p>Aim of this study is to develop the logical arguments and seek empirical evidence that the psychometric fallacy is not just sophistry, but can result in real biases when developing or using rating scales. For this purpose, data from five experiments was subjected to typical rating scale validation techniques under both perspectives, psychometric (pretending the fallacy) and designometric (using the proper response matrix).</p>
+<section id="psychometrics" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="psychometrics"><span class="header-section-number">3.1</span> Psychometrics</h2>
+<p>It only takes a single probe to accurately estimate the body temperature of a person. Why are psychological properties of the same person, e.g.&nbsp;language skills or neuroticism, assessed by multiple tasks or items? While there is more than one reason for multiple items in questionnaire, but the one primarily addressed here is the measurement accuracy. Data taken from the human mind is highly noisy, be it obtained by self-report scales, reaction times or physiological measures. Practically all quantitative behavioural studies employ repeated measures to reduce the measurement error.</p>
+<p>This goes back to so-called <em>classic test theory</em>, which states that in behavioural research the level of noise in a single measurement usually is too large all items contain an amount of error, which is usually to large to be practical. Classic test theory solves this problem by decomposing every measure into a relevant <em>systematic component</em> and a nuisance <em>error component</em>. By definition, the systematic component re-occurs with every measurement, whereas the error is fully random. With a single item it is impossible to separate these components, but the more items are used, the more the error terms cancel each other out, and the systematic component. When certain conditions are met, it is possible to create an arbitrary precise estimate by repeating the measurement.</p>
+<p>The primary use of psychometric instruments is to make <em>predictions</em> about a person, which in turn helps to make the best decision about that person. A good score in a written drivers test predicts that a person will make fewer errors on the road and experience fewer collisions.</p>
+<!--A more direct way to measure error-proneness would be to send the person into traffic and count the collisions over a long period of time. As illustrated by this extreme example, a good instrument also needs to be cost-effective.-->
+<p>Psychometric instruments can be seen as simulations of real situations that supposedly trigger the same areas of psychological functioning, but in a safe and cost-efficient way.</p>
+<section id="item-selection" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="item-selection"><span class="header-section-number">3.1.1</span> Item selection</h3>
+<p>The first challenge when designing a psychometric inventory is to understand the domain, ideally in terms of involved areas of psychological functioning. Based on the domain analysis, the researcher creates a candidate <em>item pool</em>, which is usually much larger than the targeted final set of items. Several psychometric methods can be used to successively remove inefficient items, and to find an effective structure.</p>
+<p>In the ideal case, the errors of multiple items cancel each other out. This requires that all items share the same systematic component. Scale <em>consistency</em> is the overall level of inter-item agreement, where lack of consistency occurs when a single item fails to correlate with other items, simply because it is ill-phrased or ambivalent. Inconsistent individual items can be identified using item reliability measures, and removed from the pool.</p>
+<p>Reliability of an item is the essentially the inverse of the error component and denotes how precisely a measurement predicts itself. As the error component is unknown, reliability can only be estimated. For a single item test, the only way is to correlate a test with a retest. But, multi-item scales have the advantage that reliability can be estimated in one moment, with Cronbach <span class="math inline">\(\alpha\)</span> as a common technique. Cronbach <span class="math inline">\(\alpha\)</span> correlates each item with the remaining items, which results in reliability measures on item level.</p>
+<p>In more complex cases, scale consistency suffers, because there is more than one systematic component. In this case, <em>factor-analytic</em> methods can be used to separate components into consistent factors.</p>
+</section>
+<section id="factor-structures" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="factor-structures"><span class="header-section-number">3.1.2</span> Factor structures</h3>
+<p>In modern psychometrics, the relation between a supposed true property and multiple imperfect measure is known as the distinction between <em>latent variables</em> (not observable, but true) and <em>indicator variables</em> (observable, but imperfect). Modern instruments often carry a domain structure, where multiple latent variables are put in relation to each other. A prominent example is the Big 5 inventory, which claims that social behaviour can be predicted by five psycho-social traits, each of which is assessed by a set of items.</p>
+<p>While the primary aim of domain analysis is coverage, it often indicates a possible structure for a multi-item instrument. Sometimes, a domain analysis is driven by a theoretical structure in the first place, but structures can also emerge from qualitative data in mixed-method psychometric processes. Confirmatory Factor Analysis (CFA) is the most recommended technique to critically assess <em>a prior</em> assumptions about the latent variable structure. For multi-scale inventories CFA also supercedes Cronbach <span class="math inline">\(\alpha\)</span>, as parameter loadings can be used to identify inconsistent items.</p>
+<p>Without a prior structures, the single-scale process of item selection is likely to fail the consistency test, because the alleged skill is actually a composition of skills. For example with open questions in an arithmetics test, performance may depend on arithmetic processing speed, but also on comprehension. If items in the test vary in text difficulty (and participants vary in comprehension skill), a second systematic component emerges. A common technique for finding new structures is Exploratory Factor Analysis. An issue with EFA is that it requires the researcher to name the number of factors. Several methods, in turn, have been proposed to identify the optimal number of factors.</p>
+</section>
+<section id="the-response-matrix" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="the-response-matrix"><span class="header-section-number">3.1.3</span> The Response Matrix</h3>
+<p>All psychometric methods mentioned so far have in common that measures are provided in form of response matrices, where rows identify with participants and columns with items. A common operation during item selection is to estimate consistency on the full response matrix, remove a dubious item from the matrix to see if this improves consistency. EFA takes a response matrix as input and produces item loadings for it. For multi-scale data CFA tools take response matrix with named columns as input, together with a formula to group items to factors. …</p>
+<p>The idea of response matrices is most pronounced in item response theory (IRT), a psychometric approach rivaling classic test theory and factors analysis. In IRT, each cell in the response matrix is seen as an encounter between an item and a participant, from which a measure arises. Items, like participants, are seen as individuals, with different response characteristics during the encounter. In the basic Rasch model, the probability of success in a person-task encounter depends only on the general difficulty of task and the general ability of the person. More complex IRT models also regard more subtle item characteristics, and sophisticated tools have been developed to detect and prevent <em>differential item functioning</em> in world-spanning studies like TIMMS and PISA. IRT models take the person x item matrix as input and produce estimates on both margins, item parameters and person parameters. During the development of an IRT model, sophisticated tools are used to select only those items that strictly behave as the model states.</p>
+<p>No matter the level of sophistication or school of thought, what matters during scale development is that item characteristics are well behaved. In the same way researchers use multiple measures to estimate a person’s skill, many responses are needed to precisely assess the characteristics of an item during this phase. This creates the demand for the enormous sample sizes, that psychometric development is most feared for.</p>
+</section>
+</section>
+<section id="designometrics" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="designometrics"><span class="header-section-number">3.2</span> Designometrics</h2>
+<p>Everything said above is well rooted in mathematical theory and therefore equally holds when rating scales are constructed to rank anything other than a person. When a UX scale is used to decide between designs A and B in industrial practice, it is legit to ask how precise the measurements are. Simple Dmx scales can efficiently be constructed using Cronbach <span class="math inline">\(\alpha\)</span> for item selection, and for multi-scale inventories, factor analysis can be used. And when maximum rigor is required, IRT models can be established and checked throughly.</p>
+<p>There are just two fundamental differences, though: First, in psychometrics the entity to be ranked is persons, where in designometric applications one or more designs get numbers attached. Second, a psychometric measure is an encounter of a person with an item, whereas a designometric measure is an <em>encounter of a design with a person and an item</em>. This three-way encounter and the aim at measuring designs formally characterizes designometric research.</p>
+<p>From a formal perspective, transitioning from psychometric to designometric analysis is straight forward. The three-factorial data can be reduced to a <em>design x item response matrix</em>, by simply averaging across participants. This matrix takes the place of the psychometric response matrix and researchers can proceed with their favorite psychometric workflow.</p>
+<p>However, This also implies that for a proper item selection and factorizing process a substantial sample of designs is required. This can be a huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.</p>
+<p>A connected problem is that individual participants can be eliminated in the data, but still are involved in the process of testing. As the designometric encounter (a person using a design) usually takes more time than the psychometric, having every participant encounter every design is impractical. A way to mitigate this problem is to use an experimental design that is <em>planned incomplete</em>. Essentially, a planned incomplete validation study would have all participants encounter only a partition of the design sample. For example a designometric validation study consisting of a sample of 100 designs could have every participant encounter a different set of ten designs. As long as all designs are covered by at least one participant, this will result in a complete design-by-item matrix after collapsing along participants.</p>
+</section>
+<section id="the-psychometric-fallacy" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-psychometric-fallacy"><span class="header-section-number">3.3</span> The psychometric fallacy</h2>
+<p>Designometric scales can be developed and validated using established psychometric tools. However, this is only valid when a design-by-item matrix is used, with a sufficiently large sample of designs. In contrast, many designometric instruments have not been validated using a large sample of designs, but rather on a large psychometric matrix. This we call the <em>psychometric fallacy</em>.</p>
+<p>When a scale validation study in design research falls into the psychometric fallacy, validation metrics such as item reliability are meaningless for the purpose of ranking designs. Rather, the metric will refer to the capability of the item to discriminate persons by their sensitivity to the design feature in question. For example, a scale for comparing designs by beauty would become a scale to rank persons by how critical they are with respect to interface beauty. This is not the same and in the next section we show by simulation that the differences between designometric and psychometric perspectives can be dramatic.</p>
+<p>During the scale development process, the psychometric fallacy appears in two forms, one is repairable, whereas the other is not. We speak of a repairable psychometric fallacy, when the validation study was properly constructed around a sample of designs, but used psychometric response matrices. This can be repaired by constructing the same analysis workflow now with a designometric matrix.</p>
+<p>A study that failed to collect a sample of designs in the first place inevitably ends up as a non-repairable psychometric fallacy. In these cases, researchers have failed to recognize a simple truth: The capacity to discriminate between designs can impossibly be validated on a single design. Every alleged designometric instrument where this has happened during the validation phase, cannot be trusted and the validation data is inadequate to perform a designometric validation.</p>
+<p>However, recall that designometric validation requires a sample of designs in the same magnitude as psychometric validations require large samnples of participants. So, even validation studies that included multiple designs, may in practice not be repairable, because the sample of designs is too small for the type of analysis (e.g.&nbsp;EFA). An example is the study to validate the Godspeed Index, a common inventory to evaluate robotic designs [MacDorman XY]. There, scale reliability was assessed under a psychometric perspective, but validity was assessed using a sample of four designs. This would never suffice even for even basic designometric assessment.</p>
+<p>A designometric instrument that has falsely been designed under a psychometric perspective, may be repairable, but can also turn out to be entirely useless. A milder form of the fallacy appears when researchers in practice apply an existing instrument to a single design. The result will inevitable look like a psychometric response matrix. Given that publication rules (e.g.&nbsp;APA guidelines) often require to report some psychometric properties, such as scale reliability, it may be tempting for the researcher to report reliability based on the psychometric matrix. When a scale has been tuned for designometric qualities, it is possible that psychometric properties are quite poor. In this scenario, we can expect at least some confusion when a validated designometric instrument seems to perform poorly.</p>
+<p>In the following section, we construct a case by simulation, showing that psychometric and designometric perspectives can result in dramatically different results. In the remainder of the study, we will use data from past experiments to evaluate how strong the deviations are with several existing and commonly used rating scales.</p>
+</section>
+</section>
+<section id="simulation-study" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Simulation study</h1>
+<p>The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness (<span class="math inline">\(\sigma_\textrm{Part} = .2\)</span>), whereas the sample of designs varies little in Coolness (<span class="math inline">\(\sigma_\textrm{Design} = .02\)</span>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n_Design <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n_Part   <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n_Item  <span class="ot">=</span>  <span class="dv">4</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>n_Obs <span class="ot">=</span> n_Design <span class="sc">*</span> n_Part <span class="sc">*</span> n_Item</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Designs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Design      =</span> <span class="fu">as.factor</span>(<span class="dv">1</span><span class="sc">:</span>n_Design),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cool_Design =</span> <span class="fu">rnorm</span>(n_Design, <span class="dv">0</span>, .<span class="dv">02</span>)) <span class="do">## little variance in Coolness</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Parts   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Part        =</span> <span class="fu">as.factor</span>(<span class="dv">1</span><span class="sc">:</span>n_Part),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cool_Part   =</span> <span class="fu">rnorm</span>(n_Part, <span class="dv">0</span>, .<span class="dv">2</span>)) <span class="do">## strong variance in tendeny to judge sth. cool</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Items   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Scale       =</span> <span class="st">"Coolness"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Item        =</span> <span class="fu">as.factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cool_Item   =</span> <span class="fu">rnorm</span>(n_Item,  <span class="dv">0</span>, .<span class="dv">2</span>)) <span class="do">## item strength: understating items get lower values</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Coolness     <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">Design =</span> Designs<span class="sc">$</span>Design,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Part   =</span> Parts<span class="sc">$</span>Part,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Item   =</span> Items<span class="sc">$</span>Item) <span class="sc">|&gt;</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Designs) <span class="sc">|&gt;</span> </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Parts) <span class="sc">|&gt;</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Items) <span class="sc">|&gt;</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">response =</span> mascutils<span class="sc">::</span><span class="fu">rescale_zero_one</span>(cool_Design <span class="sc">+</span> cool_Part <span class="sc">-</span> cool_Item <span class="sc">+</span> <span class="fu">rnorm</span>(n_Obs, <span class="dv">0</span>, .<span class="dv">5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Design)`
+Joining with `by = join_by(Part)`
+Joining with `by = join_by(Item)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Coolness <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> response, <span class="at">x =</span> Design)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Coolness <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> response, <span class="at">x =</span> Part)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">alpha_ci</span>(Coolness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.
+Number of categories should be increased in order to count frequencies.
+`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+Number of categories should be increased in order to count frequencies.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in psych::alpha(rm_design(Data), check.keys = FALSE, n.iter = 100): Some items were negatively correlated with the first principal component and probably 
+should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Some items ( 1 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: left;">Perspective</th>
+<th style="text-align: right;">center</th>
+<th style="text-align: right;">lower</th>
+<th style="text-align: right;">upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Coolness</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.1179021</td>
+<td style="text-align: right;">-0.5375240</td>
+<td style="text-align: right;">0.4680096</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coolness</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.9307102</td>
+<td style="text-align: right;">0.8793905</td>
+<td style="text-align: right;">0.9598878</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This simple example demonstrate that a scale can produce excellent reliability when measuring persons, but rather poor reliability on designs. In all psychometric fallacy study, this could have happened to some degree and would go completely unnoticed. The way we constructed this simulation, producing a sample of designs with little difference in Coolness, also highlights the importance of careful sampling the designs in a designometric validation study. In many classes of designs, we can expect some properties to vary strongly and others to be relatively stable across designs. In our example, undertaker websites will probably not so much differ in how much they enthuse users, which makes them a poor sample for a Coolness scale, but could still vary a lot in visual simplicity.</p>
+<p>Still, falling into the psychometric fallacy does not necessarily mean that a scale is unreliable under the designometric perspective. It is possible, that the two mental processes of <em>appreciating</em> coolness (psychometric perspective) and <em>discerning</em> coolness (designometric perspective) share some mental processes and therefore result in sufficient reliability (or factors structure) under both perspectives. It is even possible that the real situation is the opposite of the previous simulation, where persons vary little in appreciation, whereas designs vary strongly.</p>
+<p>In the following study we use data from several previous experiments that had produced designometric data sets.</p>
+</section>
+<section id="methods" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Methods</h1>
+<p>From a theoretical perspective the psychometric fallacy is obvious and we have demonstrated by simulation that the worst case is possible , but little is known how the fallacy effects the quality of rating scales. Here, we explore only the basics psychometric qualities: scale consistency and item reliability.</p>
+<section id="data-sets" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="data-sets"><span class="header-section-number">5.1</span> Data sets</h2>
+<p>The data used for analysis originates from five experiments (DK, PS, AH, QB, DN). While these experiments were carried out to test their own hypotheses, they have in common that participants saw pictures of many designs and were asked to respond to items taken from one or more scales. In QB and DN participants saw pictures of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. Some of the original experiments used manipualtion of presentation time to collect data on subconscious cognitive processing. For the analysis here, only responses at presentation times of 500ms and 2000m were used.</p>
+<p>As in these experiments only single items were used per presented design, the designometric cuboid is very sparse. However, when collapsing the cuboid to either psychometric RM or designometric RM, the result is completely filled response matrices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"DMX_data.Rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> response)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Study, <span class="at">scale =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>D_Eer <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Item, <span class="at">y =</span> response, <span class="at">color =</span> Study)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Study, Design) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Study) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_Design =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">distinct</span>(Study, Part) <span class="sc">|&gt;</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(Study) <span class="sc">|&gt;</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">n_Part =</span> <span class="fu">n</span>())<span class="sc">|&gt;</span> </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">ungroup</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(Study) <span class="sc">|&gt;</span> </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">n_Obs =</span> <span class="fu">n</span>())<span class="sc">|&gt;</span> </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">ungroup</span>()</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Study)`
+Joining with `by = join_by(Study)`</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Study</th>
+<th style="text-align: right;">n_Design</th>
+<th style="text-align: right;">n_Part</th>
+<th style="text-align: right;">n_Obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AH</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">10800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DK</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">2800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DN</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">8064</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PS</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">2808</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">QB</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1900</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1440</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Scale, Design) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_Design =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">distinct</span>(Scale, Part) <span class="sc">|&gt;</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">n_Part =</span> <span class="fu">n</span>())<span class="sc">|&gt;</span> </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">ungroup</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">n_Obs =</span> <span class="fu">n</span>())<span class="sc">|&gt;</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">ungroup</span>()</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Scale)`
+Joining with `by = join_by(Scale)`</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: right;">n_Design</th>
+<th style="text-align: right;">n_Part</th>
+<th style="text-align: right;">n_Obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1440</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">700</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">16408</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="scales" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="scales"><span class="header-section-number">5.1.1</span> Scales</h3>
+<p>For the following rating scales responses have been extracted from the original experimental data:</p>
+<p>The <em>Eeriness</em> scale has been developed for measuring negative emotional responses towards robot faces and is primarily use for research on the Uncanny Valles phenomenon. Ho &amp; MacDorman(2017) present an advanced psychometric validation of the scale. The study made use of 12 animated characters (Designs), avoiding the level 1 fallacy to some degree, but the data analysis is under psychometric perspective (level 2 fallacy).</p>
+<p>The <em>Attractiveness</em> scale is part of the User Experience Questionnaire (UEQ) inventory. Is has been vaidated by [Bettina Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and Evaluation of a User Experience Questionnaire. . 63–76. <a href="https://doi.org/10.1007/978-3-540-89350-9_6" class="uri">https://doi.org/10.1007/978-3-540-89350-9_6</a>] The UEQ has undergone basic psychometric evaluation in six studies with a single design each (level 1 fallacy).</p>
+<p>The two scales <em>Hedonic Quality - Identity (HQI)</em> and <em>Hedonic Quality - Stimulation (HQS)</em> are from the AttrakDiff2 inventory. AttrakDiff2 underwent basic evaluation using only three Designs under psychometric perspective (level 1 fallacy) [Hassenzahl, M., Burmester, M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener hedonischer und pragmatischer Qualität].</p>
+<p>The Credibility scale … #### [HERE]</p>
+<p>The following table gives an overview on inventory and scales:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Study, Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_Items =</span> <span class="fu">n_distinct</span>(Item),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_Part =</span> <span class="fu">n_distinct</span>(Part),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_Design =</span> <span class="fu">n_distinct</span>(Design),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_Obs =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Study'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Study</th>
+<th style="text-align: left;">Scale</th>
+<th style="text-align: right;">n_Items</th>
+<th style="text-align: right;">n_Part</th>
+<th style="text-align: right;">n_Design</th>
+<th style="text-align: right;">n_Obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AH</td>
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DK</td>
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">2800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">Usability</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2688</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PS</td>
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">2808</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">QB</td>
+<td style="text-align: left;">Credib</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">QB</td>
+<td style="text-align: left;">HQI</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">QB</td>
+<td style="text-align: left;">HQS</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">700</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP</td>
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">1440</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="data-analysis" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="data-analysis"><span class="header-section-number">5.1.2</span> Data analysis</h3>
+<p>Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to on several data sets: scale consistency</p>
+</section>
+</section>
+</section>
+<section id="results" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Results</h1>
+<section id="scale-consistency" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="scale-consistency"><span class="header-section-number">6.1</span> Scale consistency</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Scale_rel <span class="ot">&lt;-</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(alpha_ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Some items ( Att4 Att6 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Scale_rel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: left;">Perspective</th>
+<th style="text-align: right;">center</th>
+<th style="text-align: right;">lower</th>
+<th style="text-align: right;">upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.6351084</td>
+<td style="text-align: right;">0.4139821</td>
+<td style="text-align: right;">0.7675680</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.3607549</td>
+<td style="text-align: right;">0.1025158</td>
+<td style="text-align: right;">0.6041318</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.9692454</td>
+<td style="text-align: right;">0.9524973</td>
+<td style="text-align: right;">0.9789909</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.5872196</td>
+<td style="text-align: right;">0.3211394</td>
+<td style="text-align: right;">0.7246443</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.5717053</td>
+<td style="text-align: right;">0.3137612</td>
+<td style="text-align: right;">0.7250947</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.4243274</td>
+<td style="text-align: right;">-0.2559442</td>
+<td style="text-align: right;">0.6789972</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.6816284</td>
+<td style="text-align: right;">0.5661260</td>
+<td style="text-align: right;">0.7764663</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.6115018</td>
+<td style="text-align: right;">-0.1104994</td>
+<td style="text-align: right;">0.8528142</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.7303464</td>
+<td style="text-align: right;">0.5879026</td>
+<td style="text-align: right;">0.8310154</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.6868210</td>
+<td style="text-align: right;">0.3747521</td>
+<td style="text-align: right;">0.8577703</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.9685158</td>
+<td style="text-align: right;">0.9538940</td>
+<td style="text-align: right;">0.9786313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.6200255</td>
+<td style="text-align: right;">0.3763790</td>
+<td style="text-align: right;">0.7749095</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.8685751</td>
+<td style="text-align: right;">0.8145897</td>
+<td style="text-align: right;">0.9209851</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.6451597</td>
+<td style="text-align: right;">0.4120586</td>
+<td style="text-align: right;">0.8018883</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">0.8794993</td>
+<td style="text-align: right;">0.8367636</td>
+<td style="text-align: right;">0.9088699</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">0.8057712</td>
+<td style="text-align: right;">0.7324029</td>
+<td style="text-align: right;">0.8645226</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Scale_rel <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> Scale,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">label =</span> Scale,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> Perspective,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> center,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">ymin =</span> lower,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Scale)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"std. Cronbach alpha"</span>) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>() <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="1152"></p>
+</div>
+</div>
+</section>
+<section id="item-reliability" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="item-reliability"><span class="header-section-number">6.2</span> Item reliability</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Item_rel <span class="ot">&lt;-</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  D_1 <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(Scale) <span class="sc">|&gt;</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(item_rel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Some items ( Att4 Att6 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Item_rel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Perspective</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">raw.r</th>
+<th style="text-align: right;">std.r</th>
+<th style="text-align: right;">r.cor</th>
+<th style="text-align: right;">r.drop</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6935717</td>
+<td style="text-align: right;">0.6312193</td>
+<td style="text-align: right;">0.5552990</td>
+<td style="text-align: right;">0.4152139</td>
+<td style="text-align: right;">0.5578079</td>
+<td style="text-align: right;">0.2357714</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.6556074</td>
+<td style="text-align: right;">0.6582254</td>
+<td style="text-align: right;">0.5850407</td>
+<td style="text-align: right;">0.3760495</td>
+<td style="text-align: right;">0.5602917</td>
+<td style="text-align: right;">0.1860536</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.6803049</td>
+<td style="text-align: right;">0.6789821</td>
+<td style="text-align: right;">0.6363908</td>
+<td style="text-align: right;">0.5044168</td>
+<td style="text-align: right;">0.5051086</td>
+<td style="text-align: right;">0.2363659</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.6499161</td>
+<td style="text-align: right;">0.6604626</td>
+<td style="text-align: right;">0.6482586</td>
+<td style="text-align: right;">0.3950330</td>
+<td style="text-align: right;">0.4927083</td>
+<td style="text-align: right;">0.1721726</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.7224083</td>
+<td style="text-align: right;">0.7113328</td>
+<td style="text-align: right;">0.6250382</td>
+<td style="text-align: right;">0.5291541</td>
+<td style="text-align: right;">0.5478719</td>
+<td style="text-align: right;">0.2477413</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.4999924</td>
+<td style="text-align: right;">0.5096504</td>
+<td style="text-align: right;">0.3655711</td>
+<td style="text-align: right;">0.1976182</td>
+<td style="text-align: right;">0.5500833</td>
+<td style="text-align: right;">0.1733970</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.3314863</td>
+<td style="text-align: right;">0.3230971</td>
+<td style="text-align: right;">0.0892797</td>
+<td style="text-align: right;">0.0477289</td>
+<td style="text-align: right;">0.5078553</td>
+<td style="text-align: right;">0.2118101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.2379467</td>
+<td style="text-align: right;">0.2590127</td>
+<td style="text-align: right;">0.0002670</td>
+<td style="text-align: right;">-0.0557086</td>
+<td style="text-align: right;">0.4937083</td>
+<td style="text-align: right;">0.1556704</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att5</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.7734007</td>
+<td style="text-align: right;">0.7683238</td>
+<td style="text-align: right;">0.7427277</td>
+<td style="text-align: right;">0.6165928</td>
+<td style="text-align: right;">0.6050833</td>
+<td style="text-align: right;">0.2344340</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att5</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.7220290</td>
+<td style="text-align: right;">0.7143748</td>
+<td style="text-align: right;">0.6884718</td>
+<td style="text-align: right;">0.4761634</td>
+<td style="text-align: right;">0.5999583</td>
+<td style="text-align: right;">0.1851124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att6</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0.5071367</td>
+<td style="text-align: right;">0.4889531</td>
+<td style="text-align: right;">0.3262131</td>
+<td style="text-align: right;">0.2360847</td>
+<td style="text-align: right;">0.5461803</td>
+<td style="text-align: right;">0.2407393</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attractiveness</td>
+<td style="text-align: left;">Att6</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.2038149</td>
+<td style="text-align: right;">0.1716358</td>
+<td style="text-align: right;">-0.1026968</td>
+<td style="text-align: right;">-0.1800056</td>
+<td style="text-align: right;">0.5563333</td>
+<td style="text-align: right;">0.2040698</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9715208</td>
+<td style="text-align: right;">0.9705167</td>
+<td style="text-align: right;">0.9620374</td>
+<td style="text-align: right;">0.9469555</td>
+<td style="text-align: right;">0.4817018</td>
+<td style="text-align: right;">0.2405092</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.5634238</td>
+<td style="text-align: right;">0.5646013</td>
+<td style="text-align: right;">0.2839047</td>
+<td style="text-align: right;">0.2265541</td>
+<td style="text-align: right;">0.4763787</td>
+<td style="text-align: right;">0.1232866</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9512628</td>
+<td style="text-align: right;">0.9509864</td>
+<td style="text-align: right;">0.9304837</td>
+<td style="text-align: right;">0.9141279</td>
+<td style="text-align: right;">0.5581468</td>
+<td style="text-align: right;">0.2252406</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7005367</td>
+<td style="text-align: right;">0.7291817</td>
+<td style="text-align: right;">0.6326197</td>
+<td style="text-align: right;">0.4630836</td>
+<td style="text-align: right;">0.5518076</td>
+<td style="text-align: right;">0.1088177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9697443</td>
+<td style="text-align: right;">0.9684071</td>
+<td style="text-align: right;">0.9595165</td>
+<td style="text-align: right;">0.9437284</td>
+<td style="text-align: right;">0.5264599</td>
+<td style="text-align: right;">0.2403634</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7725085</td>
+<td style="text-align: right;">0.7719752</td>
+<td style="text-align: right;">0.7087504</td>
+<td style="text-align: right;">0.5186978</td>
+<td style="text-align: right;">0.5387326</td>
+<td style="text-align: right;">0.1285998</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9328297</td>
+<td style="text-align: right;">0.9355976</td>
+<td style="text-align: right;">0.9008122</td>
+<td style="text-align: right;">0.8865251</td>
+<td style="text-align: right;">0.4910026</td>
+<td style="text-align: right;">0.2133545</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beauty</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.6487324</td>
+<td style="text-align: right;">0.6222997</td>
+<td style="text-align: right;">0.3868669</td>
+<td style="text-align: right;">0.3061015</td>
+<td style="text-align: right;">0.5009746</td>
+<td style="text-align: right;">0.1341732</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6044867</td>
+<td style="text-align: right;">0.5883258</td>
+<td style="text-align: right;">0.4129379</td>
+<td style="text-align: right;">0.3185598</td>
+<td style="text-align: right;">0.5694068</td>
+<td style="text-align: right;">0.2211135</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.6959111</td>
+<td style="text-align: right;">0.6899259</td>
+<td style="text-align: right;">0.6056964</td>
+<td style="text-align: right;">0.4315671</td>
+<td style="text-align: right;">0.5667000</td>
+<td style="text-align: right;">0.1462139</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6551251</td>
+<td style="text-align: right;">0.6053937</td>
+<td style="text-align: right;">0.4458494</td>
+<td style="text-align: right;">0.3364046</td>
+<td style="text-align: right;">0.5215226</td>
+<td style="text-align: right;">0.2560754</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.7337153</td>
+<td style="text-align: right;">0.7095985</td>
+<td style="text-align: right;">0.6784585</td>
+<td style="text-align: right;">0.4579035</td>
+<td style="text-align: right;">0.5105000</td>
+<td style="text-align: right;">0.1592414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6514878</td>
+<td style="text-align: right;">0.6416967</td>
+<td style="text-align: right;">0.5279867</td>
+<td style="text-align: right;">0.4086193</td>
+<td style="text-align: right;">0.5228249</td>
+<td style="text-align: right;">0.2228835</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5507187</td>
+<td style="text-align: right;">0.5569437</td>
+<td style="text-align: right;">0.3896841</td>
+<td style="text-align: right;">0.2571936</td>
+<td style="text-align: right;">0.5160000</td>
+<td style="text-align: right;">0.1363455</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7123939</td>
+<td style="text-align: right;">0.7005291</td>
+<td style="text-align: right;">0.6093975</td>
+<td style="text-align: right;">0.4802624</td>
+<td style="text-align: right;">0.5217398</td>
+<td style="text-align: right;">0.2564079</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.4871192</td>
+<td style="text-align: right;">0.4900538</td>
+<td style="text-align: right;">0.2266055</td>
+<td style="text-align: right;">0.1664315</td>
+<td style="text-align: right;">0.5203000</td>
+<td style="text-align: right;">0.1409701</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib5</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.5370583</td>
+<td style="text-align: right;">0.4970466</td>
+<td style="text-align: right;">0.2570236</td>
+<td style="text-align: right;">0.1843925</td>
+<td style="text-align: right;">0.4953751</td>
+<td style="text-align: right;">0.2240947</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Credib</td>
+<td style="text-align: left;">Credib5</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.3886878</td>
+<td style="text-align: right;">0.4118324</td>
+<td style="text-align: right;">0.1330502</td>
+<td style="text-align: right;">0.0676140</td>
+<td style="text-align: right;">0.4957000</td>
+<td style="text-align: right;">0.1353824</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.5650463</td>
+<td style="text-align: right;">0.5434197</td>
+<td style="text-align: right;">0.4726666</td>
+<td style="text-align: right;">0.3768710</td>
+<td style="text-align: right;">0.4896019</td>
+<td style="text-align: right;">0.2501074</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.8131976</td>
+<td style="text-align: right;">0.7897839</td>
+<td style="text-align: right;">0.7924689</td>
+<td style="text-align: right;">0.6859397</td>
+<td style="text-align: right;">0.4950000</td>
+<td style="text-align: right;">0.2026234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0.6225986</td>
+<td style="text-align: right;">0.5833110</td>
+<td style="text-align: right;">0.4822048</td>
+<td style="text-align: right;">0.3755944</td>
+<td style="text-align: right;">0.5781833</td>
+<td style="text-align: right;">0.2724666</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.4140515</td>
+<td style="text-align: right;">0.4199140</td>
+<td style="text-align: right;">0.2907244</td>
+<td style="text-align: right;">0.2108103</td>
+<td style="text-align: right;">0.5604000</td>
+<td style="text-align: right;">0.1667609</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0.6975315</td>
+<td style="text-align: right;">0.6536894</td>
+<td style="text-align: right;">0.5659559</td>
+<td style="text-align: right;">0.4689579</td>
+<td style="text-align: right;">0.5020259</td>
+<td style="text-align: right;">0.2574881</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5941852</td>
+<td style="text-align: right;">0.6053038</td>
+<td style="text-align: right;">0.5068226</td>
+<td style="text-align: right;">0.4222744</td>
+<td style="text-align: right;">0.4941000</td>
+<td style="text-align: right;">0.1680958</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.6658530</td>
+<td style="text-align: right;">0.7012931</td>
+<td style="text-align: right;">0.6339359</td>
+<td style="text-align: right;">0.5353069</td>
+<td style="text-align: right;">0.5549269</td>
+<td style="text-align: right;">0.2150086</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5258622</td>
+<td style="text-align: right;">0.5417442</td>
+<td style="text-align: right;">0.4966752</td>
+<td style="text-align: right;">0.3680606</td>
+<td style="text-align: right;">0.5709000</td>
+<td style="text-align: right;">0.1448704</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI5</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.4338197</td>
+<td style="text-align: right;">0.3642983</td>
+<td style="text-align: right;">0.2027174</td>
+<td style="text-align: right;">0.1251196</td>
+<td style="text-align: right;">0.5912429</td>
+<td style="text-align: right;">0.2374892</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI5</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.7795347</td>
+<td style="text-align: right;">0.7634402</td>
+<td style="text-align: right;">0.7937611</td>
+<td style="text-align: right;">0.6220707</td>
+<td style="text-align: right;">0.5843000</td>
+<td style="text-align: right;">0.2158794</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI6</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0.5748955</td>
+<td style="text-align: right;">0.5799387</td>
+<td style="text-align: right;">0.4509783</td>
+<td style="text-align: right;">0.3832471</td>
+<td style="text-align: right;">0.5124471</td>
+<td style="text-align: right;">0.2509687</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI6</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5138991</td>
+<td style="text-align: right;">0.5250801</td>
+<td style="text-align: right;">0.3944244</td>
+<td style="text-align: right;">0.3154123</td>
+<td style="text-align: right;">0.5037000</td>
+<td style="text-align: right;">0.1751995</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI7</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7367313</td>
+<td style="text-align: right;">0.7135030</td>
+<td style="text-align: right;">0.6752447</td>
+<td style="text-align: right;">0.6019045</td>
+<td style="text-align: right;">0.4723392</td>
+<td style="text-align: right;">0.2803627</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQI</td>
+<td style="text-align: left;">HQI7</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5576736</td>
+<td style="text-align: right;">0.5584739</td>
+<td style="text-align: right;">0.4336605</td>
+<td style="text-align: right;">0.3685304</td>
+<td style="text-align: right;">0.4573000</td>
+<td style="text-align: right;">0.1750787</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.6810616</td>
+<td style="text-align: right;">0.6438297</td>
+<td style="text-align: right;">0.5481391</td>
+<td style="text-align: right;">0.5024558</td>
+<td style="text-align: right;">0.5541855</td>
+<td style="text-align: right;">0.2449457</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.6168159</td>
+<td style="text-align: right;">0.6070060</td>
+<td style="text-align: right;">0.5477540</td>
+<td style="text-align: right;">0.4332504</td>
+<td style="text-align: right;">0.5197000</td>
+<td style="text-align: right;">0.1599859</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0.7521635</td>
+<td style="text-align: right;">0.7645039</td>
+<td style="text-align: right;">0.7239777</td>
+<td style="text-align: right;">0.6402145</td>
+<td style="text-align: right;">0.3685152</td>
+<td style="text-align: right;">0.2426397</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.6922924</td>
+<td style="text-align: right;">0.7099388</td>
+<td style="text-align: right;">0.6440410</td>
+<td style="text-align: right;">0.5659545</td>
+<td style="text-align: right;">0.3813000</td>
+<td style="text-align: right;">0.1321243</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.5881881</td>
+<td style="text-align: right;">0.5813283</td>
+<td style="text-align: right;">0.5070851</td>
+<td style="text-align: right;">0.4181500</td>
+<td style="text-align: right;">0.4187946</td>
+<td style="text-align: right;">0.2243515</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.7746096</td>
+<td style="text-align: right;">0.7598930</td>
+<td style="text-align: right;">0.7075289</td>
+<td style="text-align: right;">0.6311833</td>
+<td style="text-align: right;">0.4277000</td>
+<td style="text-align: right;">0.1744156</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">0.6705848</td>
+<td style="text-align: right;">0.6303619</td>
+<td style="text-align: right;">0.5669467</td>
+<td style="text-align: right;">0.4614471</td>
+<td style="text-align: right;">0.4811749</td>
+<td style="text-align: right;">0.2632831</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.4887681</td>
+<td style="text-align: right;">0.4886682</td>
+<td style="text-align: right;">0.3808049</td>
+<td style="text-align: right;">0.2910595</td>
+<td style="text-align: right;">0.4654000</td>
+<td style="text-align: right;">0.1498588</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS5</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.6387364</td>
+<td style="text-align: right;">0.5288620</td>
+<td style="text-align: right;">0.4422436</td>
+<td style="text-align: right;">0.3392942</td>
+<td style="text-align: right;">0.3966518</td>
+<td style="text-align: right;">0.2557008</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS5</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5210489</td>
+<td style="text-align: right;">0.5184179</td>
+<td style="text-align: right;">0.4270064</td>
+<td style="text-align: right;">0.3229098</td>
+<td style="text-align: right;">0.3899000</td>
+<td style="text-align: right;">0.1542091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS6</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">0.7125647</td>
+<td style="text-align: right;">0.6658936</td>
+<td style="text-align: right;">0.5856063</td>
+<td style="text-align: right;">0.4876641</td>
+<td style="text-align: right;">0.4197322</td>
+<td style="text-align: right;">0.2625926</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS6</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.5634879</td>
+<td style="text-align: right;">0.5772406</td>
+<td style="text-align: right;">0.4567243</td>
+<td style="text-align: right;">0.3922267</td>
+<td style="text-align: right;">0.4003000</td>
+<td style="text-align: right;">0.1417273</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS7</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">0.5840752</td>
+<td style="text-align: right;">0.5786060</td>
+<td style="text-align: right;">0.4860787</td>
+<td style="text-align: right;">0.3960248</td>
+<td style="text-align: right;">0.4128005</td>
+<td style="text-align: right;">0.2460413</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HQS</td>
+<td style="text-align: left;">HQS7</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.6966990</td>
+<td style="text-align: right;">0.6955517</td>
+<td style="text-align: right;">0.6761135</td>
+<td style="text-align: right;">0.5369481</td>
+<td style="text-align: right;">0.4267000</td>
+<td style="text-align: right;">0.1611009</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9754944</td>
+<td style="text-align: right;">0.9729531</td>
+<td style="text-align: right;">0.9661373</td>
+<td style="text-align: right;">0.9489504</td>
+<td style="text-align: right;">0.4949129</td>
+<td style="text-align: right;">0.2486562</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.5736808</td>
+<td style="text-align: right;">0.6387250</td>
+<td style="text-align: right;">0.4451207</td>
+<td style="text-align: right;">0.3110343</td>
+<td style="text-align: right;">0.4989629</td>
+<td style="text-align: right;">0.0873503</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9265228</td>
+<td style="text-align: right;">0.9346126</td>
+<td style="text-align: right;">0.9044443</td>
+<td style="text-align: right;">0.8870970</td>
+<td style="text-align: right;">0.5479773</td>
+<td style="text-align: right;">0.1613367</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.6375588</td>
+<td style="text-align: right;">0.6812583</td>
+<td style="text-align: right;">0.5040558</td>
+<td style="text-align: right;">0.3795473</td>
+<td style="text-align: right;">0.5420985</td>
+<td style="text-align: right;">0.0918896</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9539940</td>
+<td style="text-align: right;">0.9513429</td>
+<td style="text-align: right;">0.9322637</td>
+<td style="text-align: right;">0.9167024</td>
+<td style="text-align: right;">0.4675383</td>
+<td style="text-align: right;">0.2110448</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7611141</td>
+<td style="text-align: right;">0.7352989</td>
+<td style="text-align: right;">0.6478569</td>
+<td style="text-align: right;">0.5326241</td>
+<td style="text-align: right;">0.4721382</td>
+<td style="text-align: right;">0.1008703</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9644170</td>
+<td style="text-align: right;">0.9626921</td>
+<td style="text-align: right;">0.9502177</td>
+<td style="text-align: right;">0.9360589</td>
+<td style="text-align: right;">0.4408734</td>
+<td style="text-align: right;">0.2070048</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hedonism</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7802483</td>
+<td style="text-align: right;">0.7127237</td>
+<td style="text-align: right;">0.6195312</td>
+<td style="text-align: right;">0.4669670</td>
+<td style="text-align: right;">0.4360133</td>
+<td style="text-align: right;">0.1286006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.8954695</td>
+<td style="text-align: right;">0.8852177</td>
+<td style="text-align: right;">0.8496008</td>
+<td style="text-align: right;">0.8072696</td>
+<td style="text-align: right;">0.5537115</td>
+<td style="text-align: right;">0.1698535</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7059783</td>
+<td style="text-align: right;">0.6963695</td>
+<td style="text-align: right;">0.5421684</td>
+<td style="text-align: right;">0.4300962</td>
+<td style="text-align: right;">0.5353763</td>
+<td style="text-align: right;">0.1208224</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.8949999</td>
+<td style="text-align: right;">0.8727338</td>
+<td style="text-align: right;">0.8517108</td>
+<td style="text-align: right;">0.8006296</td>
+<td style="text-align: right;">0.5615960</td>
+<td style="text-align: right;">0.1771572</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.6888980</td>
+<td style="text-align: right;">0.7014512</td>
+<td style="text-align: right;">0.5453210</td>
+<td style="text-align: right;">0.4359088</td>
+<td style="text-align: right;">0.5574644</td>
+<td style="text-align: right;">0.1107410</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.6282174</td>
+<td style="text-align: right;">0.6911338</td>
+<td style="text-align: right;">0.5121547</td>
+<td style="text-align: right;">0.4845593</td>
+<td style="text-align: right;">0.5668973</td>
+<td style="text-align: right;">0.1168843</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.6876127</td>
+<td style="text-align: right;">0.6760119</td>
+<td style="text-align: right;">0.4882153</td>
+<td style="text-align: right;">0.4002469</td>
+<td style="text-align: right;">0.5600007</td>
+<td style="text-align: right;">0.1214538</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.9622228</td>
+<td style="text-align: right;">0.9443958</td>
+<td style="text-align: right;">0.9610464</td>
+<td style="text-align: right;">0.9097243</td>
+<td style="text-align: right;">0.5221123</td>
+<td style="text-align: right;">0.2167186</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Usability</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.7434466</td>
+<td style="text-align: right;">0.7530564</td>
+<td style="text-align: right;">0.6456878</td>
+<td style="text-align: right;">0.5171022</td>
+<td style="text-align: right;">0.5242849</td>
+<td style="text-align: right;">0.1112598</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE1</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">0.7408118</td>
+<td style="text-align: right;">0.7337785</td>
+<td style="text-align: right;">0.6851655</td>
+<td style="text-align: right;">0.6440660</td>
+<td style="text-align: right;">0.4678868</td>
+<td style="text-align: right;">0.1740001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE1</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.5160214</td>
+<td style="text-align: right;">0.5343692</td>
+<td style="text-align: right;">0.4265733</td>
+<td style="text-align: right;">0.3863068</td>
+<td style="text-align: right;">0.4556709</td>
+<td style="text-align: right;">0.0952187</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE2</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">0.7428029</td>
+<td style="text-align: right;">0.7396144</td>
+<td style="text-align: right;">0.6922272</td>
+<td style="text-align: right;">0.6406685</td>
+<td style="text-align: right;">0.4809049</td>
+<td style="text-align: right;">0.1821338</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE2</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.6873760</td>
+<td style="text-align: right;">0.6728223</td>
+<td style="text-align: right;">0.6097037</td>
+<td style="text-align: right;">0.5412618</td>
+<td style="text-align: right;">0.4710938</td>
+<td style="text-align: right;">0.1331084</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE3</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0.7363558</td>
+<td style="text-align: right;">0.7059386</td>
+<td style="text-align: right;">0.6480533</td>
+<td style="text-align: right;">0.5971234</td>
+<td style="text-align: right;">0.4606730</td>
+<td style="text-align: right;">0.2197593</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE3</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.5663081</td>
+<td style="text-align: right;">0.5477541</td>
+<td style="text-align: right;">0.4419186</td>
+<td style="text-align: right;">0.3869046</td>
+<td style="text-align: right;">0.4442411</td>
+<td style="text-align: right;">0.1334954</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE4</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">0.6349151</td>
+<td style="text-align: right;">0.6613785</td>
+<td style="text-align: right;">0.5899471</td>
+<td style="text-align: right;">0.5480713</td>
+<td style="text-align: right;">0.5499998</td>
+<td style="text-align: right;">0.1425516</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE4</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.6343404</td>
+<td style="text-align: right;">0.6317383</td>
+<td style="text-align: right;">0.5547755</td>
+<td style="text-align: right;">0.4991363</td>
+<td style="text-align: right;">0.5278561</td>
+<td style="text-align: right;">0.1144561</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE5</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">0.7501838</td>
+<td style="text-align: right;">0.7596466</td>
+<td style="text-align: right;">0.7176147</td>
+<td style="text-align: right;">0.6736243</td>
+<td style="text-align: right;">0.5490203</td>
+<td style="text-align: right;">0.1549981</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE5</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.7423577</td>
+<td style="text-align: right;">0.7477601</td>
+<td style="text-align: right;">0.7092518</td>
+<td style="text-align: right;">0.6486944</td>
+<td style="text-align: right;">0.5340442</td>
+<td style="text-align: right;">0.1036929</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE6</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">0.7180501</td>
+<td style="text-align: right;">0.7177474</td>
+<td style="text-align: right;">0.6620540</td>
+<td style="text-align: right;">0.6239836</td>
+<td style="text-align: right;">0.5236777</td>
+<td style="text-align: right;">0.1610552</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE6</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.6432526</td>
+<td style="text-align: right;">0.6575557</td>
+<td style="text-align: right;">0.5929158</td>
+<td style="text-align: right;">0.5329360</td>
+<td style="text-align: right;">0.5006405</td>
+<td style="text-align: right;">0.0974882</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE7</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0.8272383</td>
+<td style="text-align: right;">0.8250614</td>
+<td style="text-align: right;">0.8087628</td>
+<td style="text-align: right;">0.7584556</td>
+<td style="text-align: right;">0.4967029</td>
+<td style="text-align: right;">0.1799651</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE7</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.7977637</td>
+<td style="text-align: right;">0.7956693</td>
+<td style="text-align: right;">0.7821557</td>
+<td style="text-align: right;">0.7006352</td>
+<td style="text-align: right;">0.4942902</td>
+<td style="text-align: right;">0.1245290</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE8</td>
+<td style="text-align: left;">designometric</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">0.7624603</td>
+<td style="text-align: right;">0.7763000</td>
+<td style="text-align: right;">0.7509644</td>
+<td style="text-align: right;">0.6787708</td>
+<td style="text-align: right;">0.5527972</td>
+<td style="text-align: right;">0.1646881</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nEeriness</td>
+<td style="text-align: left;">nE8</td>
+<td style="text-align: left;">psychometric</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">0.7030982</td>
+<td style="text-align: right;">0.7086295</td>
+<td style="text-align: right;">0.6631192</td>
+<td style="text-align: right;">0.5909101</td>
+<td style="text-align: right;">0.5344227</td>
+<td style="text-align: right;">0.1103392</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>G_Item_rel <span class="ot">&lt;-</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  Item_rel <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> Scale,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> Perspective,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> r.cor)) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point() +</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Item)) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Item-whole correlation"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>G_Item_rel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>G_Item_rel <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>( <span class="at">label =</span> Item)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Scale, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">rename</span>(Scale_rel, <span class="at">alpha =</span> center),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Perspective, </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> alpha,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">"Whole Cronbach alpha"</span>)) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">rename</span>(Scale_rel, <span class="at">alpha =</span> center),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Perspective, </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> alpha,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">group =</span> Scale,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">"Whole Cronbach alpha"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+</section>
+<section id="number-of-factors" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="number-of-factors"><span class="header-section-number">6.3</span> Number of factors</h2>
+<p>Often, different scales are used in combination to create a more complete picture. It is usually the aim that a scale measures exactly one construct (or latent variable) and that different scales measure different constructs. As a counter-example, MacDorman found that the Eeriness scale decomposes into two slightly different aspects, summarized as “eery” and “spine-tingling”. In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.</p>
+<p>Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>parallel_analysis <span class="ot">&lt;-</span> <span class="cf">function</span>(data, n, persp, scales){</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (persp <span class="sc">==</span> <span class="st">"D"</span>) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">rm_design</span>(data)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    main <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"Designometric Parallel Analysis of "</span>, scales)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (persp <span class="sc">==</span> <span class="st">"P"</span>) {</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">rm_psycho</span>(data)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    main <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"Psychometric Parallel Analysis of "</span>, scales)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">fa.parallel</span>(data,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fa =</span> <span class="st">"fa"</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fm =</span> <span class="st">"minres"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">nfactors=</span>n,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">main=</span>main)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- Item reliability measures how coherent any particular item is with the scale as a whole. This criterion regularly used during item selection, where an item may be discarded if it does not correlate with the remaining items. However, if some items are out-of-tune, this can mean that they represent a different facet of the construct under examination.  -->
+<!-- Exploratory factor analysis is frequently used to find such factors in response matrices. The first step typically is to determine the number of factors. -->
+</section>
+<section id="eeriness-scale" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="eeriness-scale"><span class="header-section-number">6.4</span> Eeriness scale</h2>
+<p>Eeriness is usually considered a one-dimensional construct. Nevertheless, it has been suggested that it comprises two slightly different factors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parallel_analysis</span>(D_Eer, <span class="dv">2</span>, <span class="st">"D"</span>, <span class="st">"Eeriness"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+Loading required namespace: GPArotation</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fac(r = r, nfactors = nfactors, n.obs = n.obs, rotate = rotate, : An
+ultra-Heywood case was detected.  Examine the results carefully</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.
+Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.
+Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.
+Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  1  and the number of components =  NA </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parallel_analysis</span>(D_Eer, <span class="dv">2</span>, <span class="st">"P"</span>, <span class="st">"Eeriness"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fac(r = r, nfactors = nfactors, n.obs = n.obs, rotate = rotate, : An
+ultra-Heywood case was detected.  Examine the results carefully</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fac(r = r, nfactors = nfactors, n.obs = n.obs, rotate = rotate, : An
+ultra-Heywood case was detected.  Examine the results carefully</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.
+Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="DMX_1_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  1  and the number of components =  NA </code></pre>
+</div>
+</div>
+<p>The results suggest that under psychometric perspective there is only one latent variables, whereas whereas the designometric perspective produces two.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>E_psycho <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Perspective =</span> <span class="st">"psychometric"</span>,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Item =</span> <span class="fu">str_c</span>(<span class="st">"nE"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">loading =</span> psych<span class="sc">::</span><span class="fu">fa</span>(<span class="fu">rm_psycho</span>(D_Eer))<span class="sc">$</span>loadings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>E_design <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Perspective =</span> <span class="st">"designometric"</span>,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Item =</span> <span class="fu">str_c</span>(<span class="st">"nE"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">loading =</span> psych<span class="sc">::</span><span class="fu">fa</span>(<span class="fu">rm_design</span>(D_Eer))<span class="sc">$</span>loadings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bind_rows(E_psycho, E_design) |&gt; </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = Perspective, group = Item))</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># str(E_psycho)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="attrakdiff-and-credibility" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="attrakdiff-and-credibility"><span class="header-section-number">6.5</span> AttrakDiff and Credibility</h2>
+<p>On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is separate right from the start.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility")</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Under a psychometric perspective, all items represent a single latent construct. In contrast, the designometric analysis yielded five factors.</p>
+</section>
+<section id="hedonism-usability-and-beauty" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="hedonism-usability-and-beauty"><span class="header-section-number">6.6</span> Hedonism, Usability and Beauty</h2>
+<p>In DN three separate scales were used, but parallel analysis suggests that these capture the same latent variable under both perspectives.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="discussion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Discussion</h1>
+<p>Rating scales in Human Factors research are commonly used to discriminate between poor and good designs, rank designs and track continuous design improvement. We stated that scales for measuring designs must be evaluated on design-by-item response matrices. We called it the psychometric fallacy to evaluate scales for design comparison on a person-by-item response matrices. A simulation showed, that in a realistic scenario, psychometric reliability can be excellent when designometric reliability is poor.</p>
+<section id="run-time-implications" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="run-time-implications"><span class="header-section-number">7.1</span> Run time implications</h2>
+<p>When looking at real data from commonly used rating scales, a clear bias appears, but this time the Designometric perspective significantly improves reliability. This is good news for future users of these scales, as they can reduce their sample sizes.</p>
+<p>Past users may have scratched their heads more often than we know. The techniques used in the comparison of perspectives are commonly applied as quick sanity checks, whenever multi-item scales are used in running studies (run time). Everyone in the past who used designometric scales and followed APA guidelines, was likely to the psychometric fallacy and experience some unnecessary headaches.</p>
+<p>With better item-level reliability, experiments can also be streamlined by using a reduced set of items. Reducing a scale is basically item selection and several strategies are possible, as long as it is carried out on a design-by-item matrix.</p>
+<p>A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like “The interface is beautiful.” is stronger than “… pleasant”. By taking the average score</p>
+</section>
+<section id="implications-for-scale-development" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="implications-for-scale-development"><span class="header-section-number">7.2</span> Implications for scale development</h2>
+<p>The UX revolution in design research brought with iIn the present, two emerging domains of human-technology interaction are gaining significant momentum:</p>
+</section>
+<section id="limitations" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="limitations"><span class="header-section-number">7.3</span> Limitations</h2>
+<ul>
+<li>Populations in the samples were rather homogenous (students). Too little variance in the sample?</li>
+<li>just stimuli, no use. we can assume dominance of system 1.</li>
+<li>Tested conditions were on finalized scales, rather than initial item pools.</li>
+</ul>
+</section>
+<section id="the-ideal-designometric-scale" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="the-ideal-designometric-scale"><span class="header-section-number">7.4</span> The ideal designometric scale</h2>
+<p>The comparison of item-level reliability suggests that the scales fall into two clusters: beauty and hedonism have overall excellent item and scale reliability. Reliability under psychometric perspective is still good. What is striking is that item reliability seem to drop <em>by a constant</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
