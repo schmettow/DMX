@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Designometrics - A primer"
+  title: "The Designometricon"
   author: "Schmettow"
   date: "19/02/2025"
   chapters:
