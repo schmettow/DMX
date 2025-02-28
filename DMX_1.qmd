@@ -281,11 +281,6 @@ alpha_ci(Coolness)
 
 This simple example demonstrate that a scale can produce excellent reliability when measuring person sensitivity, but poor and uncertain reliability on designs. Under the psychometric fallacy it can happen that excellent reliability is reported, while it is actually unknown, or very poor.
 
-<<<<<<< HEAD
-=======
-Still, falling into the psychometric fallacy does not necessarily mean that a scale is unreliable under the designometric perspective. It is possible, that the two mental processes of *appreciating* coolness (psychometric perspective) and *discerning* coolness (designometric perspective) share some mental processes and therefore result in sufficient reliability (or factors structure) under both perspectives. It is even possible that the real situation is the opposite of the previous simulation, where persons vary little in appreciation, whereas designs vary strongly.
-
->>>>>>> 060853083eb08a18d8bacfbdf127ba7ba2e8d683
 In the following study we use data from several previous experiments that had produced designometric data sets.
 
 # Methods
@@ -568,6 +563,7 @@ parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
 Rating scales in Human Factors research are commonly used to discriminate between poor and good design options, rank designs, choose designs, or perform UX regression tests in continuous design cycles. Our logical argument is that the capability of a scale to rank designs can only be seen on multiple designs and using design-by-item response matrices. We called it the psychometric fallacy to use person-by-item response matrices in place. 
 
 A simulation showed, that  the worst case can happen under the psychometric fallacy: excellent reliability is reported, when it actually is very poor. 
+
 
 
 ## Dev time implications
