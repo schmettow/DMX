@@ -184,7 +184,11 @@ By simply averaging across one factor, box data can be transformed into a matrix
 
 At the same time, a designometric box can also be seen as a *stack of psychometric response matrices*, where averaging across the Design factors produce a psychometric response matrix.
 
+<<<<<<< HEAD
 ### Designometric sampling
+=======
+However, This also implies that for a proper item selection and factorizing process a substantial sample of designs is required. This can be a huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.
+>>>>>>> 060853083eb08a18d8bacfbdf127ba7ba2e8d683
 
 When Design takes the place of Person, it is implied that items must now be well-behaved in ranking designs, and substantial samples of designs are now required to prove that. This can be a minor or huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.
 
@@ -196,8 +200,9 @@ A variation of planned incomplete studies is to *successively* build the sample 
 
 ## The psychometric fallacy
 
-Designometric scales can be developed and validated using established psychometric tools. However, this is only valid when a design-by-item matrix is used, with a sufficiently large sample of designs. In contrast, many designometric instruments have not been validated using a large sample of designs, but rather on a large psychometric matrix. This we call the *psychometric fallacy*.
+Designometric scales can be developed and validated with established psychometric tools. However, this is only valid when a design-by-item matrix is used, with a sufficiently large sample of designs. In contrast, many designometric instruments have not been validated using a large sample of designs, but rather on a psychometric matrix. This we call the *psychometric fallacy*.
 
+<<<<<<< HEAD
 When a scale validation study in design research is in the psychometric fallacy, validation metrics such as item reliability may be meaningless for the purpose of ranking designs. Rather, the metric will refer to the capability of the item to discriminate persons by their sensitivity to the design feature in question. For example, a scale for comparing designs by beauty would become a scale to rank persons by how critical they are with respect to interface beauty. This is not the same and in the next section we show by simulation that the differences between designometric and psychometric perspectives can be dramatic.
 
 During the scale development process, the psychometric fallacy appears in two forms, one is repairable, whereas the other is fatal. We speak of a repairable psychometric fallacy, when the validation study properly collected designometric data, but used psychometric response matrices for validation. This can be repaired by redoing the analysis now using a designometric matrix.
@@ -215,6 +220,23 @@ In the following section, we construct a case by simulation, showing that psycho
 The following example demonstrates how an extreme situation can arise, when a fictional four-item scale for Coolness is highly reliable for persons, but has no reliability at all for ranking designs. By an unfortunate choice, the sample of designs consisted were exclusively homepages of premium law firms, with little variation ($\sigma_\textrm{Design} = .02$) on a low level ($\mu_\textrm{Design} = -.5$).
 
 In this simulation, we assume that the Coolness scale has been tested on a sample of 50 designs and 50 participants, where . The key here is that participants vary strongly in their sensitivity to Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness .
+=======
+When a scale validation study in design research falls into the psychometric fallacy, validation metrics such as item reliability are meaningless for the purpose of ranking designs. Rather, the metric will refer to the capability of the item to discriminate persons by their sensitivity to the design feature in question. For example, a scale for comparing designs by beauty would become a scale to rank persons by how critical they are with respect to interface beauty. This is not the same as ranking designs and in the next section we show by simulation that the results produced by designometric versus psychometric perspectives can be dramatically different.
+
+During the scale development process, the psychometric fallacy appears in two forms, one is repairable, whereas the other is not. We speak of a repairable psychometric fallacy, when the validation study was properly constructed around a sample of designs, but used psychometric response matrices in the end. This can be repaired by designometric matrix and redoing the analysis under the correct perspective.
+
+A study that failed to collect a sample of designs during the construction or validation process inevitably ends up as a non-repairable case. The respective researchers have failed to recognize a simple truth: *The capacity to discriminate between designs can impossibly be validated on a single design*. Every alleged designometric instrument where this has happened during construction or validation, must be considered invalid.
+
+The switch to a desgnometric perspective also has consquences for sample size requirements. Designometric validation requires a sample of designs in the same magnitude as psychometric validations require large samples of participants. So, even validation studies that included multiple designs, may in practice not be repairable, because the sample of designs is too small for the type of analysis (e.g. EFA). An example is the study to validate the Godspeed Index, a common inventory to evaluate robotic designs \[MacDorman 20xx\]. There, scale reliability was assessed under a psychometric perspective, but validity was assessed using a sample of four designs. This would never suffice even for even basic designometric assessment.
+
+A designometric instrument that has falsely been designed under a psychometric perspective, may be repairable, but can also turn out to be entirely useless. A milder form is the *run-time* psychometric fallacy appears when researchers in practice uses a designometric instrument to assess a single design, which results in what appears as a psychometric response matrix. Given that publication rules (e.g. APA guidelines) often require to report some psychometric properties, such as scale reliability, it may be tempting for the researcher to report reliability based on the psychometric matrix. When a scale has been tuned for designometric qualities, it is likely that psychometric properties are quite poor. In such a situation, we can expect quite some confusion when a validated designometric instrument seemingly is not consistent or reliable.
+
+Formally, there cannot be any doubts that using designometric response matrices for designometric instruments is the correct way, and using only a single design is a mistake. The aim of the present study is to assess the possible risks and consequences of falsely using the psychometric perspective. In the following section, we construct a case by data simulation, where psychometric and designometric perspectives result are dramatically different. In the remainder of the study, we will use data from past experiments to compare psychometric versus designometric perspective on several widely used UX rating scales.
+
+# Simulation study
+
+The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$).
+>>>>>>> 060853083eb08a18d8bacfbdf127ba7ba2e8d683
 
 ```{r}
 set.seed(42)
@@ -259,6 +281,11 @@ alpha_ci(Coolness)
 
 This simple example demonstrate that a scale can produce excellent reliability when measuring person sensitivity, but poor and uncertain reliability on designs. Under the psychometric fallacy it can happen that excellent reliability is reported, while it is actually unknown, or very poor.
 
+<<<<<<< HEAD
+=======
+Still, falling into the psychometric fallacy does not necessarily mean that a scale is unreliable under the designometric perspective. It is possible, that the two mental processes of *appreciating* coolness (psychometric perspective) and *discerning* coolness (designometric perspective) share some mental processes and therefore result in sufficient reliability (or factors structure) under both perspectives. It is even possible that the real situation is the opposite of the previous simulation, where persons vary little in appreciation, whereas designs vary strongly.
+
+>>>>>>> 060853083eb08a18d8bacfbdf127ba7ba2e8d683
 In the following study we use data from several previous experiments that had produced designometric data sets.
 
 # Methods
