@@ -1,2 +1,3 @@
-# Book: Designometrics: A primer
-read the book 
+# The Designometricon
+
+[Read the Designometricon](https://schmettow.github.io/DMX/)
