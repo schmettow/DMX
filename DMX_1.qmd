@@ -17,15 +17,22 @@ options(mc.cores = 8)
 purp.analysis <- T
 
 
-# D_1 |> 
-#   filter(Scale == "Attractiveness") |> 
-#   item_rel()
 
+```
 
-## Functions to create response matrices from long data
+```{r}
+#' Psychometric/designometric response matrix from long designometric data
+#' 
+#' @param x long designometric data
+#' @returns psychometric response matrix.
+#' @examples
+#' ldmx <- expand.grid(Design = 1:7, Part = 1:5, Item = 1:3)
+#' ldmx$response <- rbeta(105, 2, 2)
+#' rm_pmx(ldmx)
+#' rm_dmx(ldmx)
 
-rm_psycho <- function(Data)
-  Data |> 
+rm_pmx <- function(x)
+  x |> 
   group_by(Part, Item) |> 
   summarize(mean_resp = mean(response)) |> 
   ungroup() |> 
@@ -33,8 +40,9 @@ rm_psycho <- function(Data)
   spread(Item, value = mean_resp) |> 
   select(-Part)
 
-rm_design <- function(Data) 
-  Data |> 
+#' @rdname rm_pmx
+rm_dmx <- function(x) 
+  x |> 
   group_by(Design, Item) |>
   summarize(mean_resp = mean(response)) |> 
   ungroup() |> 
@@ -42,14 +50,19 @@ rm_design <- function(Data)
   select(-Design)
 
 
+#' Psychometric function wrappers
+#' 
+#' @param Data long designometric data
+#' @returns Results per Perspective and Scale
+
 alpha_ci <- function(Data){
   Scale <- str_c(distinct(Data, Scale)$Scale) 
   model_psych <- 
-    psych::alpha(rm_psycho(Data), check.keys = FALSE, n.iter = 100)$boot |> 
+    psych::alpha(rm_pmx(Data), check.keys = FALSE, n.iter = 100)$boot |> 
     as_tibble() |> 
     mutate(Perspective = "psychometric")
   model_design <- 
-    psych::alpha(rm_design(Data), check.keys = FALSE, n.iter = 100)$boot |> 
+    psych::alpha(rm_dmx(Data), check.keys = FALSE, n.iter = 100)$boot |> 
     as_tibble() |> 
     mutate(Perspective = "designometric")
   out <- 
@@ -65,20 +78,15 @@ alpha_ci <- function(Data){
   out
 }
 
-# D_1 |> 
-#   filter(Scale == "Attractiveness") |> 
-#   alpha_ci()
-
-
 item_rel <- function(Data){
   #Data <- D_1 |> filter(Scale == "HQI")
   Scale <- str_c(distinct(Data, Scale)$Scale)
   model_psych <- 
-    psych::alpha(rm_psycho(Data), check.keys = FALSE)$item.stats |> 
+    psych::alpha(rm_pmx(Data), check.keys = FALSE)$item.stats |> 
     as_tibble(rownames = "Item") |> 
     mutate(Perspective = "psychometric")
   model_design <- 
-    psych::alpha(rm_design(Data), check.keys = FALSE)$item.stats |> 
+    psych::alpha(rm_dmx(Data), check.keys = FALSE)$item.stats |> 
     as_tibble(rownames = "Item") |> 
     mutate(Perspective = "designometric")
   
@@ -92,10 +100,24 @@ item_rel <- function(Data){
   out
 }
 
-
-
-
+parallel_analysis <- function(Data, n, persp, scales){
+  if (persp == "D") {
+    data <- rm_dmx(Data)
+    main <- str_c("Designometric Parallel Analysis of ", scales)
+  }
+  if (persp == "P") {
+    data <- rm_pmx(Data)
+    main <- str_c("Psychometric Parallel Analysis of ", scales)
+  }
+  psych::fa.parallel(data,
+                   fa = "fa",
+                   fm = "minres",
+                   nfactors=n,
+                   main=main)
+    
+}
 ```
+
 
 # Introduction
 
@@ -135,15 +157,17 @@ The first challenge when designing a psychometric inventory is to understand the
 
 Several psychometric methods can be used to successively reduce the initial set of items to reliable scales and to find effective multi-scale strucures.
 
-Under the assumptions, the errors of multiple items cancel each other out, if they *fully agree* on the systematic component. This can be the case with extremely repetitive items, such as trials in the Stroop task. But in practice, item scores only agree to *some degree* on what they measure. Scale consistency by Cronbach $\alpha$ is a statistic to measure the overall level of agreement. A basic procedure for item selection is to compare the result of the full item set to the data set *excluding* item $i$. If scale consistency improves the item will be kept, if it reduces, the item is marked for removal.
+According to CTT, the errors of multiple items cancel each other out, *if they fully agree* on the systematic component. This can be the case with extremely repetitive items, such as trials in the Stroop task. But in practice, item scores only agree to some degree on what they measure. Scale consistency by Cronbach $\alpha$ is a statistic to measure the overall level of agreement. From this derives a basic procedure for item selection, where consistency of the full item set is compared to the data set *excluding* item $i$. If scale consistency improves by removing the item, the item is marked for removal.
 
-The procedure of step-wise removal is likely to fail, when the alleged property truly has more than one component. In this case, *factor-analytic* methods can be used to separate components into multiple factors with better consistency.
+The procedure of step-wise removal is sometimes adequate, but can also fail, when the alleged property truly has more than one component. In this case, *factor-analytic* methods can be used to separate components into multiple sub scales with good consistency.
+
+
 
 ### Factor Structures
 
 In modern psychometrics, the relation between a properties of persons and multiple measure is known as the distinction between *latent variables* (not observable, but true) and *indicator variables* (observable, but imperfect).
 
-Modern instruments often carry a domain structure, where multiple latent variables are put in relation to each other. A prominent example is the Big 5 inventory, which claims that social behaviour can be predicted by five psycho-social traits, each of which is assessed by a separate set of items.
+Modern instruments often carry a complex domain structure, where multiple latent variables are put in relation to each other. A prominent example is the Big 5 inventory, which claims that social behaviour can be predicted by five psycho-social traits, each of which is assessed by a main scale divided into multi-item subscales. For the five main traits a high level of independence can be expected by the way the Big5 was constructed, but the subscales should correlate more strongly.
 
 While the primary aim of domain analysis is to gain sufficient coverage of the domain, it often at least indicates a possible structure for a multi-item instrument. In some cases, a domain analysis is driven by a theoretical structure in the first place. For example, a rating scale for mental workload could very well be based on the multiple-resource theory, which predicts that different sensory modes are processed independently, translating into one scale per sensory mode.
 
@@ -152,11 +176,9 @@ While the primary aim of domain analysis is to gain sufficient coverage of the d
 
 Prior structures often also emerge from qualitative results in mixed-method psychometric processes. ...
 
-When prior structures exist, Confirmatory Factor Analysis (CFA) is the most recommended technique to critically assess prior assumptions about the latent variable structure. For multi-scale inventories CFA also supercedes Cronbach $\alpha$, as parameter loadings can be used to identify inconsistent items.
+When prior structures exist, Confirmatory Factor Analysis (CFA) is the most recommended technique to critically assess prior assumptions about the latent variable structure. In the above example of the Big5 inventory, a hierarchical CFA model can be used to verify that main scales correlate weakly and subscales correlate moderately. Once a good model is established, CFA also supercedes Cronbach $\alpha$, as parameter loadings can be used to diagnose items.
 
-For example with embedded questions in an arithmetics test, performance may depend on arithmetic processing speed, but also on text comprehension. If items in the test vary in text difficulty (and participants vary in comprehension skill), a second systematic component emerges. A common technique for finding new structures is Exploratory Factor Analysis, which requires the researcher to name the number of factors and how these factors are correlated.
-
-Several methods have been proposed to identify the *optimal number of factors* before-hand. Early tools used the decline in Kaiser eigenvalues and the visual *elbow* criterion, whereas modern tools use resampling techniques to determinje the optimal number of factors. The second choice to make is *scale rotation.* Orthogonal rotation applies, when the components are largely independent, such as arithmetic skills and text comprehension. For true sub scales a significant correlations between underlying factors is very likely, and oblique rotation should be used, instead.
+When a robust prior structure is not available, a common technique for finding new structures is Exploratory Factor Analysis, which requires the researcher to name the number of factors and how these factors are correlated. Several methods have been proposed to identify the *optimal number of factors* before-hand. Early tools used the decline in Kaiser eigenvalues and the visual *elbow* criterion, whereas modern tools use resampling techniques to determinje the optimal number of factors. The second choice to make is *scale rotation.* Orthogonal rotation applies, when the components are largely independent, such as arithmetic skills and text comprehension. For true sub scales a significant correlations between underlying factors is very likely, and oblique rotation should be used, instead.
 
 ### The Response Matrix
 
@@ -355,15 +377,16 @@ D_1 |>
   ungroup()
 ```
 
-### Data analysis
+### Statistics
 
-Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to on several data sets:
+Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to several data sets. Scale consistency and item reliability, were measured Cronbach $\alpha$ was used. For the number of factors parallel analysis was used, which compares the eigenvalues to a baseline established by bootstrapping [REF]. For all three statistics, functions from R package Psych were used [REF].
 
-1.  For *scale consistency* the
-2.  Item reliability
-3.  Number of Factors
+
+
+
 
 # Results
+
 
 ## Scale consistency
 
@@ -392,6 +415,8 @@ Scale_rel |>
   geom_label() +
   ylim(0,1)
 ```
+
+
 
 ## Item reliability
 
@@ -442,38 +467,20 @@ Item_rel |>
 
 ```
 
+
+
 ## Number of factors
 
 Often, different scales are used in combination to create a more complete picture. It is usually the aim that a scale measures exactly one construct (or latent variable) and that different scales measure different constructs. As a counter-example, MacDorman found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling". In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.
 
-Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors.
+Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors, or at least agree on a number.
 
-```{r}
-parallel_analysis <- function(data, n, persp, scales){
-  if (persp == "D") {
-    data <- rm_design(data)
-    main <- str_c("Designometric Parallel Analysis of ", scales)
-  }
-  if (persp == "P") {
-    data <- rm_psycho(data)
-    main <- str_c("Psychometric Parallel Analysis of ", scales)
-  }
-  psych::fa.parallel(data,
-                   fa = "fa",
-                   fm = "minres",
-                   nfactors=n,
-                   main=main)
-    
-}
-```
 
 <!-- Item reliability measures how coherent any particular item is with the scale as a whole. This criterion regularly used during item selection, where an item may be discarded if it does not correlate with the remaining items. However, if some items are out-of-tune, this can mean that they represent a different facet of the construct under examination.  -->
 
 <!-- Exploratory factor analysis is frequently used to find such factors in response matrices. The first step typically is to determine the number of factors. -->
 
-## Eeriness scale
-
-Eeriness is usually considered a one-dimensional construct. Nevertheless, it has been suggested that it comprises two slightly different factors.
+*Eeriness* was initially considered a one-dimensional construct. Nevertheless, it has been suggested that it comprises two slightly different factors [REF]. 
 
 ```{r}
 parallel_analysis(D_Eer, 2, "D", "Eeriness")
@@ -482,21 +489,21 @@ parallel_analysis(D_Eer, 2, "P", "Eeriness")
 
 ```
 
-The results suggest that under psychometric perspective there is only one latent variables, whereas whereas the designometric perspective produces two, indeed.
+The results suggest that under psychometric perspective there is only one latent variables, whereas the designometric perspective produces two, as expected.
 
-```{r}
-efa <- function(rm, nfactors) psych::fa(rm_design(D_Eer),
+```{r eval = F, echo = F}
+efa <- function(rm, nfactors) psych::fa(rm_dmx(D_Eer),
                         fa = "fa", fm = "minres",
                         main=main)
 
-Efa_psycho <- efa(rm_psycho(D_Eer), nfactors=1)
-Efa_design <- efa(rm_design(D_Eer), nfactors=2)
+Efa_psycho <- efa(rm_pmx(D_Eer), nfactors=1)
+Efa_design <- efa(rm_dmx(D_Eer), nfactors=2)
 
-psych::fa(rm_psycho(D_Eer))
+psych::fa(rm_pmx(D_Eer))
 
 E_psycho <- tibble(Perspective = "psychometric",
                    Item = str_c("nE", 1:8),
-                   loading = psych::fa(rm_psycho(D_Eer))$loadings)
+                   loading = psych::fa(rm_pmx(D_Eer))$loadings)
 
 E_design <- tibble(Perspective = "designometric",
                    Item = str_c("nE", 1:8),
@@ -512,8 +519,6 @@ bind_rows(E_psycho, E_design) |>
 
 knitr::kable(bind_rows(E_psycho, E_design))
 ```
-
-## AttrakDiff and Credibility
 
 On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is a complete separate construct . Depending on whether Hedonism splits up like expected by theory, we would expect a two or three-factor solution.
 
@@ -583,8 +588,5 @@ Schmettow(2021) proposed multi-level models for capturing designometric situatio
 
 Another consideration is that the designometric encounter may not be end of story. For example, for comparing multi-purpose designs a researcher may want to add tasks as fourth population of interest. With the mentioned limitations, multi-level models extend to such a case (Schmettow, 2016, Egan's assumption). For development-time purposes, Generalizability Theory may provide ...
 
-\[Stephanie\]
+Another issue is to identify exploratory methods that can operate on designometric boxes. EFA is often used with CFA to find and confirm candidate structures. 
 
-Another issue is to identify exploratory methods that can operate on designometric boxes. EFA is often used with CFA to find and then confirm candidate structures.
-
-\[Stephanie\]
