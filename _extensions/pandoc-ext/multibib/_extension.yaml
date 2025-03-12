@@ -1,0 +1,7 @@
+title: multibib
+author: Albert Krewinkel
+version: 1.0.0
+contributes:
+  filters:
+    - multibib.lua
+source: pandoc-ext/multibib
