@@ -78,7 +78,7 @@ Only the meaning of parameters changes. If a design is evaluated under designome
 
 Take as an example a hypothetical scale to measure trustworthiness of robot faces, with two sub-scales, realism of the design and likability. The impression of realism can be triggered by different features of the face, such as skull shape, details in the eyes region and skin texture. For a proper scale on realism, it would be required that these features correlate, and this essentially is a property of the robot face design process. It is a quite strong assumption that the effort a robot face designers puts into the eyes region must be strongly correlated with the effort put into skin texture, but by using psychometric models with designometric data, assumptions like these can be tested.
 
-#### Designometric sampling
+#### Designometric scale development
 
 During psychometric scale development, a substantial sample of designs is required to drive item selection and factorizing. This can be a huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.
 
@@ -89,6 +89,11 @@ A connected problem is that the designometric perspective participant-level info
 When a real interactive experience is subject of the measure, a measurent can take from several minutes to hours and a complete designometric encounter becomes impractical. A way to mitigate this problem is to use an experimental design that is *planned incomplete*. Essentially, a planned incomplete validation study has all participants encounter only a partition of the design sample. For example a study consisting of a sample of 100 designs let every participant encounter a different set of ten designs. As long as all designs are covered by at least one participant, this will result in a complete design-by-item matrix after collapsing along participants.
 
 A variation of planned incomplete studies is to *successively* build the sample of designs. This is especially useful, when dealing with emerging classes of designs. This happened in the BUS-11 studies, where initially it was difficult to build a substantial sample, before it became more common.
+
+
+#### Designometric run-time
+
+Once validated a designometric can be used to put a single designs on a scale by either giving it a rank in the population (or what is known about it from development samples). In this case, the data formally is a psychometric response matrix, from which the researcher can derive how the design fares. In the simplest case this were a mean score, but also variance can be considered under a fairness perspective.
 
 #### The psychometric fallacy
 
@@ -226,7 +231,7 @@ parallel_analysis <- function(Data, n, persp, scales){
 
 ## Simulation study
 
-The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$), perhaps
+The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$), perhaps because it were all homepages of premium law firms.
 
 ```{r}
 set.seed(42)
@@ -539,9 +544,9 @@ In design research the target of all research is quickly changing and expanding 
 
 Basic psychometric tools produce vastly different results under the psychometric fallacy. While our study used mature scales, which had already undergone item selection and perhaps factor analysis, we can interpolate the consequences for future scale development.
 
-The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion even under the designometric perspective.
+The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion, even under the designometric perspective.
 
-Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, but a likely outcome of developing a dmx scale under pmx is to *false favor* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, @Tab-rel-after-removal compares dmx scale reliability on these three scales with and without their two ill-behaved items.
+Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, or the result of developing a dmx scale under pmx is to *false favor* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, @Tab-rel-after-removal compares dmx scale reliability on these three scales with and without their two ill-behaved items.
 
 ```{r}
 #| label: rel-after-removal
@@ -556,9 +561,10 @@ A pmx perspective may also *false reject* items that are actually well-behaved i
 
 ### Run time implications
 
-For practitioners, the good news are that if they were (or will be) under the run-time psychometric fallacy by routinely reporting scale reliability, they were (or will be) always better than they said. And when they continue to use these scales in the future, the improved precision will allow them to reduce sample sizes.
+For practitioners, the good news are that if they were under the run-time psychometric fallacy by routinely reporting scale reliability, they were always better than they said. And when they continue to use these scales in the future, the improved precision will allow them to reduce sample sizes.
 
-But, practitioners may not have the most efficient rating scales, yet. Even if a false favored item is not directly harming reliability, it can make the scale inefficient. In practice, UX scales are often deployed during use, for example in usability tests. With a shorter scale measures can be taken in quicker succession, for example once per task, or everyday in a longitudinal study. It is therefore not uncommon for practitioners to create a reduced scale, for example, when many latent variables are involved. For some scales (Hedonism, Beauty) it is safe to just pick three items at random, Other scales are quite mixed bags, with the highest ranked item under pmx being the lowest ranked under dmx. If , as is good practice, the creators of scales published pmx item-level reliability, it becomes almost inevitable that a researcher seeking for the three best items, will pick two of the worst.
+But, practitioners may not yet have the most efficient rating scales. Even if a false favored item is not directly harming reliability, it can make the scale inefficient. In practice, UX scales are often deployed during use, for example in usability tests. With a shorter scale measures can be taken in quicker succession, for example once per task, or everyday in a longitudinal study. It is therefore not uncommon for practitioners to create a reduced scale, for example, when many latent variables are involved. For some scales (Hedonism, Beauty) it is safe to just pick three items at random. Other scales are quite mixed bags, with the highest ranked item under pmx being the lowest ranked under dmx.
+
 
 ```{=html}
 <!--Past users may have scratched their heads more often than we know. Techniques such as Cronbach $\alpha$ are commonly applied as quick sanity checks, whenever multi-item scales are used in run-time studies. Everyone in the past who used designometric scales and followed APA guidelines, was likely to the psychometric fallacy and experience some unnecessary headaches.
@@ -568,15 +574,15 @@ With better item-level reliability, experiments can also be streamlined by using
 A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score-->
 ```
 
-### Criticism of individual scales
+<!-- ### Criticism of individual scales -->
 
-One can rightfully argue that we used the rating scales outside their specification, as the encounters were brief and without interaction. This depends on the scale and on the purpose. Face processing is one of the fastest complex mechanisms in the human mind, which makes it legit to test it in quick succession on a screen. Similarly, the beauty judgement of a website is known to stabilize within 500ms, and the same can be expected for attractiveness. For more longitudinal feelings about designs, like hedonism, usability and credibility, these encounters were not valid. We will therefore not criticize these instruments, the point still standing that the two perspectives produce different results.
+<!-- One can rightfully argue that we used the rating scales outside their specification, as the encounters were brief and without interaction. This depends on the scale and on the purpose. Face processing is one of the fastest complex mechanisms in the human mind, which makes it legit to test it in quick succession on a screen. Similarly, the beauty judgement of a website is known to stabilize within 500ms, and the same can be expected for attractiveness. For more longitudinal feelings about designs, like hedonism, usability and credibility, these encounters were not valid. We will therefore not criticize these instruments, the point still standing that the two perspectives produce different results. -->
 
--   Eeriness
--   Beauty
--   Attractiveness
+<!-- -   Eeriness -->
+<!-- -   Beauty -->
+<!-- -   Attractiveness -->
 
-TODO
+<!-- TODO -->
 
 ### Future Applications
 

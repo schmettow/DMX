@@ -1,3 +1,1 @@
-# The Designometricon
-
-[Read the Designometricon](https://schmettow.github.io/DMX/)
+# \>\> [Read the Designometricon](https://schmettow.github.io/DMX/) \<\<
