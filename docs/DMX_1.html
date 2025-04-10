@@ -205,7 +205,7 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#psychometrics" id="toc-psychometrics" class="nav-link" data-scroll-target="#psychometrics"><span class="header-section-number">2.1.1</span> Psychometrics</a></li>
+  <li><a href="#principles-of-psychometrics" id="toc-principles-of-psychometrics" class="nav-link" data-scroll-target="#principles-of-psychometrics"><span class="header-section-number">2.1.1</span> Principles of Psychometrics</a></li>
   <li><a href="#designometrics" id="toc-designometrics" class="nav-link" data-scroll-target="#designometrics"><span class="header-section-number">2.1.2</span> Designometrics</a></li>
   </ul></li>
   <li><a href="#simulation-study" id="toc-simulation-study" class="nav-link" data-scroll-target="#simulation-study"><span class="header-section-number">2.2</span> Simulation study</a></li>
@@ -225,9 +225,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#dev-time-implications" id="toc-dev-time-implications" class="nav-link" data-scroll-target="#dev-time-implications"><span class="header-section-number">2.5.1</span> Dev time implications</a></li>
   <li><a href="#run-time-implications" id="toc-run-time-implications" class="nav-link" data-scroll-target="#run-time-implications"><span class="header-section-number">2.5.2</span> Run time implications</a></li>
-  <li><a href="#criticism-of-individual-scales" id="toc-criticism-of-individual-scales" class="nav-link" data-scroll-target="#criticism-of-individual-scales"><span class="header-section-number">2.5.3</span> Criticism of individual scales</a></li>
-  <li><a href="#future-applications" id="toc-future-applications" class="nav-link" data-scroll-target="#future-applications"><span class="header-section-number">2.5.4</span> Future Applications</a></li>
-  <li><a href="#towards-deep-designometrics" id="toc-towards-deep-designometrics" class="nav-link" data-scroll-target="#towards-deep-designometrics"><span class="header-section-number">2.5.5</span> Towards Deep Designometrics</a></li>
+  <li><a href="#future-applications" id="toc-future-applications" class="nav-link" data-scroll-target="#future-applications"><span class="header-section-number">2.5.3</span> Future Applications</a></li>
+  <li><a href="#towards-deep-designometrics" id="toc-towards-deep-designometrics" class="nav-link" data-scroll-target="#towards-deep-designometrics"><span class="header-section-number">2.5.4</span> Towards Deep Designometrics</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,14 +262,14 @@ window.Quarto = {
 <p>The practical argument in this paper is that psychometric tools can very well be used with designometric data by collapsing the box into a design-by-item response matrix. The result is only a change in semantics, as statistics for ranking persons now refer to the ranking of designs.</p>
 <p>We call it the psychometric fallacy, when designometric rating scales are evaluated using psychometric response matrices, as it contradicts the logical argument that a sample of designs must be involved. Many alleged designometric instruments were, partly at least, developed under the psychometric fallacy, which makes their capability to rank designs questionnable.</p>
 <p>Practićally all psychometric tools take a flat response matrix as input. Since the designometric data box can be reduced in both directions: a designometric response matrix and a psychometric, the consequences of the psychometric fallacy can be explored by using both matrices in the same type of analysis and compare the results.</p>
-<p>In this paper, we define the designometric perspective and demonstrate how basic psychometric tools can properly be used during development of designometric scales, as well as in practice. The case for the psychometric fallacy is opened with a simulation study, before the practical implications are explored deeper using designometric data obtained on eight commonly used UX rating scales.</p>
-<section id="psychometrics" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="psychometrics"><span class="header-section-number">2.1.1</span> Psychometrics</h3>
+<p>In this paper, we define the designometric perspective and demonstrate how basic psychometric tools can be used properly during development of designometric scales, as well as in practice. The consequences of the psychometric fallacy are further explored by a secondary analysis of designometric data obtained on eight commonly used UX rating scales.</p>
+<section id="principles-of-psychometrics" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="principles-of-psychometrics"><span class="header-section-number">2.1.1</span> Principles of Psychometrics</h3>
 <p>The primary practical uses of psychometric instruments are either about making cost-effective <em>prediction</em> about a person. A good score in a written drivers test predicts that a person will make fewer errors on the road which decreases the chance of collisions. Psycho-diagnostic rating scales are often used in screening tests, e.g.&nbsp;for depression, whereas performance tests are used in competitive situations, such as personnel selection or education.</p>
-<p>When it only takes a single probe to accurately estimate the body temperature of a person, why are psychological tests and math exams so repetitive? The primarily reason is that psychological instruments are highly noisy, be it self-report scales, reaction times or physiological measures. If one cannot improve the instrument or experiment, taking repeated measures is an effective measns to improve the precision of the measurement. This idea goes back to <em>Classic Test Theory</em>, which solves the problem by decomposing every measure into a relevant <em>systematic component</em> and a nuisance <em>error component</em>. By the law of large numbers, the systematic component re-occurs and is strengend with every measurement, whereas the error is fully random, cancelling itself out in the long run. When certain conditions are met, it is possible to create an arbitrary precise estimate by adding more repetitions.</p>
+<p>When it only takes a single probe to accurately estimate the body temperature of a person, why are psychological tests so repetitive? The primary reason to use repeated measures is that psychological instruments tend to be highly noisy, be it self-report scales, reaction times or physiological measures. If one cannot improve the instrument or experiment, taking repeated measures is an effective means to improve the precision of the measurement by the Law of Large Numbers. The earliest psychometric framework resting on this idea is <em>Classic Test Theory</em>, which states the formal conditions that a test created with multiple items produces a reliable ranking of persons. Also, when the conditions are met, it is possible to create a scale of arbitrary precision by simply adding more items.</p>
 <section id="item-selection" class="level4" data-number="2.1.1.1">
 <h4 data-number="2.1.1.1" class="anchored" data-anchor-id="item-selection"><span class="header-section-number">2.1.1.1</span> Item selection</h4>
-<p>The first challenge when designing a psychometric inventory is to understand the domain, ideally in terms of involved areas of psychological functioning. Based on the domain analysis, the researcher creates a candidate <em>item pool</em>, which is usually much larger than the targeted set of items. Up to this point, the process is mostly qualitative, divergent and creative.</p>
+<p>The first challenge when designing a psychometric scale is to understand the domain, ideally in terms of involved areas of psychological functioning. Based on the domain analysis, the researcher creates a candidate <em>item pool</em>, which is usually much larger than the targeted set of items. Up to this point, the process is mostly qualitative, divergent and creative.</p>
 <p>Subsequently, <em>item selection</em> is carried out, which ranks the item pool by some selective criteria, such as item reliability or sensitivity. This often is an iterative process, with the goal to find a reasonably accurate and universal way of measuring a skill. According to CTT, the errors of multiple items cancel each other out, <em>given that they fully agree</em> on the systematic component. This can be the case with extremely repetitive items, such as trials in the simple reaction time task. But in practice, item scores only agree to some degree on what they measure. Scale reliability by Cronbach <span class="math inline">\(\alpha\)</span> is a statistic to measure the overall level of agreement in a sample of items. For the purpose of selection, a basic procedure for item selection can be derived, where reliability of the full item set is compared to the data set <em>excluding</em> item <span class="math inline">\(i\)</span>. If scale reliability improves by removing the item, the item is marked for removal. The same can be done repeatedly by correlating an item score against the total score.</p>
 <p>The procedure of step-wise removal is adequate when the property under measurement is atomic. When more components are involved, the results of step-wise reduction can even be erratic to the point that a relevant part of the construct has been deleted. . Therefore, <em>factor-analytic</em> methods are often used as a means to separate components into multiple sub scales with good properties.</p>
 </section>
@@ -286,44 +285,38 @@ window.Quarto = {
 <p>When prior structures exist, Confirmatory Factor Analysis (CFA) is the most recommended technique to critically assess prior assumptions about the latent variable structure. In the above example of the Big5 inventory, a hierarchical CFA model could be used to verify that the main scales are largely independent, whereas subscales correlate more strongly. Once a good model is established, CFA also supercedes Cronbach <span class="math inline">\(\alpha\)</span>, as CFA procides item loadings, which can be used for item selection.</p>
 <p>When a robust prior structure is not available, a common technique for finding new structures is Exploratory Factor Analysis, which requires the researcher to name the number of factors and how these factors are correlated. Several methods have been proposed to identify the <em>optimal number of factors</em> before-hand. Early tools used the decline in Kaiser eigenvalues and the visual <em>elbow</em> criterion, whereas modern tools use resampling techniques to determine the optimal number of factors. The second choice to make is <em>scale rotation.</em> Orthogonal rotation applies, when the components are largely independent, such as arithmetic skills and text comprehension. For true sub scales a significant correlations between underlying factors is very likely, and oblique rotation should be used, instead.</p>
 </section>
-<section id="the-response-matrix" class="level4" data-number="2.1.1.3">
-<h4 data-number="2.1.1.3" class="anchored" data-anchor-id="the-response-matrix"><span class="header-section-number">2.1.1.3</span> The Response Matrix</h4>
-<p>All psychometric methods mentioned so far have in common that measures are provided in form of response matrices, where rows identify with participants and columns with items. A common operation during item selection is to estimate consistency on the full response matrix, remove a dubious item from the matrix to see if this improves consistency. EFA takes a response matrix as input and produces item loadings for it. For multi-scale data CFA tools take response matrix with named columns as input, together with a formula to group items to factors. …</p>
-<p>The idea of response matrices is most pronounced in item response theory (IRT), a psychometric approach rivaling classic test theory and factors analysis. In IRT, each cell in the response matrix is seen as an encounter between an item and a participant, from which a measure arises. Items, like participants, are seen as individuals, with different response characteristics during the encounter. Desired item characteristics can be formalized as part of an IRT model, and then rigorously be tested on data. In the most simple (and therefore strictest) model of Rasch, the probability of success in a person-task encounter depends only on the difference between task difficulty and the person ability. More complex IRT models allow more subtle item characteristics, and sophisticated tools have been developed to detect and prevent biases, such as <em>differential item functioning.</em></p>
-<p>For all levels of sophistication or schools of thought, what counts during scale development is that item of a test are well-behaved. In the same way teachers use multiple tests to estimate a student’s skill with adequate accuracy, many responses are needed to precisely assess the characteristics of an item during development time. This is what creates the demand for the enormous sample sizes, for which psychometric development is most feared for.</p>
+<section id="response-matrices" class="level4" data-number="2.1.1.3">
+<h4 data-number="2.1.1.3" class="anchored" data-anchor-id="response-matrices"><span class="header-section-number">2.1.1.3</span> Response Matrices</h4>
+<p>All psychometric methods mentioned so far have in common that measures are provided in form of response matrices, where rows identify with participants and columns with items. A common operation during item selection is to estimate consistency on the full response matrix, remove a dubious item from the matrix to see if this improves consistency. EFA takes a response matrix as input and produces item loadings for it, and CFA tools take response matrices with named columns as input, together with a formula to group items to factors.</p>
+<p>The idea of response matrices is most pronounced in item response theory (IRT), a psychometric approach rivaling classic test theory and factors analysis. In IRT, each cell in the response matrix is seen as an encounter between an item and a participant, from which a measure is obtained. The difference to CTT is that IRT treats items and participants more equally, as items too have individual characteristics. Desired item characteristics can be formalized as part of an IRT model, and then rigorously be tested on data. In the most simple (and therefore strictest) model of Rasch, the probability of success in a person-task encounter depends only on the difference between item difficulty and the person ability. More complex IRT models allow more subtle item characteristics. Sophisticated tools exist to detect and prevent biases, notably <em>differential item functioning.</em></p>
 </section>
 <section id="sample-sizes" class="level4" data-number="2.1.1.4">
 <h4 data-number="2.1.1.4" class="anchored" data-anchor-id="sample-sizes"><span class="header-section-number">2.1.1.4</span> Sample sizes</h4>
-<p>The enormous sample sizes consumed during psychometric scale validation have several causes:</p>
+<p>It does not matter which school of thought or level of sophistication, all activities during test development focus on establishing a well-behaved set of items. The large samples of participants required during this process is what psychometrics is most feared for. The causes are manifold:</p>
 <ul>
-<li>Psychometric techniques tend to have many parameters and by the rule that the number of independent observations must at least match the number of parameters, a lower boundary can be established. A 24 item three-way EFA already produces 72 parameters. But, during scale validation, the number of items is often three times larger, which adds up.</li>
-<li>With noisy data certain estimation procedures need a lot of data to converge properly, for example in conditional maximum likelihood estimation.</li>
-<li>When a structure is desired, but no prior structure exists, EFA can be used to find factors. But the consequence is that the data set is consumed. To confirm the found structure by CFA, a new sample is required.</li>
-<li>The main areas of psychometric research are education and clinical diagnosis, where a rating scale or test can have a significant impact on a person’s life. These instruments ought to be extra-hardened against biases and require the greatest scrunity. For item in a PISA test, proof is required that it has the same characteristics all around the globe.</li>
+<li><p>By the rule that the number of observations must at least match the number of free parameters. In a common CFA, every item is represented by two free parameters (intercept and slope).</p></li>
+<li><p>When a structure is desired, but no prior structure exists, EFA can be used to find factors, with the consequence is that the data set is consumed. To confirm the emergent structure by CFA, a new sample is required.</p></li>
+<li><p>The main areas of psychometric research are education and clinical diagnosis, where a rating scale or test can have a significant impact on a person’s life. These instruments ought to be extra-hardened against biases and require the greatest scrunity.</p></li>
 </ul>
 </section>
 </section>
 <section id="designometrics" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="designometrics"><span class="header-section-number">2.1.2</span> Designometrics</h3>
-<p>Everything said above is essentially rooted in mathematical theory, and therefore independent of any semantics. Formally, constructing rating scales to rank humans should be not much different to constructing a usability metric for websites. When a UX scale is used to decide between designs A and B in industrial practice, it is legit to ask how precise the measurements are. Indeed, designometric scales can efficiently be constructed and evaluated using existing psychometric tools, such as Cronbach <span class="math inline">\(\alpha\)</span>, factor analysis techniques ans IRT models for maximum rigor.</p>
-<p>There are just two differences: First, in psychometrics the entity to be ranked is persons, whereas designometric applications one or more designs get numbers attached. Second, a psychometric measure is an encounter of a person with an item, whereas a designometric measure is an encounter of a design with a person and an item. The three-way encounter and designs being subject to measurement is what defines <em>designometric situations</em>.</p>
+<p>Psychometrics as a formal theory describes how a set of differing instruments can produce a combined on which to compare the measured entities. Formally, it should not matter much to construct a web usability rating scale or a human skill test. There are just two differences: First, in psychometrics the entity to be ranked is persons, whereas designometric applications one or more designs get numbers attached. Second, a psychometric measure is an encounter of a person with an item, whereas a designometric measure is an encounter of a design with a person and an item. Design being the entities and the three-way encounter is what defines <em>designometric situations</em>.</p>
 <section id="the-designometric-perspective" class="level4" data-number="2.1.2.1">
 <h4 data-number="2.1.2.1" class="anchored" data-anchor-id="the-designometric-perspective"><span class="header-section-number">2.1.2.1</span> The designometric perspective</h4>
-<p>A complete designometric data set is a cross-product of three samples: designs, users and items. It forms a “response box”, rather than a matrix, and can not directly be processed with psychometric tools. During the process of item selection and factorizing, design-by-item response matrices are needed. A practical solution is to average across the Person factor, which produces a flat response matrix, which takes the place of the psychometric response matrix and researchers can use it with standard psychometric tools to select proper items and find good structures.</p>
-<p>Only the meaning of parameters changes. If a design is evaluated under designometric perspective, a high score predicts that a robot face will make a good appearance. If a designometric scale gets a high reliability score, this means that smaller samples are required to compare designs at a given level of precision. To create a consistent designometric scale, the items must inter-correlate strongly, which means they must be referring to design features that coincide.</p>
-<p>Take as an example a hypothetical scale to measure trustworthiness of robot faces, with two sub-scales, realism of the design and likability. The impression of realism can be triggered by different features of the face, such as skull shape, details in the eyes region and skin texture. For a proper scale on realism, it would be required that these features correlate, and this essentially is a property of the robot face design process. It is a quite strong assumption that the effort a robot face designers puts into the eyes region must be strongly correlated with the effort put into skin texture, but by using psychometric models with designometric data, assumptions like these can be tested.</p>
+<p>A designometric data set is a three-way encounter and therefore forms a “response box”, which can not directly be processed with psychometric tools. On an abstract level, a psychometric tool requires a a matrix on the set of items and the sample of measured entities. By this rule, designometric response matrix is are design-by-item. A practical approach to designometrics is to flatten the response box by average across participants and continue using psychometric tools.</p>
+<p>For a reliable designometric scale, its items must inter-correlate strongly, which can only hgappen when referred-to design features coincide. Take as an example a hypothetical scale to measure trustworthiness of robot faces, with two sub-scales, Realism and Likability. The impression of realism can be triggered by different features of the face, such as skull shape, details in the eyes region and skin texture. For a proper scale on realism, it would be required that these features correlate, and this essentially is a property of the robot face design process. It is a quite strong assumption that the effort a robot face designers puts into the eyes region must be strongly correlated with the effort put into skin texture, but by using psychometric models with designometric data, assumptions like these can be tested.</p>
 </section>
-<section id="designometric-sampling" class="level4" data-number="2.1.2.2">
-<h4 data-number="2.1.2.2" class="anchored" data-anchor-id="designometric-sampling"><span class="header-section-number">2.1.2.2</span> Designometric sampling</h4>
-<p>During psychometric scale development, a substantial sample of designs is required to drive item selection and factorizing. This can be a huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.</p>
-<p>When Design takes the place of Person, it is implied that items must now be well-behaved in ranking designs, and substantial samples of designs are now required to prove that. This can be a minor or huge problem, depending on the class of designs. For e-government websites a large design sample will be easier to come by than a sample of human-like robots or self-driving cars.</p>
-<p>A connected problem is that the designometric perspective participant-level information is reduced, but they are still involved in the designometric encounter. In the special case that scales are used for first impression ratings, it is possible to rund cross-product complete designometric encounters. For example, when we used the Eeriness scale on artificial faces, a single observation only took around 4 seconds, making it relatively easy to fill the designometric box with data, even repeatedly ((BT Robbin Koopmans)).</p>
+<section id="designometric-scale-development" class="level4" data-number="2.1.2.2">
+<h4 data-number="2.1.2.2" class="anchored" data-anchor-id="designometric-scale-development"><span class="header-section-number">2.1.2.2</span> Designometric scale development</h4>
+<p>Analog to psychometrics substantial samples of designs are required for item selection and factor identification. This can be a huge problem, depending on the class of designs. For e-government websites it will be easier compared to a scale dedicated to human-like robots or self-driving cars.</p>
 <p>When a real interactive experience is subject of the measure, a measurent can take from several minutes to hours and a complete designometric encounter becomes impractical. A way to mitigate this problem is to use an experimental design that is <em>planned incomplete</em>. Essentially, a planned incomplete validation study has all participants encounter only a partition of the design sample. For example a study consisting of a sample of 100 designs let every participant encounter a different set of ten designs. As long as all designs are covered by at least one participant, this will result in a complete design-by-item matrix after collapsing along participants.</p>
 <p>A variation of planned incomplete studies is to <em>successively</em> build the sample of designs. This is especially useful, when dealing with emerging classes of designs. This happened in the BUS-11 studies, where initially it was difficult to build a substantial sample, before it became more common.</p>
 </section>
 <section id="the-psychometric-fallacy" class="level4" data-number="2.1.2.3">
 <h4 data-number="2.1.2.3" class="anchored" data-anchor-id="the-psychometric-fallacy"><span class="header-section-number">2.1.2.3</span> The psychometric fallacy</h4>
-<p>Designometric scales can be developed and validated with established psychometric tools, when using proper design x item response matrices and a sufficiently large sample of designs to prove that items are well behaved. In contrast, many designometric instruments have not been validated using a large sample of designs, but rather on a psychometric matrix. This we call the <em>psychometric fallacy</em>.</p>
+<p>Designometric scales can be developed with psychometric tools, if using design x item matrices with sufficiently large sample of designs. In contrast, many designometric instruments have not been validated using a large sample of designs, but rather on a psychometric matrix. This we call the <em>psychometric fallacy</em>.</p>
 <p>Formally, a designometric box can produce a psychometric response matrix by averaging over Design. When a scale validation study in design research is under the psychometric fallacy, validation metrics such as item reliability may be meaningless for the purpose of ranking designs. Rather, the metric will refer to the capability of the item to discriminate persons by their sensitivity to the design feature in question. For example, a scale for comparing designs by beauty would become a scale to rank persons by how critical they are with respect to interface beauty. This is not the same and in the next section we show by simulation that the differences between designometric and psychometric perspectives can be dramatic.</p>
 <p>During the scale development process, the psychometric fallacy appears in two forms, one is repairable, whereas the other is fatal. We speak of a repairable psychometric fallacy, when the validation study properly collected designometric data, but used psychometric response matrices for validation. This can be repaired by redoing the analysis now using a designometric matrix.</p>
 <p>A study that did not collect a sample of designs, but used only a single or very few designs fell for the <em>fatal psychometric fallacy</em>. In these cases, researchers have failed to recognize a simple truth: The capacity to discriminate between designs can impossibly be validated on a single design. Every alleged designometric instrument, where this has happened during the validation phase, cannot be trusted.</p>
@@ -444,7 +437,7 @@ window.Quarto = {
 </section>
 <section id="simulation-study" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="simulation-study"><span class="header-section-number">2.2</span> Simulation study</h2>
-<p>The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness (<span class="math inline">\(\sigma_\textrm{Part} = .2\)</span>), whereas the sample of designs varies little in Coolness (<span class="math inline">\(\sigma_\textrm{Design} = .02\)</span>), perhaps</p>
+<p>The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness (<span class="math inline">\(\sigma_\textrm{Part} = .2\)</span>), whereas the sample of designs varies little in Coolness (<span class="math inline">\(\sigma_\textrm{Design} = .02\)</span>), perhaps because it were all homepages of premium law firms.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -511,16 +504,16 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 <tr class="odd">
 <td style="text-align: left;">Coolness</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.0948320</td>
-<td style="text-align: right;">-0.6740129</td>
-<td style="text-align: right;">0.5331538</td>
+<td style="text-align: right;">0.0701790</td>
+<td style="text-align: right;">-0.5991044</td>
+<td style="text-align: right;">0.4747151</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Coolness</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.9312326</td>
-<td style="text-align: right;">0.8783902</td>
-<td style="text-align: right;">0.9594502</td>
+<td style="text-align: right;">0.9219977</td>
+<td style="text-align: right;">0.8251825</td>
+<td style="text-align: right;">0.9653615</td>
 </tr>
 </tbody>
 </table>
@@ -863,114 +856,114 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 <tr class="odd">
 <td style="text-align: left;">Attractiveness</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.6370765</td>
-<td style="text-align: right;">0.4058462</td>
-<td style="text-align: right;">0.7582421</td>
+<td style="text-align: right;">0.6390709</td>
+<td style="text-align: right;">0.3591619</td>
+<td style="text-align: right;">0.7557953</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Attractiveness</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.3415008</td>
-<td style="text-align: right;">0.0409442</td>
-<td style="text-align: right;">0.6235179</td>
+<td style="text-align: right;">0.3785768</td>
+<td style="text-align: right;">0.0632475</td>
+<td style="text-align: right;">0.6343109</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Beauty</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.9687451</td>
-<td style="text-align: right;">0.9530691</td>
-<td style="text-align: right;">0.9803868</td>
+<td style="text-align: right;">0.9680669</td>
+<td style="text-align: right;">0.9525388</td>
+<td style="text-align: right;">0.9798554</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Beauty</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.5868891</td>
-<td style="text-align: right;">0.3443817</td>
-<td style="text-align: right;">0.7296815</td>
+<td style="text-align: right;">0.5793260</td>
+<td style="text-align: right;">0.3238634</td>
+<td style="text-align: right;">0.7598130</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Credib</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.5664317</td>
-<td style="text-align: right;">0.2978852</td>
-<td style="text-align: right;">0.7189044</td>
+<td style="text-align: right;">0.5687351</td>
+<td style="text-align: right;">0.2489704</td>
+<td style="text-align: right;">0.7339758</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Credib</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.4156896</td>
-<td style="text-align: right;">-0.0996233</td>
-<td style="text-align: right;">0.7063732</td>
+<td style="text-align: right;">0.4316178</td>
+<td style="text-align: right;">0.0165261</td>
+<td style="text-align: right;">0.7083098</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">HQI</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.6773866</td>
-<td style="text-align: right;">0.5336947</td>
-<td style="text-align: right;">0.7897464</td>
+<td style="text-align: right;">0.6645265</td>
+<td style="text-align: right;">0.5029480</td>
+<td style="text-align: right;">0.7634703</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">HQI</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.6382615</td>
-<td style="text-align: right;">0.2924676</td>
-<td style="text-align: right;">0.8579650</td>
+<td style="text-align: right;">0.6481297</td>
+<td style="text-align: right;">0.1814397</td>
+<td style="text-align: right;">0.8532229</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">HQS</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.7350319</td>
-<td style="text-align: right;">0.6106309</td>
-<td style="text-align: right;">0.8154600</td>
+<td style="text-align: right;">0.7417233</td>
+<td style="text-align: right;">0.6466572</td>
+<td style="text-align: right;">0.8256179</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">HQS</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.7292210</td>
-<td style="text-align: right;">0.4642027</td>
-<td style="text-align: right;">0.8522695</td>
+<td style="text-align: right;">0.7015124</td>
+<td style="text-align: right;">0.4043224</td>
+<td style="text-align: right;">0.8647694</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Hedonism</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.9680802</td>
-<td style="text-align: right;">0.9549313</td>
-<td style="text-align: right;">0.9797023</td>
+<td style="text-align: right;">0.9676871</td>
+<td style="text-align: right;">0.9555415</td>
+<td style="text-align: right;">0.9767364</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hedonism</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.6201390</td>
-<td style="text-align: right;">0.3906787</td>
-<td style="text-align: right;">0.7664524</td>
+<td style="text-align: right;">0.6085749</td>
+<td style="text-align: right;">0.3608493</td>
+<td style="text-align: right;">0.7488383</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Usability</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.8653600</td>
-<td style="text-align: right;">0.7857050</td>
-<td style="text-align: right;">0.9227235</td>
+<td style="text-align: right;">0.8694688</td>
+<td style="text-align: right;">0.7754838</td>
+<td style="text-align: right;">0.9233941</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Usability</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.6521997</td>
-<td style="text-align: right;">0.4303065</td>
-<td style="text-align: right;">0.7881238</td>
+<td style="text-align: right;">0.6577303</td>
+<td style="text-align: right;">0.4156247</td>
+<td style="text-align: right;">0.7924306</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">nEeriness</td>
 <td style="text-align: left;">designometric</td>
-<td style="text-align: right;">0.8822540</td>
-<td style="text-align: right;">0.8495790</td>
-<td style="text-align: right;">0.9110220</td>
+<td style="text-align: right;">0.8802636</td>
+<td style="text-align: right;">0.8470046</td>
+<td style="text-align: right;">0.9088606</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">nEeriness</td>
 <td style="text-align: left;">psychometric</td>
-<td style="text-align: right;">0.8048516</td>
-<td style="text-align: right;">0.6998930</td>
-<td style="text-align: right;">0.8736128</td>
+<td style="text-align: right;">0.8057424</td>
+<td style="text-align: right;">0.7191222</td>
+<td style="text-align: right;">0.8728591</td>
 </tr>
 </tbody>
 </table>
@@ -1082,7 +1075,7 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Parallel analysis suggests that the number of factors =  2  and the number of components =  NA </code></pre>
+<pre><code>Parallel analysis suggests that the number of factors =  1  and the number of components =  NA </code></pre>
 </div>
 </div>
 <p>The results suggest that under dmx only one latent variables exists, whereas pmx produces two.</p>
@@ -1173,8 +1166,8 @@ different factor score estimation method.</code></pre>
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="dev-time-implications"><span class="header-section-number">2.5.1</span> Dev time implications</h3>
 <p>In design research the target of all research is quickly changing and expanding target. A certain swiftness and pragmatism is required to keep up with the pace. Development of new scales is a common task, and often it is carried out by researchers with a basic understanding of psychometric principles, such as (item) reliability and exploratory factor analysis.</p>
 <p>Basic psychometric tools produce vastly different results under the psychometric fallacy. While our study used mature scales, which had already undergone item selection and perhaps factor analysis, we can interpolate the consequences for future scale development.</p>
-<p>The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion even under the designometric perspective.</p>
-<p>Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, but a likely outcome of developing a dmx scale under pmx is to <em>false favor</em> items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, <span class="citation" data-cites="Tab-rel-after-removal">(<a href="references.html#ref-Tab-rel-after-removal" role="doc-biblioref"><strong>Tab-rel-after-removal?</strong></a>)</span> compares dmx scale reliability on these three scales with and without their two ill-behaved items.</p>
+<p>The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion, even under the designometric perspective.</p>
+<p>Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, or the result of developing a dmx scale under pmx is to <em>false favor</em> items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, <span class="citation" data-cites="Tab-rel-after-removal">(<a href="references.html#ref-Tab-rel-after-removal" role="doc-biblioref"><strong>Tab-rel-after-removal?</strong></a>)</span> compares dmx scale reliability on these three scales with and without their two ill-behaved items.</p>
 <div class="cell" data-caption="Dmx reliability of Attractiveness, Hedonism and Credibility before and after removal of falsely favored items.">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"TODO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1185,32 +1178,28 @@ different factor score estimation method.</code></pre>
 </section>
 <section id="run-time-implications" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="run-time-implications"><span class="header-section-number">2.5.2</span> Run time implications</h3>
-<p>For practitioners, the good news are that if they were (or will be) under the run-time psychometric fallacy by routinely reporting scale reliability, they were (or will be) always better than they said. And when they continue to use these scales in the future, the improved precision will allow them to reduce sample sizes.</p>
-<p>But, practitioners may not have the most efficient rating scales, yet. Even if a false favored item is not directly harming reliability, it can make the scale inefficient. In practice, UX scales are often deployed during use, for example in usability tests. With a shorter scale measures can be taken in quicker succession, for example once per task, or everyday in a longitudinal study. It is therefore not uncommon for practitioners to create a reduced scale, for example, when many latent variables are involved. For some scales (Hedonism, Beauty) it is safe to just pick three items at random, Other scales are quite mixed bags, with the highest ranked item under pmx being the lowest ranked under dmx. If , as is good practice, the creators of scales published pmx item-level reliability, it becomes almost inevitable that a researcher seeking for the three best items, will pick two of the worst.</p>
+<p>For practitioners, the good news are that if they were under the run-time psychometric fallacy by routinely reporting scale reliability, they were always better than they said. And when they continue to use these scales in the future, the improved precision will allow them to reduce sample sizes.</p>
+<p>But, practitioners may not yet have the most efficient rating scales. Even if a false favored item is not directly harming reliability, it can make the scale inefficient. In practice, UX scales are often deployed during use, for example in usability tests. With a shorter scale measures can be taken in quicker succession, for example once per task, or everyday in a longitudinal study. It is therefore not uncommon for practitioners to create a reduced scale, for example, when many latent variables are involved. For some scales (Hedonism, Beauty) it is safe to just pick three items at random. Other scales are quite mixed bags, with the highest ranked item under pmx being the lowest ranked under dmx.</p>
 <!--Past users may have scratched their heads more often than we know. Techniques such as Cronbach $\alpha$ are commonly applied as quick sanity checks, whenever multi-item scales are used in run-time studies. Everyone in the past who used designometric scales and followed APA guidelines, was likely to the psychometric fallacy and experience some unnecessary headaches.
 
 With better item-level reliability, experiments can also be streamlined by using a reduced set of items. Reducing a scale is basically item selection and several strategies are possible, as long as it is carried out on a design-by-item matrix.
 
 A basic strategy is to use item-level reliability a ranking criterion. In many cases this may work well, but takes the risk of inadvertently reducing the precision in certain ranges of the scale. A well-constructed scale produces similarly precise measures in the lower, middle and high range on the whole scale. During development time this can be achieved by selecting items that are varying in strength, like "The interface is beautiful." is stronger than "... pleasant". By taking the average score-->
+<!-- ### Criticism of individual scales -->
+<!-- One can rightfully argue that we used the rating scales outside their specification, as the encounters were brief and without interaction. This depends on the scale and on the purpose. Face processing is one of the fastest complex mechanisms in the human mind, which makes it legit to test it in quick succession on a screen. Similarly, the beauty judgement of a website is known to stabilize within 500ms, and the same can be expected for attractiveness. For more longitudinal feelings about designs, like hedonism, usability and credibility, these encounters were not valid. We will therefore not criticize these instruments, the point still standing that the two perspectives produce different results. -->
+<!-- -   Eeriness -->
+<!-- -   Beauty -->
+<!-- -   Attractiveness -->
+<!-- TODO -->
 </section>
-<section id="criticism-of-individual-scales" class="level3" data-number="2.5.3">
-<h3 data-number="2.5.3" class="anchored" data-anchor-id="criticism-of-individual-scales"><span class="header-section-number">2.5.3</span> Criticism of individual scales</h3>
-<p>One can rightfully argue that we used the rating scales outside their specification, as the encounters were brief and without interaction. This depends on the scale and on the purpose. Face processing is one of the fastest complex mechanisms in the human mind, which makes it legit to test it in quick succession on a screen. Similarly, the beauty judgement of a website is known to stabilize within 500ms, and the same can be expected for attractiveness. For more longitudinal feelings about designs, like hedonism, usability and credibility, these encounters were not valid. We will therefore not criticize these instruments, the point still standing that the two perspectives produce different results.</p>
-<ul>
-<li>Eeriness</li>
-<li>Beauty</li>
-<li>Attractiveness</li>
-</ul>
-<p>TODO</p>
-</section>
-<section id="future-applications" class="level3" data-number="2.5.4">
-<h3 data-number="2.5.4" class="anchored" data-anchor-id="future-applications"><span class="header-section-number">2.5.4</span> Future Applications</h3>
+<section id="future-applications" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="future-applications"><span class="header-section-number">2.5.3</span> Future Applications</h3>
 <p>A founding idea in usability engineering is that a good designers has learned to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging domains are often characterized by an innovation phase, where multiple design paths are explored, before this diversity converges into an oligarchy of mature sibling frameworks with established best practices and quality principles.<br>
 Two emerging domains of human-technology interaction are currently gaining significant momentum: interactive deep learning models, such as chatbots and social robots. Both fields have in common that they tap much stronger into the social mind of users, which, next to being a cave of snakes, is mostly uncharted terrain. We can expect a wild growth of theoretical concepts and instruments to measure the respective latent variables.</p>
 <p>((Simone))</p>
 </section>
-<section id="towards-deep-designometrics" class="level3" data-number="2.5.5">
-<h3 data-number="2.5.5" class="anchored" data-anchor-id="towards-deep-designometrics"><span class="header-section-number">2.5.5</span> Towards Deep Designometrics</h3>
+<section id="towards-deep-designometrics" class="level3" data-number="2.5.4">
+<h3 data-number="2.5.4" class="anchored" data-anchor-id="towards-deep-designometrics"><span class="header-section-number">2.5.4</span> Towards Deep Designometrics</h3>
 <p>By comparing the two perspectives, we illustrated that designometric analysis can fully be done with standard psychometric tools, as long as one uses the correct response matrix. However, by reducing the designometric box to a flat matrix, we loose all information on users. Formally, it would even be possible to evaluate a designometric model on the responses of a <em>single user</em>, while the situation</p>
 <p>If the cube is collapsed to a psychometric matrix, which can be used to estimate <em>user sensitivity</em>. Legitimate cases exist to use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness levels of participants in a study (or a training) on cyber security.</p>
 <p>By flattening the designometric box one way, then the other, we still loose information that is needed to secure that items are truly well-behaved. In educational psychometrics <em>differential item functioning</em> is the idea that items must be fair and function the same for every tested person. This also is a desirable property for a designometric scale, but a statistical model for verification would need individual parameters for participants, designs and items, simultaneously. Schmettow(2021) proposed multi-level models for capturing designometric situations in their full dimension, which could be well-suited for run-time use or basic scale development.</p>
