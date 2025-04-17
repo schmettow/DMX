@@ -571,10 +571,7 @@ A basic strategy is to use item-level reliability a ranking criterion. In many c
 
 ### Future Applications
 
-A founding idea in usability engineering is that a good designers has learned to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging domains are often characterized by an innovation phase, where multiple design paths are explored, before this diversity converges into an oligarchy of mature sibling frameworks with established best practices and quality principles.\
-Two emerging domains of human-technology interaction are currently gaining significant momentum: interactive deep learning models, such as chatbots and social robots. Both fields have in common that they tap much stronger into the social mind of users, which, next to being a cave of snakes, is mostly uncharted terrain. We can expect a wild growth of theoretical concepts and instruments to measure the respective latent variables.
-
-((Simone))
+A key idea in usability engineering is that interaction designers must learned to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, causing much attention for intelligent agent design. At the same time, humoid and animalistic robot design is coming out of its niche, and virtual reality applications are on their way to mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality. When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may start with the same abundance of new instruments trying to map the uncharted design space. From a practical perspective, our results suggest that the psychometric fallacy can be harmful in the item selection process. Design researchers
 
 ### Towards Deep Designometrics
 
