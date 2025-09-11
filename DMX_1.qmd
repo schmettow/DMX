@@ -78,14 +78,13 @@ When theoretical structures are absent, Exploratory Factor Analysis procedures a
 
 ## Designometrics
 
-Psychometrics as a formal theory describes how a set of differing instruments can produce a combined metric on which to compare the measured entities. Formally, it should not matter much to construct a web usability rating scale or a human skill test. Yet, there is an important difference that defines the *designometric situation* and has 
-
-First, psychometric measures form a two-way encounter, whereas comparative design studies has Design as an additional entity, forming a *response box*. Second, in psychometrics the entity to be ranked is Person, whereas designometric applications Designs are compared. Whatever role Person parameters play in psychometric processes, must now be assigned to the Design parameters.
+Psychometrics as a formal theory describes how a set of differing instruments can produce a combined metric on which to compare the measured entities. Formally, it should not matter much to construct a web usability rating scale or a human skill test. Yet, there is an important difference that defines the *designometric situation*:
+First, psychometric measures form a two-way encounter, whereas comparative design studies has Design as an additional entity, forming a *response box*. Second, in psychometrics the entity to be ranked is Person, whereas designometric applications designs are compared. Whatever role Person parameters play in psychometric processes, must now be assigned to the Design parameters.
 
 
 ### The designometric perspective
 
-A practical implication of the designometric perspective is that a designometric "response box" cannot be processed with psychometric tools. While "deep" designometric models can be constructed by multi-level models [Schmettow, dmx], a practical solution exists. By averaging over one of the dimensions, a two-dimensional response matrix can be constructed.
+A practical implication of the designometric perspective is that a response box cannot be processed with psychometric tools. While "deep" designometric models can be constructed using multi-level models [@Schmettow2021, 307-323], a practical solution exists. By averaging over one of the dimensions, a two-dimensional response matrix can be constructed.
 Crucially, the correct dimension to be collapsed over is Person, as this produces a *designometric response matrix* (design x item), which in turn is needed to assess the item properties with respect to ranking designs.
 
 For a reliable designometric scale, its items must inter-correlate strongly, which can only happen when referred-to design features coincide. 
@@ -118,14 +117,12 @@ When a scale validation study in design research is under the psychometric falla
 Rather, the metric will refer to the capability of the item to discriminate persons by their sensitivity to the design feature in question. 
 For example, a scale for comparing designs by beauty would become a scale to rank persons by how critical they are with respect to interface beauty. This is not the same and in the next section we show by simulation that the differences between designometric and psychometric perspectives can be dramatic.
 
-Recall that psychometric validations require large samples of participants! So, even validation studies that included multiple designs, may in practice not be repairable, because the sample of designs is too small for a proper analysis. 
-
+Recall that psychometric validations require large samples of participants! When swapping roles, validation studies that included multiple, but only a few, designs, may not be repairable. 
 One example is the study by @Ho2017 validated the Godspeed Index, a common multi-scale inventory to evaluate robot designs. Their designometric study included 38 items and 30 participants, but only 12 designs. While they did not specify how the designometric box was collapsed, the fact that they were still able to report exporatory factor analysis results, suggests that they used a psychometric response matrix, as the designometric matrix would have been too small.
 To be fair, the study tested validity correctly comparing designs, although with simple ANOVA models.
 
 As a milder form *run-time psychometric fallacy* appears when an instrument is used in practice to take measures on a single design. The result will inevitable look like a psychometric response matrix and, given that publication rules (e.g. APA guidelines) often require to report test reliabilities, it may be tempting for the researcher to run a psychometric test on reliability. While the run-time fallacy does not have the same impact as development-time fallacies, it may cause confusion when a validated instrument seems to have poor reliability.
 
-In the following section, we construct a case by simulation, showing that psychometric and designometric perspectives can result in dramatically different results. In the remainder of the investigation, data from past experiments was used to assess how strongly several existing scales are compromised.
 
 ```{r setup, warning = FALSE, message = FALSE, echo = T}
 library(tidyverse)
@@ -241,7 +238,7 @@ parallel_analysis <- function(Data, n, persp, scales){
 
 # Simulation study
 
-The following example demonstrates the difference by simulating an extreme situation, where a fictional three-item scale for Coolness is highly reliable for persons, but has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that the sample have little or no variance with respect to Coolness. In the following simulation, we assume that the Coolness scale be tested on a sample of 50 designs and 50 participants. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$), perhaps because it were all homepages of premium law firms.
+The following example demonstrates the difference by simulating a situation, where a fictional three-item scale for Coolness is highly reliable for persons, but seemingly has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that  the design sample bears little variance with respect to the property in question. In the following simulation, we assume that the Coolness scale has been tested on a sample of 50 premium law firm home pages  and 50 participants of various ages and socvial background. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$).
 
 ```{r}
 set.seed(42)
@@ -286,24 +283,67 @@ alpha_ci(Coolness) |> knitr::kable()
 
 This simple example demonstrate that a scale can produce excellent reliability when measuring person sensitivity, but poor and uncertain reliability on designs. Under the psychometric fallacy it can happen that excellent reliability is reported, while it is actually unknown, or very poor.
 
-In the following study we use data from several previous experiments that had produced designometric data sets.
-
 # Methods
 
-From a theoretical perspective the psychometric fallacy is obvious and we have demonstrated by simulation that the worst case is possible. Here, we explore the biases that can occur when a psychometric response matrix is used, in place of a designometric. Designometric data was collected from several experiments to compare three commonly used psychometric statistics under the correct designometric perspective and under the psychometric fallacy.
+In order to assess the biases introduced by the psychometric fallacy, a secondary data analysis was conducted using data from seven prior experiments (@tab-data-summary), which were originally testing original hypotheses on User Experience and Human-Robot Interaction. All data sets could be stripped down to designometric response boxes, with sufficient numbers of participants and designs.
 
-## Data sets
-
-The data used for analysis originates from five experiments (DK, PS, AH, QB, DN). While these experiments were carried out to test certain hypotheses, they all produced designometric response boxes. In QB and DN participants saw pictures of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. Some of the original experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, only responses at presentation times of 500ms and 2000m were used. All experiments used a (mildly) incomplete design in that participants saw every design at least once, but not in all design-by-item combinations.
-
+In QB, JK, SP and DN participants saw screen shots of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. 
+All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. 
+All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
 ```{r}
 load("DMX_data.Rda")
 D_1 <- D_1 |> 
   mutate(Study = if_else(Study == "QB" & Scale == "Credib", "JK", Study))
-
-
 ```
+
+
+```{r}
+#| label: tab-data-summary
+#| message: false
+#| warning: false
+#| paged-print: true
+#| echo: false
+#| cap: "Summary of data sets used for analysis"
+D_1 |> 
+  group_by(Study, Scale) |> 
+  summarize(n_Design = n_distinct(Design),
+            n_Items = n_distinct(Item),
+            n_Part = n_distinct(Part),
+            n_Obs = n()) |> 
+  ungroup()  |> 
+  mutate(Reference = stringr::str_c("@", Study)) |>
+  arrange(Scale) |>  
+  knitr::kable()
+```
+
+
+## Item and and Design samples
+
+In total, eight rating scales were applied to four design samples. 
+
+The bipolar *Eeriness* scale (already mentioned above) is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces. Factor structure and reliability were originally established under psychometric perspective, whereas experimental validation correctly compared designs [@Ho2017].
+AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added.
+
+All other scales were applied a sample of commercial home pages collected by @Tuch2012 (a subset in DN):
+
++ The *Attractiveness* scale is unipolar subscale of the User Experience Questionnaire (UEQ) inventory and has undergone basic psychometric evaluation in six studies with a single design each [@Laugwitz2008].
+
++ The two 7-item bipolar scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory, which underwent primary psychometric validation on three designs [@Hassenzahl2003]. The scales *Hedonism* and *Usability* were taken from the short version of AttrakDiff2, but will be considered separately in this analysis.
+
++ DN composed the Beauty scale from the item used in @Hassenzahl2010 and three items representing classic aesthetics from @Tractinsky2006.
+
++ The *Credibility* scale was originally designed to compare people's attitude towards media (newspapers, TV, radio). The validation study used exploratory factor analysis for psychometric  item selection with 1468 participants [@Gaziano1986].
+
+## Apparatus
+
+DN used OpenSesame for stimulus presentation and implemented the collection as graded responses [@OpenSesame]. All other experiments used the same PsychoPy program and collected continuous responses using a visual analog scale [@Peirce2008].
+
+## Participant samples
+
+Participants were sampled by convenience with sizes between between 25 and 45 and a strong over-representation of university students and their social circles.
+
+
 
 ```{r}
 D_1 |> 
@@ -312,13 +352,15 @@ D_1 |>
   facet_wrap(~Scale, scale = "free_y")
 ```
 
-```{r eval = F, echo = F}
+```{r}
+#| eval: FALSE
 D_Eer |> 
   ggplot(aes(x = Item, y = response, color = Study)) +
   geom_violin()
 ```
 
-```{r echo = purp.analysis}
+```{r}
+#| eval: FALSE
 D_1 |> 
   distinct(Study, Design) |> 
   group_by(Study) |> 
@@ -337,6 +379,8 @@ D_1 |>
 ```
 
 ```{r echo = purp.analysis}
+#| eval: FALSE
+
 D_1 |> 
   distinct(Scale, Design) |> 
   group_by(Scale) |> 
@@ -354,38 +398,13 @@ D_1 |>
   )  |> knitr::kable()
 ```
 
-## Scales
-
-For the following rating scales responses have been extracted from the original experimental data:
-
-The *Eeriness* scale has been developed for measuring negative emotional responses towards robot faces and is a primary research tool on the Uncanny Valley phenomenon. Originally, part of the Godspeed Index inventory, the refined scale by @Ho2017 was used.
-
-The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory and has undergone basic psychometric evaluation in six studies with a single design each [@Laugwitz2008].
-
-The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory, which underwent  psychometric validation using three designs [@Hassenzahl2003]. 
-
-The *Credibility* was originally designed to compare people's attitude towards media (newspapers, TV, radio) [@Gaziano1986]. The validation study was psychometric, using exploratory factor analysis on an initial item pool with 1468 participants.
-
-##### [HERE]
-
-```{r echo = purp.analysis}
-D_1 |> 
-  group_by(Study, Scale) |> 
-  summarize(n_Design = n_distinct(Design),
-            n_Items = n_distinct(Item),
-            n_Part = n_distinct(Part),
-            n_Obs = n()) |> 
-  ungroup()  |> 
-  mutate(Reference = stringr::str_c("@", Study)) |>
-  arrange(Scale) |>  
-  knitr::kable()
-```
 
 
 
 ## Data Analysis
 
 Goal of the analysis is to examine in what ways the psychometric fallacy compromises the evaluation of rating scales. Three basic psychometric techniques were applied, scale reliability, item consistency and number of factors, using well established functions from the R package Psych [@Psych].
+
 *Scale reliability* was measured using Cronbach $\alpha$ using the function `psych::alpha`. The same function also provides *item consistency* measures and the corrected item-total correlation was used. 
 The *number of factors* was identified using parallel analysis with `psych::fa.parallel` set to a factor-analytic model fitted by minimizing the residuals.
 
@@ -405,7 +424,7 @@ Scale_rel |> knitr::kable()
 ```
 
 ```{r}
-#| label: scale-reliability
+#| label: fig-scale-reliability
 #| fig.height: 12
 #| fig.width: 12
 #| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale"
@@ -424,7 +443,7 @@ Scale_rel |>
   ylim(0,1)
 ```
 
-@Fig-scale-reliability shows the Cronbach $\alpha$ scale reliability estimates produced by designometric and psychometric response matrices. Overall scale reliabilities cover a broad range from excellent to unusable. All scale reliabilities improve under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent dmx reliability, which drops to an almost unusable level under pmx.
+Overall scale reliabilities cover a broad range from excellent to unusable [@fig-scale-reliability]. All scales improve under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent designometric reliability, but unusable otherwise.
 
 ## Item consistency
 
@@ -441,7 +460,7 @@ Item_rel <-
 ```
 
 ```{r}
-#| label: item-reliability
+#| label: fig-item-reliability
 #| fig.height: 12
 #| fig.width: 12
 #| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale"
@@ -466,7 +485,7 @@ Item_rel |>
 
 ```
 
-@Fig-item-reliability shows the corrected item-total correlations as a measure for item consistency. Beauty and Hedonism stand out, because all items take a similar sharp drop in reliability under pmx. To some extent this also seems to hold for Usability and Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items drop under pmx, whereas others improve, with two extreme cases: Items Att4 andf Att6 are already on a very low level of reliability under dmx, but under pmx, they even become negatively correlated. Items HQI5 and HQI6 perform poorly under dmx, but are among the overall best performing items under pmx.
+@fig-item-reliability shows item consistency as corrected item-total correlations as a measure for item consistency. Beauty and Hedonism stand out, because all items take a similar sharp drop in reliability under pmx. To some extent this also seems to hold for Usability and Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items drop under pmx, whereas others improve, with two extreme cases: Items Att4 andf Att6 are already on a very low level of reliability under dmx, but under pmx, they even become negatively correlated. Items HQI5 and HQI6 perform poorly under dmx, but are among the overall best performing items under pmx.
 
 ## Number of factors
 
