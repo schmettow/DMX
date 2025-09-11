@@ -299,6 +299,10 @@ The data used for analysis originates from five experiments (DK, PS, AH, QB, DN)
 
 ```{r}
 load("DMX_data.Rda")
+D_1 <- D_1 |> 
+  mutate(Study = if_else(Study == "QB" & Scale == "Credib", "JK", Study))
+
+
 ```
 
 ```{r}
@@ -420,7 +424,7 @@ Scale_rel |>
   ylim(0,1)
 ```
 
-@Fig-scale-consistency shows the Cronbach $\alpha$ scale reliability estimates produced by designometric and psychometric response matrices. Overall scale reliabilities cover a broad range from excellent to unusable. All scale reliabilities improve under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent dmx reliability, which drops to an almost unusable level under pmx.
+@Fig-scale-reliability shows the Cronbach $\alpha$ scale reliability estimates produced by designometric and psychometric response matrices. Overall scale reliabilities cover a broad range from excellent to unusable. All scale reliabilities improve under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent dmx reliability, which drops to an almost unusable level under pmx.
 
 ## Item consistency
 
