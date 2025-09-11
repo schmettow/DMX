@@ -294,9 +294,8 @@ From a theoretical perspective the psychometric fallacy is obvious and we have d
 
 ## Data sets
 
-The data used for analysis originates from five experiments (DK, PS, AH, QB, DN). While these experiments were carried out to test their own hypotheses, they have in common that participants saw pictures of many designs and were asked to respond to items taken from one or more scales. In QB and DN participants saw pictures of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. Some of the original experiments used manipualtion of presentation time to collect data on subconscious cognitive processing. For the analysis here, only responses at presentation times of 500ms and 2000m were used.
+The data used for analysis originates from five experiments (DK, PS, AH, QB, DN). While these experiments were carried out to test certain hypotheses, they all produced designometric response boxes. In QB and DN participants saw pictures of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. Some of the original experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, only responses at presentation times of 500ms and 2000m were used. All experiments used a (mildly) incomplete design in that participants saw every design at least once, but not in all design-by-item combinations.
 
-Per trial participants saw a single design followed by a random single item, resulting in a sparse designometric box. However, when collapsing the box to either psychometric RM or designometric RM, the result is completely filled response matrices.
 
 ```{r}
 load("DMX_data.Rda")
@@ -355,27 +354,36 @@ D_1 |>
 
 For the following rating scales responses have been extracted from the original experimental data:
 
-The *Eeriness* scale has been developed for measuring negative emotional responses towards robot faces and is a primary research tool on the Uncanny Valley phenomenon. Ho & MacDorman(2017) present an advanced psychometric validation of the scale. The study made use of 12 animated characters (Designs), avoiding the fatal fallacy to some degree, but the data analysis is under psychometric perspective.
+The *Eeriness* scale has been developed for measuring negative emotional responses towards robot faces and is a primary research tool on the Uncanny Valley phenomenon. Originally, part of the Godspeed Index inventory, the refined scale by @Ho2017 was used.
 
-The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory. Is has been vaidated by ((Bettina Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and Evaluation of a User Experience Questionnaire. . 63–76. <https://doi.org/10.1007/978-3-540-89350-9_6>)) The UEQ has undergone basic psychometric evaluation in six studies with a single design each.
+The *Attractiveness* scale is part of the User Experience Questionnaire (UEQ) inventory and has undergone basic psychometric evaluation in six studies with a single design each [@Laugwitz2008].
 
-The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory. AttrakDiff2 underwent basic evaluation using only three Designs under psychometric perspective (level 1 fallacy) ((Hassenzahl, M., Burmester, M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener hedonischer und pragmatischer Qualität)).
+The two scales *Hedonic Quality - Identity (HQI)* and *Hedonic Quality - Stimulation (HQS)* are from the AttrakDiff2 inventory, which underwent  psychometric validation using three designs [@Hassenzahl2003]. 
 
-The Credibility scale ... \#### ((HERE))
+The *Credibility* was originally designed to compare people's attitude towards media (newspapers, TV, radio) [@Gaziano1986]. The validation study was psychometric, using exploratory factor analysis on an initial item pool with 1468 participants.
+
+##### [HERE]
 
 ```{r echo = purp.analysis}
 D_1 |> 
   group_by(Study, Scale) |> 
-  summarize(n_Items = n_distinct(Item),
+  summarize(n_Design = n_distinct(Design),
+            n_Items = n_distinct(Item),
             n_Part = n_distinct(Part),
-            n_Design = n_distinct(Design),
             n_Obs = n()) |> 
-  ungroup()  |> knitr::kable()
+  ungroup()  |> 
+  mutate(Reference = stringr::str_c("@", Study)) |>
+  arrange(Scale) |>  
+  knitr::kable()
 ```
 
-## Statistics
 
-Goal of the analysis is to examine in how much the psychometric fallacy creates real biases. For this purpose, three basic psychometric techniques were applied to several data sets. Scale reliability was measured using Cronbach $\alpha$. For item consistency, the corrected item-total correlation was used and for the number of factors parallel analysis was applied, which compares the eigenvalues to a baseline established by bootstrapping ((REF)). For all three statistics, functions from R package Psych were used ((REF)).
+
+## Data Analysis
+
+Goal of the analysis is to examine in what ways the psychometric fallacy compromises the evaluation of rating scales. Three basic psychometric techniques were applied, scale reliability, item consistency and number of factors, using well established functions from the R package Psych [@Psych].
+*Scale reliability* was measured using Cronbach $\alpha$ using the function `psych::alpha`. The same function also provides *item consistency* measures and the corrected item-total correlation was used. 
+The *number of factors* was identified using parallel analysis with `psych::fa.parallel` set to a factor-analytic model fitted by minimizing the residuals.
 
 # Results
 
