@@ -8,6 +8,7 @@ csl: apa.csl
 execute:
   echo: false
   warning: false
+  message: false
   cache: false
 ---
 
@@ -124,7 +125,7 @@ To be fair, the study tested validity correctly comparing designs, although with
 As a milder form *run-time psychometric fallacy* appears when an instrument is used in practice to take measures on a single design. The result will inevitable look like a psychometric response matrix and, given that publication rules (e.g. APA guidelines) often require to report test reliabilities, it may be tempting for the researcher to run a psychometric test on reliability. While the run-time fallacy does not have the same impact as development-time fallacies, it may cause confusion when a validated instrument seems to have poor reliability.
 
 
-```{r setup, warning = FALSE, message = FALSE, echo = T}
+```{r setup}
 library(tidyverse)
 library(psych)
 library(mascutils)
@@ -241,6 +242,7 @@ parallel_analysis <- function(Data, n, persp, scales){
 The following example demonstrates the difference by simulating a situation, where a fictional three-item scale for Coolness is highly reliable for persons, but seemingly has no reliability at all for discerning the tested designs. Such a pattern can occur for the trivial reason that  the design sample bears little variance with respect to the property in question. In the following simulation, we assume that the Coolness scale has been tested on a sample of 50 premium law firm home pages  and 50 participants of various ages and socvial background. The key here is that participants vary strongly in their appreciation of Coolness ($\sigma_\textrm{Part} = .2$), whereas the sample of designs varies little in Coolness ($\sigma_\textrm{Design} = .02$).
 
 ```{r}
+
 set.seed(42)
 
 n_Design = 20
@@ -267,7 +269,8 @@ Coolness     <- expand_grid(Design = Designs$Design,
   mutate(response = mascutils::rescale_zero_one(cool_Design + cool_Part - cool_Item + rnorm(n_Obs, 0, .5)))
 ```
 
-```{r eval = F, echo = F}
+```{r}
+#| include: false
 Coolness |> 
   ggplot(aes(y = response, x = Design)) +
   geom_violin()
@@ -275,10 +278,12 @@ Coolness |>
 Coolness |> 
   ggplot(aes(y = response, x = Part)) +
   geom_violin()
+
+Rel_Coolness <- alpha_ci(Coolness)
 ```
 
 ```{r}
-alpha_ci(Coolness) |> knitr::kable()
+Rel_Coolness |> knitr::kable()
 ```
 
 This simple example demonstrate that a scale can produce excellent reliability when measuring person sensitivity, but poor and uncertain reliability on designs. Under the psychometric fallacy it can happen that excellent reliability is reported, while it is actually unknown, or very poor.
@@ -346,6 +351,7 @@ Participants were sampled by convenience with sizes between between 25 and 45 an
 
 
 ```{r}
+#| eval: false
 D_1 |> 
   ggplot(aes(x = response)) +
   geom_histogram() +
@@ -353,14 +359,14 @@ D_1 |>
 ```
 
 ```{r}
-#| eval: FALSE
+#| eval: false
 D_Eer |> 
   ggplot(aes(x = Item, y = response, color = Study)) +
   geom_violin()
 ```
 
 ```{r}
-#| eval: FALSE
+#| eval: false
 D_1 |> 
   distinct(Study, Design) |> 
   group_by(Study) |> 
@@ -378,8 +384,8 @@ D_1 |>
   )  |> knitr::kable()
 ```
 
-```{r echo = purp.analysis}
-#| eval: FALSE
+```{r}
+#| eval: false
 
 D_1 |> 
   distinct(Scale, Design) |> 
@@ -412,15 +418,13 @@ The *number of factors* was identified using parallel analysis with `psych::fa.p
 
 ## Scale reliability
 
-```{r message=FALSE, warning=FALSE}
+```{r}
+#| include: false
 Scale_rel <-
   D_1 |> 
   group_by(Scale) |> 
   group_split() |> 
   map_df(alpha_ci)
-
-Scale_rel |> knitr::kable()
-
 ```
 
 ```{r}
@@ -447,16 +451,14 @@ Overall scale reliabilities cover a broad range from excellent to unusable [@fig
 
 ## Item consistency
 
-```{r message=FALSE, warning=FALSE}
+```{r}
+#| include: false
 Item_rel <-
   D_1 |> 
   group_by(Scale) |> 
   group_split(Scale) |> 
   map_df(item_rel)
 
-```
-
-```         
 ```
 
 ```{r}
@@ -502,14 +504,32 @@ Given a response matrix, the number of factors can be estimated using parallel a
 ((MacDorman)) found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling".
 
 ```{r}
+#| include: false
+
+PA_Eer <- list(dmx = parallel_analysis(D_Eer, 2, "D", "Eeriness"),
+                pmx = parallel_analysis(D_Eer, 2, "P", "Eeriness"))
+
+
+PA_Att <- list(
+  dmx=parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility"),
+  pmx=parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility"))
+
+PA_HUB <- list(
+  dmx=parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty"),
+  pmx=parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty"))
+
+
+```
+
+
+```{r}
 #| label: nfactors-eeriness
 #| fig.height: 8
 #| fig.width: 8
 #| fig-cap: "Suggested number of factors for the Eeriness scale compared by perspective "
 
-
-parallel_analysis(D_Eer, 2, "D", "Eeriness")
-parallel_analysis(D_Eer, 2, "P", "Eeriness")
+plot(PA_Eer$dmx)
+plot(PA_Eer$pmx)
 
 ```
 
@@ -552,9 +572,8 @@ On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into
 #| fig.width: 8
 #| fig-cap: "Suggested number of factors for AttrakDiff inventory plus Credibility compared by perspective "
 
-parallel_analysis(D_Att, 3, "D", "AttrakDiff and Credibility")
-parallel_analysis(D_Att, 3, "P", "AttrakDiff and Credibility")
-
+plot(PA_Att$dmx)
+plot(PA_Att$pmx)
 ```
 
 Under a desginometric perspective, the three scales have five underlying factors, but merging into one under pmx.
@@ -567,8 +586,8 @@ Finally, in study DN three independent scales, Hedonism, Usability and Beauty, w
 #| fig.width: 8
 #| fig-cap: "Suggested number of factors for Hedonism, Usability and Beauty scales compared by perspective "
 
-parallel_analysis(D_HUB, 3, "D", "Hedonism, Usability and Beauty")
-parallel_analysis(D_HUB, 3, "P", "Hedonism, Usability and Beauty")
+plot(PA_HUB$dmx)
+plot(PA_HUB$pmx)
 ```
 
 # Discussion
