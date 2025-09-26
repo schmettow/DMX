@@ -308,7 +308,6 @@ D_1 <- D_1 |>
 #| message: false
 #| warning: false
 #| paged-print: true
-#| echo: false
 #| cap: "Summary of data sets used for analysis"
 D_1 |> 
   group_by(Study, Scale) |> 
@@ -598,7 +597,7 @@ We used data from five experiments to assess the severity of the psychometric fa
 
 In contrast, item consistency and factor analysis showed that the psychometric fallacy can lead to strong biases. Items can suddenly become negatively correlated, as in the case of Attractiveness. The two Hedonism scales from AttrakDiff and the Credibility scale showed an extreme pattern, where the majority of items remained relatively stable, whereas two items switched from poor reliability to excellent reliability under pmx. With these patterns in mind, it is almost not surprising that factor analysis can also produce quite different results. Most strikingly, under dmx not a single result matched the theoretical expectations.
 
-## Dev time implications
+## Development time implications
 
 In design research the target of all research is quickly changing and expanding target. A certain swiftness and pragmatism is required to keep up with the pace. Development of new scales is a common task, and often it is carried out by researchers with a basic understanding of psychometric principles, such as (item) reliability and exploratory factor analysis.
 
@@ -606,14 +605,18 @@ Basic psychometric tools produce vastly different results under the psychometric
 
 The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion, even under the designometric perspective.
 
-Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, or the result of developing a dmx scale under pmx is to *false favor* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, @Tab-rel-after-removal compares dmx scale reliability on these three scales with and without their two ill-behaved items.
+Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, or developing a dmx scale under pmx leads to *falsely favored* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, @Tab-rel-after-removal compares dmx scale reliability on these three scales with and without their two ill-behaved items.
 
 ```{r}
 #| label: rel-after-removal
 #| caption: Dmx reliability of Attractiveness, Hedonism and Credibility before and after removal of falsely favored items.
 
-print("TODO")
-
+  D_1 |> 
+  filter(Scale %in% c("HQI", "Credib")) |> 
+  filter(!Item %in% c("Credib1", "Credib2", "HQI5", "HQI1")) |> 
+  group_by(Scale) |> 
+  group_split() |> 
+  map_df(alpha_ci)
 
 ```
 
@@ -647,19 +650,23 @@ A basic strategy is to use item-level reliability a ranking criterion. In many c
 
 ## Future Applications
 
-A key idea in usability engineering is that interaction designers must learned to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, causing much attention for intelligent agent design. At the same time, humoid and animalistic robot design is coming out of its niche, and virtual reality applications are on their way to mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality. When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may start with the same abundance of new instruments trying to map the uncharted design space. From a practical perspective, our results suggest that the psychometric fallacy can be harmful in the item selection process. Design researchers
+A key idea in usability engineering is that interaction designers learn to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, causing much attention for intelligent agent design. Humanoid and animalistic robot design is coming out of its niche, and virtual reality applications are already mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality. 
+
+When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may start with the same abundance of new instruments trying to map the uncharted design space.
+These are huge and effective designometric instruments are needed to guide design decisions in hyper-excited times. Our results show, that the psychometric fallacy is harmful during scale development, leading to inefficient item sets and factor structures. 
 
 ## Towards Deep Designometrics
 
-By comparing the two perspectives, we illustrated that designometric analysis can fully be done with standard psychometric tools, as long as one uses the correct response matrix. However, by reducing the designometric box to a flat matrix, we loose all information on users. Formally, it would even be possible to evaluate a designometric model on the responses of a *single user*, while the situation
+By comparing the two perspectives, we illustrated that designometrics can be accomplished with standard psychometric tools by flattening the response box across participants. However, by averaging across participants, we loose all information on users. It would even be possible to evaluate a designometric model on the responses of a *single user*. Formally, this would be a valid designometric measure, reflecting a single person's sensitivity to design features. 
 
-If the cube is collapsed to a psychometric matrix, which can be used to estimate *user sensitivity*. Legitimate cases exist to use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness levels of participants in a study (or a training) on cyber security.
+Designometric scales are commonly used to measure a populations reaction to a design, which implies that on some level the psychometric matrix is useful, for example to study the distribution of user sensitivity to a feature. 
+Imagenable cases exist where one could use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness of participants in a study (or a training) on cyber security.
 
-By flattening the designometric box one way, then the other, we still loose information that is needed to secure that items are truly well-behaved. In educational psychometrics *differential item functioning* is the idea that items must be fair and function the same for every tested person. This also is a desirable property for a designometric scale, but a statistical model for verification would need individual parameters for participants, designs and items, simultaneously. Schmettow(2021) proposed multi-level models for capturing designometric situations in their full dimension, which could be well-suited for run-time use or basic scale development.
+By flattening the designometric box one way, then the other, we still loose information that is needed to secure that items are truly well-behaved.In educational psychometrics *differential item functioning* is the idea that items must be fair and function the same for every tested person. This is a desirable property for a designometric scale, but a statistical model for verification would need individual parameters for participants, designs and items, simultaneously. @Schmettow2021_multilevel proposed multi-level models for capturing designometric situations in their full dimension, which could be well-suited for run-time use or basic scale development.
 
-Another consideration is that the designometric encounter may not be end of story. For example, for comparing multi-purpose designs a researcher may want to add tasks as fourth population of interest. With the mentioned limitations, multi-level models extend to such a case (Schmettow, 2016, Egan's assumption). For development-time purposes, Generalizability Theory may provide ...
+Such a multi-level approach is well in line with the established field of generalizability theory [@Brennan2001]. In that approach, the variance in responses is partitioned into multiple sources. Thus, suppose we have a data collection design where multiple users judge several designs, on multiple items, the variance in responses can be partitioned into variance due to individual differences in users, differences in designs, and differences in items, This can be done for the response box, but can straightforwardly be extended to hyperboxes, for instance having data collected from the same people on a set of tasks Another consideration is that the designometric encounter may not be end of story. For example, for comparing multi-purpose designs a researcher may want to add tasks as fourth population of interest [@Schmettow2013s]. 
 
-An unsolved issue is to identify exploratory methods that can operate on deep designometric data. EFA is often used with CFA to find and confirm candidate structures.
+Such variance decomposition can be implemented in multi-level models, where the estimated variances can be used to compute reliability, whether it relates to measuring differences in users (pmx) or differences in designs (dmx), while controlling for all other relevant sources of variation. By extending the modelling to multi-level IRT models [@Fox2001, @vandenBerg2007] the discrete nature of the item response data can be taken into account.
 
 
 # References
