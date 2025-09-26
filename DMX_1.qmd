@@ -605,22 +605,23 @@ Basic psychometric tools produce vastly different results under the psychometric
 
 The most severe consequence is that a scale may be developed that is not capable of ranking designs. According to an often cited rule-of-thumb, scale reliability should be at least .7. Three scales in our study, Attractiveness, Credibility and HQS did not meet this criterion, even under the designometric perspective.
 
-Interestingly, on item level Credibility and HQ-I show the same pattern, where two items perform well under pmx, but extremely poor under dmx. This may be a co-incidence, or developing a dmx scale under pmx leads to *falsely favored* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, @Tab-rel-after-removal compares dmx scale reliability on these three scales with and without their two ill-behaved items.
+The HQ-I scale (and to some extent also Credibility) shows a concerning pattern, where some items perform well under pmx, but extremely poor under dmx. This shows that developing a dmx scale under pmx perspective can lead to *falsely favored* items that are well-behaved in ranking persons, but are inefficient for designs. To make the case, scale reliability when removing item HQI5 improves to $0.73$ compared to $0.69$. By further removing HQI1, reliability is $0.68$. While this is not a major increase in reliability, the same level is effectively reached with fewer items - the psychometric fallacy can lead to inefficient scales.
 
 ```{r}
 #| label: rel-after-removal
 #| caption: Dmx reliability of Attractiveness, Hedonism and Credibility before and after removal of falsely favored items.
+#| include: false
 
   D_1 |> 
   filter(Scale %in% c("HQI", "Credib")) |> 
-  filter(!Item %in% c("Credib1", "Credib2", "HQI5", "HQI1")) |> 
+  filter(!Item %in% c("Credib1", "Credib2", "HQI5")) |> 
   group_by(Scale) |> 
   group_split() |> 
   map_df(alpha_ci)
 
 ```
 
-A pmx perspective may also *false reject* items that are actually well-behaved in ranking designs. Creating an item pool is by itself a time-consuming process, and the psychometric fallacy can make it even more difficult by unnecessarily rejecting items. A possible example is the development of the BUS-11 scale, where face validity demands (and factor analysis has confirmed) ((REF Simone)) that *Privacy* is a separate construct. Unfortunately, only one item was left after item selection.
+While we cannot show that directly, it is likely that fallacy also leads *falsely reject* items that are actually well-behaved in ranking designs. Creating an item pool is by itself a time-consuming process, and the psychometric fallacy can make it even more difficult by rejecting good items and selecting inefficient ones. A recent example is the development of the BUS-11 scale, where face validity demands (and factor analysis has confirmed) ((REF Simone)) that *Privacy* is a separate construct. Unfortunately, only one item was left after item selection.
 
 ## Run time implications
 
