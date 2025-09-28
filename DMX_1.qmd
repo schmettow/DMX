@@ -597,7 +597,7 @@ We used data from five experiments to assess the severity of the psychometric fa
 
 In contrast, item consistency and factor analysis showed that the psychometric fallacy can lead to strong biases. Items can suddenly become negatively correlated, as in the case of Attractiveness. The two Hedonism scales from AttrakDiff and the Credibility scale showed an extreme pattern, where the majority of items remained relatively stable, whereas two items switched from poor reliability to excellent reliability under pmx. With these patterns in mind, it is almost not surprising that factor analysis can also produce quite different results. Most strikingly, under dmx not a single result matched the theoretical expectations.
 
-## Development time implications
+## Implications for scale development
 
 In design research the target of all research is quickly changing and expanding target. A certain swiftness and pragmatism is required to keep up with the pace. Development of new scales is a common task, and often it is carried out by researchers with a basic understanding of psychometric principles, such as (item) reliability and exploratory factor analysis.
 
@@ -623,7 +623,7 @@ The HQ-I scale (and to some extent also Credibility) shows a concerning pattern,
 
 While we cannot show that directly, it is likely that fallacy also leads *falsely reject* items that are actually well-behaved in ranking designs. Creating an item pool is by itself a time-consuming process, and the psychometric fallacy can make it even more difficult by rejecting good items and selecting inefficient ones. A recent example is the development of the BUS-11 scale, where face validity demands (and factor analysis has confirmed) ((REF Simone)) that *Privacy* is a separate construct. Unfortunately, only one item was left after item selection.
 
-## Run time implications
+## Implications for users
 
 For practitioners, the good news are that if they were under the run-time psychometric fallacy by routinely reporting scale reliability, they were always better than they said. And when they continue to use these scales in the future, the improved precision will allow them to reduce sample sizes.
 
@@ -654,7 +654,7 @@ A basic strategy is to use item-level reliability a ranking criterion. In many c
 A key idea in usability engineering is that interaction designers learn to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, causing much attention for intelligent agent design. Humanoid and animalistic robot design is coming out of its niche, and virtual reality applications are already mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality. 
 
 When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may start with the same abundance of new instruments trying to map the uncharted design space.
-These are huge and effective designometric instruments are needed to guide design decisions in hyper-excited times. Our results show, that the psychometric fallacy is harmful during scale development, leading to inefficient item sets and factor structures. 
+These are huge and effective designometric instruments are needed to guide design decisions in hyper-excited times [@hypecycle2023]. Our results show, that the psychometric fallacy is harmful during scale development, leading to inefficient item sets and factor structures. 
 
 ## Towards Deep Designometrics
 
