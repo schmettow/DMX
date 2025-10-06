@@ -276,6 +276,7 @@ In order to assess the biases introduced by the psychometric fallacy, a secondar
 In QB, JK, SP and DN participants saw screen shots of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
 ```{r}
+#| include: false
 load("DMX_data.Rda")
 D_1 <- D_1 |> 
   mutate(Study = if_else(Study == "QB" & Scale == "Credib", "JK", Study))
@@ -287,6 +288,7 @@ D_1 <- D_1 |>
 #| warning: false
 #| paged-print: true
 #| cap: "Summary of data sets used for analysis"
+
 D_1 |> 
   group_by(Study, Scale) |> 
   summarize(n_Design = n_distinct(Design),
@@ -380,11 +382,14 @@ D_1 |>
 
 ## Data Analysis
 
-Goal of the analysis is to examine in what ways the psychometric fallacy compromises the evaluation of rating scales. For this purpose, the data sets were separately collapsed into psychometric and designometric response matrices. Subsequently, three basic psychometric techniques were applied to both perspectives and compared: Scale reliability, item consistency and number of factors.
+Goal of the analysis is to examine how the psychometric fallacy compromises the evaluation of rating scales. For this purpose, the data sets were separately collapsed into psychometric and designometric response matrices. 
+Subsequently, three basic psychometric techniques were applied to both perspectives and compared: Scale reliability, item consistency and number of factors.
 
-For the computation, using functions from the well-established R package Psych [@Psych].
-*Scale reliability* and *item consistency* evaluations were conducted using Cronbach $\alpha$ and corrected item-total correlations as produced by `psych::alpha`. 
-*Number of factors* was identified using parallel analysis with `psych::fa.parallel` set to a factor-analytic model fitted by minimizing the residuals.
+For all three procedures functions from the well-established R package Psych [@Psych] were used.
+*Scale reliability* and *item consistency* evaluations were conducted using Cronbach $\alpha$ and derived from that the corrected item-total correlations (`psych::alpha`). 
+
+*Number of factors* was identified using parallel analysis with `psych::fa.parallel` (set to a factor-analytic model fitted by minimizing the residuals). This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained through random resampling. A factor model is retained, when its eigenvalue exceeds the simulated eigenvalue.
+The number of factors is determined as the point before the the real eigenvalue drops below the siomulated level.
 
 # Results
 
@@ -465,7 +470,7 @@ Item_rel |>
 
 ## Number of factors
 
-Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors, or at least agree on a number.
+Given a response matrix, the number of factors were estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales in every data set. 
 
 <!-- Item reliability measures how coherent any particular item is with the scale as a whole. This criterion regularly used during item selection, where an item may be discarded if it does not correlate with the remaining items. However, if some items are out-of-tune, this can mean that they represent a different facet of the construct under examination.  -->
 
@@ -576,13 +581,13 @@ plot(PA_Att$pmx)
 
 # Discussion
 
-Rating scales in Human Factors research are commonly used to discriminate between poor and good design options, rank designs, choose designs, or perform UX regression tests in continuous design cycles. Our logical argument is that the capability of a scale to rank designs can only be seen on multiple designs and using design-by-item response matrices. We called it the psychometric fallacy to use person-by-item response matrices in place. A simulation showed, that the worst case can happen under the psychometric fallacy: excellent reliability is reported, when it actually is very poor.
+Rating scales in Human Factors research are commonly used to discriminate between poor and good design options, rank designs, choose designs, or perform UX regression tests in continuous design cycles. Our logical argument is that the capability of a scale to rank designs can only be seen on multiple designs and using design-by-item response matrices. We called it the psychometric fallacy to use person-by-item response matrices in place. A simulation showed, that the worst case can happen under the psychometric fallacy: excellent reliability is reported, when it actually is poor.
 
-With data from five experiments we showed that the psychometric fallacy is real and produces biases across the board, sometimes dramatic. In many cases, scale reliability is very different between the two perspectives, with designometric reliability being generally higher. Item consistency is also strongly affected, with some items becoming negatively correlated under the psychometric perspective.
+With data from five experiments we showed that the psychometric fallacy is real and produces biases across the board, sometimes dramatic. In many cases, scale reliability is very different between the two perspectives, with designometric reliability being generally higher.
+While the differences in reliability were large across scales, on designometric level they were all in a useful range, ranging from just useful (Credibility) to excellent (Hedonism, Beauty).
+But, many differences exist on item level, going in both directions. Accordingly, the factor cardinality differs from theoretical expectations in all but one cases (Eeriness).
 
-The two Hedonism scales from AttrakDiff and the Credibility scale showed an extreme pattern, where the majority of items remained relatively stable, whereas two items switched from poor reliability to excellent reliability under psychometric perspective. With these patterns in mind, it is almost not surprising that factor analysis can also produce quite different results. Most strikingly, under dmx not a single result matched the theoretical expectations.
-
-The Eeriness scale is generally less affected by the fallacy. It shows decent reliability under both perspectives and is unidimensional. 
+In the following we discuss the details and implications of our findings for scale developers and users, before we outline an agenda for more advanced (deep) designometric methods. 
 
 ## Implications for scale development
 
@@ -656,6 +661,11 @@ Such variance decomposition can be implemented in multi-level models, where the 
 
 While multi-dimensional exploratory methods have been well developed in chemometrics and sensory science [@Tucker1966, @Harshman1970], they’ve seen little integration into mainstream psychometric or UX-scale validation workflows.
 Bridging this gap—by extending factor-analytic methods to multi-dimensional designometric data—constitutes a critical next step in establishing a rigorous quantitative foundation for design measurement.
+
+Finally, the Eeriness scale is proof that *universal rating scales* are possible, which robustly perform in more than one perspective. Understanding how to develop such scales is an important next step in developing a deeper designometric methodology.
+
+
+
 
 
 # References
