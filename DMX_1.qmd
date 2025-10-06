@@ -56,7 +56,12 @@ Domain analysis often suggests potential factor structures, particularly when th
 
 When theoretical structures exist a priori, Confirmatory Factor Analysis (CFA) provides the optimal approach for testing structural assumptions about latent variable relationships [@Brown2015]. Hierarchical CFA models can verify independence among primary scales while confirming stronger correlations among subscales.
 
-Exploratory Factor Analysis (EFA) serves to identify novel factor structures when robust theoretical frameworks are unavailable (@Costello2005). EFA requires researchers to specify the number of factors and their correlation structure. However, modern resampling techniques can be used to identify the optimal number of factors [@Lim2019]. Factor rotation decisions depend on theoretical expectations: orthogonal rotation applies when components are independent (e.g., mathematical and verbal abilities), while oblique rotation accommodates correlated factors typical of subscales [@Fabrigar1999].
+Exploratory Factor Analysis (EFA) serves to identify novel factor structures when robust theoretical frameworks are unavailable (@Costello2005). 
+EFA requires researchers to specify the number of factors and their correlation structure. This is inconvenient because an unknown factor structure implies unknown number of factors.
+
+Finding the number of factors is possible by successively increasing the number of factors as long as a factor retention criterion is met.  Common criteria include the Kaiser-Guttman rule (eigenvalues > 1) and scree plot inspection, but these are have been criticized for being to lenient and subjective [@Hayton2004]. A more accurate alternative is parallel analysis, which compares observed eigenvalues to those obtained from data of identical size but randomized through resampling [@Lim2019].
+
+Another decision to make is factor rotation which depends on theoretical expectations: orthogonal rotation applies when components are independent (e.g., mathematical and verbal abilities), while oblique rotation accommodates correlated factors typical of subscales [@Fabrigar1999].
 
 ### Response Matrix Structure and Item Response Theory
 
@@ -378,7 +383,8 @@ D_1 |>
 Goal of the analysis is to examine in what ways the psychometric fallacy compromises the evaluation of rating scales. For this purpose, the data sets were separately collapsed into psychometric and designometric response matrices. Subsequently, three basic psychometric techniques were applied to both perspectives and compared: Scale reliability, item consistency and number of factors.
 
 For the computation, using functions from the well-established R package Psych [@Psych].
-*Scale reliability* and *item consistency* evaluations were conducted using Cronbach $\alpha$ and corrected item-total correlations as produced by `psych::alpha`. *Number of factors* was identified using parallel analysis with `psych::fa.parallel` set to a factor-analytic model fitted by minimizing the residuals.
+*Scale reliability* and *item consistency* evaluations were conducted using Cronbach $\alpha$ and corrected item-total correlations as produced by `psych::alpha`. 
+*Number of factors* was identified using parallel analysis with `psych::fa.parallel` set to a factor-analytic model fitted by minimizing the residuals.
 
 # Results
 
@@ -417,6 +423,9 @@ Overall scale reliabilities cover a broad range from excellent to unusable [@fig
 
 ## Item consistency
 
+@fig-item-reliability shows item consistency as corrected item-total correlations as a measure for item consistency. Beauty and Hedonism stand out, because all items take a similar sharp drop in reliability under pmx. To some extent this also seems to hold for Usability and Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items drop under pmx, whereas others improve, with two extreme cases: Items Att4 andf Att6 are already on a very low level of reliability under dmx, but under pmx, they even become negatively correlated. Items HQI5 and HQI6 perform poorly under dmx, but are among the overall best performing items under pmx.
+
+
 ```{r}
 #| include: false
 Item_rel <-
@@ -453,13 +462,8 @@ Item_rel |>
 
 ```
 
-@fig-item-reliability shows item consistency as corrected item-total correlations as a measure for item consistency. Beauty and Hedonism stand out, because all items take a similar sharp drop in reliability under pmx. To some extent this also seems to hold for Usability and Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items drop under pmx, whereas others improve, with two extreme cases: Items Att4 andf Att6 are already on a very low level of reliability under dmx, but under pmx, they even become negatively correlated. Items HQI5 and HQI6 perform poorly under dmx, but are among the overall best performing items under pmx.
 
 ## Number of factors
-
-Often, different scales are used in combination to create a more complete picture. It is usually the aim that a scale measures exactly one construct (or latent variable) and that different scales measure different constructs.
-
-In contrast, the AttrakDiff2 questionnaire comprises two scales to capture supposedly different aspects.
 
 Given a response matrix, the number of factors can be estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales. Here, we use parallel analysis to assess whether the two perspectives produce the expected number of factors, or at least agree on a number.
 
@@ -520,7 +524,7 @@ plot.nfactors <- function(x) {
 
 
 The Eeriness scale is part  of a larger Godspeed Index inventory and is supposed to represent a single latent variable. In contrast, ((MacDorman)) found that the Eeriness scale decomposes into two slightly different aspects, summarized as "eery" and "spine-tingling".
-The results in [@fig-nfactors-eer] show that for both perspectives the eigenvalue drops below One with two a two factor solution, confirming that the scale is unidimensional.
+The results in [@fig-nfactors-eeriness] show that for both perspectives the eigenvalue drops below One with two a two factor solution, confirming that the scale is unidimensional.
 
 
 ```{r}
@@ -535,7 +539,6 @@ plot.nfactors(PA_Eer) + ylim(0,6) + xlim(1,8) + ggtitle("Eeriness scale")
 
 On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is a completely separate construct. We would expect three factors to emerge. As @fig-nfactors-att shows the two perspectives deviate in opposite directions: For the psychometric perspective, the eigenvalues drop below their simulated counterparts at two factors, whereas for the designometric perspective stays above this line with five factors.
 
-a designometric perspective, the three scales have five underlying factors, but only one under psychometric (@fig-nfactors-att).
 
 ```{r}
 #| label: fig-nfactors-att
@@ -633,7 +636,7 @@ A basic strategy is to use item-level reliability a ranking criterion. In many c
 
 <!-- TODO -->
 
-## Future Applications
+## Applications
 
 A key idea in usability engineering is that interaction designers learn to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, causing much attention for intelligent agent design. Humanoid and animalistic robot design is coming out of its niche, and virtual reality applications are already mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality.
 
@@ -645,10 +648,14 @@ By comparing the two perspectives, we illustrated that designometrics can be acc
 
 Designometric scales are commonly used to measure a populations reaction to a design, which implies that on some level the psychometric matrix is useful, for example to study the distribution of user sensitivity to a feature. Imagenable cases exist where one could use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness of participants in a study (or a training) on cyber security.
 
-By flattening the designometric box one way, then the other, we still loose information that is needed to secure that items are truly well-behaved.In educational psychometrics *differential item functioning* is the idea that items must be fair and function the same for every tested person. This is a desirable property for a designometric scale, but a statistical model for verification would need individual parameters for participants, designs and items, simultaneously. @Schmettow2021_multilevel proposed multi-level models for capturing designometric situations in their full dimension, which could be well-suited for run-time use or basic scale development.
+By flattening the designometric box one way, then the other, we still loose information that is needed to secure that items are truly well-behaved. In educational psychometrics *differential item functioning* is the idea that items must be fair and function the same for every tested person. This is a desirable property for a designometric scale, but a statistical model for verification would need individual parameters for participants, designs and items, simultaneously. @Schmettow2021_multilevel proposed multi-level models for capturing designometric situations in their full dimension, which could be well-suited for run-time use or basic scale development.
 
 Such a multi-level approach is well in line with the established field of generalizability theory [@Brennan2001]. In that approach, the variance in responses is partitioned into multiple sources. Thus, suppose we have a data collection design where multiple users judge several designs, on multiple items, the variance in responses can be partitioned into variance due to individual differences in users, differences in designs, and differences in items, This can be done for the response box, but can straightforwardly be extended to hyperboxes, for instance having data collected from the same people on a set of tasks Another consideration is that the designometric encounter may not be end of story. For example, for comparing multi-purpose designs a researcher may want to add tasks as fourth population of interest [@Schmettow2013s].
 
 Such variance decomposition can be implemented in multi-level models, where the estimated variances can be used to compute reliability, whether it relates to measuring differences in users (pmx) or differences in designs (dmx), while controlling for all other relevant sources of variation. By extending the modelling to multi-level IRT models [@Fox2001, @vandenBerg2007] the discrete nature of the item response data can be taken into account.
+
+While multi-dimensional exploratory methods have been well developed in chemometrics and sensory science [@Tucker1966, @Harshman1970], they’ve seen little integration into mainstream psychometric or UX-scale validation workflows.
+Bridging this gap—by extending factor-analytic methods to multi-dimensional designometric data—constitutes a critical next step in establishing a rigorous quantitative foundation for design measurement.
+
 
 # References
