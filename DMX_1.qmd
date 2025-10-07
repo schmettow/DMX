@@ -261,15 +261,17 @@ Rel_Coolness <- alpha_ci(Coolness)
 ```
 
 ```{r}
-#| label: tab-simulated-reliability
+#| label: tbl-simulated-reliability
+#| tbl-cap: "Reliability under both perspectives using simulated data (fictional Coolness scale)"
+
 Rel_Coolness |> knitr::kable(digits = 2)
 ```
 
-This simple example demonstrates that psychometric reliability (person sensitivity) can be excellent ($.93$, see @tab-simulated-reliability), whereas designometric reliability is poor ($.60$). Under the psychometric fallacy it is possible that excellent reliability is reported, while it is actually very poor. In the following study we examine how severe the psychometric fallacy is in real practice.
+This simple example demonstrates that psychometric reliability (person sensitivity) can be excellent ($.93$, see @tbl-simulated-reliability), whereas designometric reliability is poor ($.60$). Under the psychometric fallacy it is possible that excellent reliability is reported, while it is actually very poor. In the following study we examine how severe the psychometric fallacy is in real practice.
 
 # Methods
 
-In order to assess the biases introduced by the psychometric fallacy, a secondary data analysis was conducted using data from seven prior experiments, which were originally testing original hypotheses on User Experience and Human-Robot Interaction (@tab-data-summary). What was common is that data was obtained in complete designometric encounters, with large samples of designs.
+In order to assess the biases introduced by the psychometric fallacy, a secondary data analysis was conducted using data from seven prior experiments, which were originally testing original hypotheses on User Experience and Human-Robot Interaction (@tbl-data-summary). What was common is that data was obtained in complete designometric encounters, with large samples of designs.
 
 In QB, JK, SP and DN participants saw screen shots of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
@@ -281,11 +283,11 @@ D_1 <- D_1 |>
 ```
 
 ```{r}
-#| label: tab-data-summary
+#| label: tbl-data-summary
 #| message: false
 #| warning: false
 #| paged-print: true
-#| cap: "Summary of data sets used for analysis"
+#| tbl-cap: "Summary of data sets used for analysis"
 
 D_1 |> 
   group_by(Study, Scale) |> 
@@ -303,7 +305,6 @@ D_1 |>
 ## Item and and Design samples
 
 In total, eight rating scales were applied to four design samples.
-
 The bipolar *Eeriness* scale (already mentioned above) is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces. Factor structure and reliability were originally established under psychometric perspective, whereas experimental validation correctly compared designs [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added.
 
 All other scales were applied a sample of commercial home pages collected by @Tuch2012 (a subset in DN):
@@ -322,7 +323,7 @@ All other scales were applied a sample of commercial home pages collected by @Tu
 
 ## Participant samples
 
-Participants were sampled by convenience with sizes between 25 and 45 and a strong over-representation of university-level Social Scienes students and associated circles.
+Participants were sampled by convenience with sizes between 25 and 45 and a strong over-representation of university-level Social Sciences students and associated circles.
 
 ```{r}
 #| eval: false
@@ -518,7 +519,7 @@ plot.nfactors <- function(x) {
 }
 ```
 
-The Eeriness scale is part of a larger Godspeed Index inventory and is supposed to represent a single latent variable. However, @Ho2017 found that the scale decomposes into two slightly different aspects, summarized as "eerie" and "spine-tingling". This was established using principal component analysis, whereas a dedicated identification of the number of factors has not been reported. Since this was tested with only 12 designs, most likely it was under psychometric perspective. The results in show that for both perspectives the eigenvalue drops below the simulated eigenvalue with two factors under both perspectives [@fig-nfactors-eeriness].
+The Eeriness scale is part of a larger Godspeed Index inventory and is supposed to represent a single latent variable. However, @Ho2017 found that the scale decomposes into two slightly different aspects, summarized as "eerie" and "spine-tingling". This was established using principal component analysis, whereas a dedicated identification of the number of factors has not been reported. Since this was tested with only 12 designs, most likely it was under psychometric perspective. The results in show that for both perspectives the eigenvalue drops below the simulated eigenvalue with two factors under both perspectives (@fig-nfactors-eeriness).
 
 ```{r}
 #| label: fig-nfactors-eeriness
@@ -551,16 +552,6 @@ Finally, in study DN three independent scales, Hedonism, Usability and Beauty, w
 plot.nfactors(PA_HUB) + ylim(0,6) + xlim(1,8) + ggtitle("Hedonism, Usability and Beauty")
 ```
 
-```{r}
-#| label: fig-nfactors-attrakdiff
-#| fig.height: 8
-#| fig.width: 8
-#| fig-cap: "Suggested number of factors for the Eeriness scale compared by perspective "
-
-plot(PA_Att$dmx)
-plot(PA_Att$pmx)
-
-```
 
 # Discussion
 
