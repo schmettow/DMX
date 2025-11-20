@@ -8,7 +8,6 @@
   letterpaper,
   DIV=11,
   numbers=noendperiod,
-  twocolumn,
   portrait]{scrarticle}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
@@ -141,6 +140,20 @@
  
 
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -187,8 +200,9 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={The designometric perspective and the psychometric fallacies},
-  pdfauthor={Martin Schmettow, Simone Borsci, Stéphanie M. van den Berg},
+  pdftitle={The Designometric Perspective and the Psychometric Fallacy in Developing User Experience Rating Scales},
+  pdfauthor={Martin Schmettow; Simone Borsci; Stéphanie M. van den Berg},
+  pdfkeywords={Psychometrics, User Experience, Human Factors},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -197,11 +211,38 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{The designometric perspective and the psychometric fallacies}
-\author{Martin Schmettow, Simone Borsci, Stéphanie M. van den Berg}
+\title{The Designometric Perspective and the Psychometric Fallacy in
+Developing User Experience Rating Scales}
+\author{Martin Schmettow \and Simone Borsci \and Stéphanie M. van den
+Berg}
 \date{}
 \begin{document}
 \maketitle
+\begin{abstract}
+Rating scales are widely used in user experience (UX) research to
+compare and rank design alternatives, yet their development typically
+relies on psychometric procedures originally created for assessing
+stable individual traits. We argue that this practice commits the
+psychometric fallacy: evaluating designometric instruments---tools
+intended to discriminate between designs---using person × item response
+matrices that exclude the essential third dimension of design. Because
+design evaluation inherently forms a design × person × item data
+structure, valid scale development requires samples of designs large
+enough to assess how well items rank design alternatives. We show that
+collapsing the data cube along persons yields a design × item matrix
+that allows psychometric tools to be applied meaningfully, whereas
+collapsing along designs yields misleading psychometric results about
+person sensitivity rather than design discriminability. A simulation
+study demonstrates that scales can appear highly reliable
+psychometrically while being effectively unusable for ranking designs.
+Secondary analyses of eight commonly used UX scales across large design
+samples reveal systematic distortions in reliability estimates, item
+performance, and dimensionality when instruments are evaluated under the
+psychometric fallacy. We establish the designometric measurement
+perspective, provide principles for proper designometric scale
+development, and illustrate how misuse of psychometric validation leads
+to faulty instruments and incorrect inferences in UX research.
+\end{abstract}
 
 
 \section{Introduction}\label{introduction}
@@ -336,10 +377,10 @@ examine item-total correlations to identify poorly performing indicators
 Models}\label{factor-structures-and-latent-variable-models}
 
 Step-wise item removal procedures prove adequate for unidimensional
-constructs but may produce unstable results when multiple components
-comprise the measured domain. Factor-analytic methods therefore serve to
-identify and separate distinct components into psychometrically sound
-subscales (Fabrigar et al., 1999).
+constructs but may produce unstable results when the measured domain is
+more complex. Factor-analytic methods therefore serve to identify and
+separate distinct components into psychometrically sound subscales
+(Fabrigar et al., 1999).
 
 Contemporary psychometric theory distinguishes between latent variables
 (unobservable true scores) and indicator variables (observable but
@@ -354,7 +395,7 @@ Domain analysis often suggests potential factor structures, particularly
 when theoretical frameworks guide instrument development. For example,
 mental workload assessment scales may derive from Multiple Resource
 Theory, which predicts independent processing of sensory channels,
-thereby supporting separate subscales for each channel (Wickens, 2002).
+thereby supporting a separate subscale for each channel (Wickens, 2002).
 
 When theoretical structures exist a prior, Confirmatory Factor Analysis
 (CFA) provides the optimal approach for testing structural assumptions
@@ -587,8 +628,8 @@ Scale & Perspective & center & lower & upper \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Coolness & designometric & 0.62 & 0.26 & 0.77 \\
-Coolness & psychometric & 0.93 & 0.87 & 0.96 \\
+Coolness & designometric & 0.63 & 0.37 & 0.79 \\
+Coolness & psychometric & 0.93 & 0.85 & 0.97 \\
 
 \end{longtable}
 
@@ -626,14 +667,14 @@ responses using a visual analog scale (Peirce, 2008).
 
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0756}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1261}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1681}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1513}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1513}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0840}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1008}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0265}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1327}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1062}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1770}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1593}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1593}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1504}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0885}}@{}}
 
 \caption{\label{tbl-data-summary}Summary of data sets used for analysis}
 
@@ -641,9 +682,11 @@ responses using a visual analog scale (Peirce, 2008).
 
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-Study ID
+ID
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Scale
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Designs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 \(N_\textrm{Design}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -654,43 +697,31 @@ Scale
 \(N_\textrm{Obs}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Reference
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Designs
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-SP & Attractiveness & 66 & 6 & 40 & 1440 &
-Polst \& Schmettow (2014)
-& Homepages \\
-DN & Beauty & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014)
-& Homepages \\
-JK & Credib & 76 & 5 & 25 & 500 &
-Kuurstra \& Schmettow (2013)
-& Homepages \\
-QB & HQI & 76 & 7 & 25 & 700 &
-Boom \& Schmettow (2013)
-& Homepages \\
-QB & HQS & 76 & 7 & 25 & 700 &
-Boom \& Schmettow (2013)
-& Homepages \\
-DN & Hedonism & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014)
-& Homepages \\
-DN & Usability & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014)
-& Homepages \\
-AH & nEeriness & 20 & 8 & 45 & 10800 &
-Haeske \& Schmettow (2016)
-& Robot faces \\
-DK & nEeriness & 80 & 8 & 35 & 2800 &
-Keeris \& Schmettow (2016)
-& Robot faces \\
-PS & nEeriness & 87 & 8 & 39 & 2808 &
-Slijkhuis \& Schmettow (2017)
-& Robot faces \\
+SP & Attractiveness & Homepages & 66 & 6 & 40 & 1440 &
+Polst \& Schmettow (2014) \\
+DN & Beauty & Homepages & 48 & 4 & 42 & 2688 &
+Nazareth \& Schmettow (2014) \\
+JK & Credib & Homepages & 76 & 5 & 25 & 500 &
+Kuurstra \& Schmettow (2013) \\
+QB & HQI & Homepages & 76 & 7 & 25 & 700 &
+Boom \& Schmettow (2013) \\
+QB & HQS & Homepages & 76 & 7 & 25 & 700 &
+Boom \& Schmettow (2013) \\
+DN & Hedonism & Homepages & 48 & 4 & 42 & 2688 &
+Nazareth \& Schmettow (2014) \\
+DN & Usability & Homepages & 48 & 4 & 42 & 2688 &
+Nazareth \& Schmettow (2014) \\
+AH & nEeriness & Robot faces & 20 & 8 & 45 & 10800 &
+Haeske \& Schmettow (2016) \\
+DK & nEeriness & Robot faces & 80 & 8 & 35 & 2800 &
+Keeris \& Schmettow (2016) \\
+PS & nEeriness & Robot faces & 87 & 8 & 39 & 2808 &
+Slijkhuis \& Schmettow (2017) \\
 
 \end{longtable}
 
@@ -752,15 +783,15 @@ eigenvalues obtained from simulated data obtained from randomized data.
 The number of factors is determined as the point before the the real
 eigenvalue drops below the simulated level.
 
-\section{Results}\label{results}
+\subsection{Results}\label{results}
 
-\subsection{Scale reliability}\label{scale-reliability}
+\subsubsection{Scale reliability}\label{scale-reliability}
 
 \begin{figure}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-latex/fig-scale-reliability-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-scale-reliability-1.pdf}}
 
 }
 
@@ -777,7 +808,7 @@ and Attractiveness). The most dramatic difference can be seen in
 Hedonism and Beauty, which both have excellent designometric
 reliability, but poor reliability from a psycvhometric perspective.
 
-\subsection{Item consistency}\label{item-consistency}
+\subsubsection{Item consistency}\label{item-consistency}
 
 Figure~\ref{fig-item-reliability} shows corrected item-total
 correlations reflecting item consistency. Beauty and Hedonism stand out,
@@ -795,7 +826,7 @@ items.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-latex/fig-item-reliability-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-item-reliability-1.pdf}}
 
 }
 
@@ -804,7 +835,7 @@ reliability estimates compared by perspective and scale}
 
 \end{figure}%
 
-\subsection{Number of factors}\label{number-of-factors}
+\subsubsection{Number of factors}\label{number-of-factors}
 
 Given a response matrix, the number of factors were estimated using
 parallel analysis. Ideally, this procedure returns exactly as many
@@ -826,7 +857,7 @@ both perspectives.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-latex/fig-nfactors-eeriness-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-eeriness-1.pdf}}
 
 }
 
@@ -849,7 +880,7 @@ line with five factors.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-latex/fig-nfactors-att-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-att-1.pdf}}
 
 }
 
@@ -869,7 +900,7 @@ under both perspectives (Figure~\ref{fig-nfactors-hub}).
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-latex/fig-nfactors-hub-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-hub-1.pdf}}
 
 }
 

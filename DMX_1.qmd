@@ -1,17 +1,49 @@
 ---
-title: "The designometric perspective and the psychometric fallacies"
-author: "Martin Schmettow, Simone Borsci, Stéphanie M. van den Berg"
+title: "The Designometric Perspective and the Psychometric Fallacy in Developing User Experience Rating Scales"
+author:
+  - name: Martin Schmettow
+    id: ms
+    orcid: 0000-0003-0240-4087
+    email: m.schmettow@utwente.nl
+    affiliation: 
+      - name: University of Twente
+        city: Enschede, NL
+        url: www.utwente.nl
+  - name: Simone Borsci
+    id: sb
+    orcid: 0000-0002-3591-3577
+    email: s.borsci@utwente.nl
+    affiliation: 
+      - name: University of Twente
+        city: Enschede, NL
+        url: www.utwente.nl
+  - name: Stéphanie M. van den Berg
+    id: smb
+    orcid: 0000-0001-8154-1068
+    email: stephanie.vandenberg@utwente.nl
+    affiliation: 
+      - name: University of Twente
+        city: Enschede, NL
+        url: www.utwente.nl
+keywords:
+  - Psychometrics
+  - User Experience
+  - Human Factors
 #format:
 #  latex:
 #    documentclass: scrarticle
 #    classoption: [twocolumn, portrait]
 #    lof: false
 #    lot: false
-#format:
-#  pdf:
-#    documentclass: article
-#    keep-tex: true
-format: docx
+format:
+  pdf:
+    documentclass: scrarticle
+    classoption: [portrait]
+    lof: false
+    lot: false
+    keep-tex: true
+# format: html
+# format: docx
 editor: visual
 bibliography: dmx.bib
 csl: apa.csl
@@ -20,6 +52,10 @@ execute:
   warning: false
   message: false
   cache: true
+
+abstract: |
+    Rating scales are widely used in user experience (UX) research to compare and rank design alternatives, yet their development typically relies on psychometric procedures originally created for assessing stable individual traits. We argue that this practice commits the psychometric fallacy: evaluating designometric instruments—tools intended to discriminate between designs—using person × item response matrices that exclude the essential third dimension of design. Because design evaluation inherently forms a design × person × item data structure, valid scale development requires samples of designs large enough to assess how well items rank design alternatives. We show that collapsing the data cube along persons yields a design × item matrix that allows psychometric tools to be applied meaningfully, whereas collapsing along designs yields misleading psychometric results about person sensitivity rather than design discriminability. A simulation study demonstrates that scales can appear highly reliable psychometrically while being effectively unusable for ranking designs. Secondary analyses of eight commonly used UX scales across large design samples reveal systematic distortions in reliability estimates, item performance, and dimensionality when instruments are evaluated under the psychometric fallacy. We establish the designometric measurement perspective, provide principles for proper designometric scale development, and illustrate how misuse of psychometric validation leads to faulty instruments and incorrect inferences in UX research.  
+      
 ---
 
 # Introduction
@@ -301,6 +337,8 @@ D_1 <- D_1 |>
 #| paged-print: true
 #| tbl-cap: "Summary of data sets used for analysis"
 
+library(kableExtra)
+
 D_1 |> 
   group_by(Study, Scale) |> 
   summarize(n_Design = n_distinct(Design),
@@ -312,12 +350,18 @@ D_1 |>
   arrange(Scale) |> 
   mutate(Designs = if_else(Scale == "nEeriness", "Robot faces", "Homepages")) |> 
   #select(-Study) |> 
-  rename(`Study ID` = Study,
+  rename(`ID` = Study,
          `$N_\\textrm{Design}$` = n_Design,
          `$N_\\textrm{Part}$` = n_Part,
          `$N_\\textrm{Item}$` = n_Item,
          `$N_\\textrm{Obs}$` = n_Obs) |> 
-  knitr::kable()
+  select(ID, Scale, Designs, 3:6, Reference) # |> 
+  #knitr::kable() #|> 
+  #column_spec(column = c(1,3:6), width = "12mm") |> 
+  #column_spec(column = c(2, 8),  width = "25mm") |> 
+  #column_spec(column = c(7),     width = "30mm")
+  #flextable() |> 
+  #add_header_row(colwidths = c(1, 2, 1,1,1,1,3, 2))
 ```
 
 In total, eight rating scales were applied to four design samples. The bipolar *Eeriness* scale is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces (see @sec-dmx-scale-dev). Factor structure and reliability were originally established under psychometric perspective [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added.
@@ -394,9 +438,9 @@ Goal of the analysis was to examine how the psychometric fallacy compromises the
 The number of factors (dimensionality) was determined based on a parallel analysis based on minimized residuals, using the fa.parallel function from the  psych R package. 
 *Number of factors* was identified using parallel analysis with `psych::fa.parallel`. This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained from randomized data. The number of factors is determined as the point before the the real eigenvalue drops below the simulated level.
 
-# Results
+## Results
 
-## Scale reliability
+### Scale reliability
 
 ```{r}
 #| include: false
@@ -429,7 +473,7 @@ Scale_rel |>
 
 Overall scale reliabilities cover a broad range from excellent to unusable [@fig-scale-reliability]. All scales look better under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent designometric reliability, but poor reliability from a psycvhometric perspective.
 
-## Item consistency
+### Item consistency
 
 @fig-item-reliability shows corrected item-total correlations reflecting item consistency. Beauty and Hedonism stand out, because all items show higher designometric item reliabilities. To some extent this also seems to hold for Usability and Eeriness. 
 For Credibility, HQ-I, HQ-S and Attractiveness some items perform poorer under the psychometric perspective, whereas others improve, with one extreme cases: Item Att6 is already on a very low level on designometric performance, showing even a negatively correlation under the psychometric perspective. Items HQI5 and HQI6 show poor designometric performance, but are among the overall best performing psychometric items.
@@ -470,7 +514,7 @@ Item_rel |>
 
 ```
 
-## Number of factors
+### Number of factors
 
 Given a response matrix, the number of factors were estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales in every data set.
 
