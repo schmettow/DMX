@@ -1,0 +1,1631 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Designometricon},
+  pdfauthor={Schmettow},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{The Designometricon}
+\author{Schmettow}
+\date{2026-07-02}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Preface}\label{preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\markboth{Preface}{Preface}
+
+This book is (becoming) a collection of articles about designometric
+construction of research instruments.
+
+To start with a hard-to-deny statement:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+The discovery of designometrics started with the review of a paper,
+which constructed a set of rating scales for comparing school chairs by
+ergonomics criteria. The authors followed the psychometric workflow
+neatly and collected data from a substantial sample of participants.
+There was only one catch: They all sat on one and same chair! When the
+purpose of the instrument is to rank a set of chairs, there is no way
+this capacity can be evaluated using only one chair.
+
+\bookmarksetup{startatroot}
+
+\chapter{Introduction}\label{introduction}
+
+It's the cube, stupid!
+
+\bookmarksetup{startatroot}
+
+\chapter{model \textless- M\_1\_design}\label{model---m_1_design}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(psych)}
+\FunctionTok{library}\NormalTok{(mascutils)}
+\FunctionTok{library}\NormalTok{(printr)}
+\CommentTok{\#library(lavaan)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{mc.cores =} \DecValTok{8}\NormalTok{)}
+
+\NormalTok{purp.analysis }\OtherTok{\textless{}{-}}\NormalTok{ T}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\textquotesingle{} Psychometric/designometric response matrix from long designometric data}
+\CommentTok{\#\textquotesingle{} }
+\CommentTok{\#\textquotesingle{} @param x long designometric data}
+\CommentTok{\#\textquotesingle{} @returns psychometric response matrix.}
+\CommentTok{\#\textquotesingle{} @examples}
+\CommentTok{\#\textquotesingle{} ldmx \textless{}{-} expand.grid(Design = 1:7, Part = 1:5, Item = 1:3)}
+\CommentTok{\#\textquotesingle{} ldmx$response \textless{}{-} rbeta(105, 2, 2)}
+\CommentTok{\#\textquotesingle{} rm\_pmx(ldmx)}
+\CommentTok{\#\textquotesingle{} rm\_dmx(ldmx)}
+
+\NormalTok{rm\_pmx }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{  x }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Part, Item) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_resp =} \FunctionTok{mean}\NormalTok{(response)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(Item) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{spread}\NormalTok{(Item, }\AttributeTok{value =}\NormalTok{ mean\_resp) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Part)}
+
+\CommentTok{\#\textquotesingle{} @rdname rm\_pmx}
+\NormalTok{rm\_dmx }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }
+\NormalTok{  x }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Design, Item) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_resp =} \FunctionTok{mean}\NormalTok{(response)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{spread}\NormalTok{(Item, }\AttributeTok{value =}\NormalTok{ mean\_resp) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Design)}
+
+
+\CommentTok{\#\textquotesingle{} Psychometric function wrappers}
+\CommentTok{\#\textquotesingle{} }
+\CommentTok{\#\textquotesingle{} @param Data long designometric data}
+\CommentTok{\#\textquotesingle{} @returns Results per Perspective and Scale}
+
+\NormalTok{alpha\_ci }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(Data)\{}
+\NormalTok{  Scale }\OtherTok{\textless{}{-}} \FunctionTok{str\_c}\NormalTok{(}\FunctionTok{distinct}\NormalTok{(Data, Scale)}\SpecialCharTok{$}\NormalTok{Scale) }
+\NormalTok{  model\_psych }\OtherTok{\textless{}{-}} 
+\NormalTok{    psych}\SpecialCharTok{::}\FunctionTok{alpha}\NormalTok{(}\FunctionTok{rm\_pmx}\NormalTok{(Data), }\AttributeTok{check.keys =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{n.iter =} \DecValTok{100}\NormalTok{)}\SpecialCharTok{$}\NormalTok{boot }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Perspective =} \StringTok{"psychometric"}\NormalTok{)}
+\NormalTok{  model\_design }\OtherTok{\textless{}{-}} 
+\NormalTok{    psych}\SpecialCharTok{::}\FunctionTok{alpha}\NormalTok{(}\FunctionTok{rm\_dmx}\NormalTok{(Data), }\AttributeTok{check.keys =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{n.iter =} \DecValTok{100}\NormalTok{)}\SpecialCharTok{$}\NormalTok{boot }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Perspective =} \StringTok{"designometric"}\NormalTok{)}
+\NormalTok{  out }\OtherTok{\textless{}{-}} 
+    \FunctionTok{bind\_rows}\NormalTok{(model\_psych,}
+\NormalTok{              model\_design) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{select}\NormalTok{(Perspective, std.alpha) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{group\_by}\NormalTok{(Perspective) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{center =} \FunctionTok{mean}\NormalTok{(std.alpha),}
+              \AttributeTok{lower =} \FunctionTok{quantile}\NormalTok{(std.alpha, .}\DecValTok{025}\NormalTok{),}
+              \AttributeTok{upper =} \FunctionTok{quantile}\NormalTok{(std.alpha, .}\DecValTok{975}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Scale =}\NormalTok{ Scale) }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{    mascutils}\SpecialCharTok{::}\FunctionTok{go\_first}\NormalTok{(Scale, Perspective)}
+\NormalTok{  out}
+\NormalTok{\}}
+
+\NormalTok{item\_rel }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(Data)\{}
+  \CommentTok{\#Data \textless{}{-} D\_1 |\textgreater{} filter(Scale == "HQI")}
+\NormalTok{  Scale }\OtherTok{\textless{}{-}} \FunctionTok{str\_c}\NormalTok{(}\FunctionTok{distinct}\NormalTok{(Data, Scale)}\SpecialCharTok{$}\NormalTok{Scale)}
+\NormalTok{  model\_psych }\OtherTok{\textless{}{-}} 
+\NormalTok{    psych}\SpecialCharTok{::}\FunctionTok{alpha}\NormalTok{(}\FunctionTok{rm\_pmx}\NormalTok{(Data), }\AttributeTok{check.keys =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{item.stats }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{as\_tibble}\NormalTok{(}\AttributeTok{rownames =} \StringTok{"Item"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Perspective =} \StringTok{"psychometric"}\NormalTok{)}
+\NormalTok{  model\_design }\OtherTok{\textless{}{-}} 
+\NormalTok{    psych}\SpecialCharTok{::}\FunctionTok{alpha}\NormalTok{(}\FunctionTok{rm\_dmx}\NormalTok{(Data), }\AttributeTok{check.keys =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{item.stats }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{as\_tibble}\NormalTok{(}\AttributeTok{rownames =} \StringTok{"Item"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Perspective =} \StringTok{"designometric"}\NormalTok{)}
+  
+\NormalTok{  out }\OtherTok{\textless{}{-}} 
+    \FunctionTok{bind\_rows}\NormalTok{(model\_psych,}
+\NormalTok{              model\_design) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Scale =}\NormalTok{ Scale) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{go\_first}\NormalTok{(Scale, Item, Perspective) }\SpecialCharTok{|\textgreater{}} 
+    \FunctionTok{arrange}\NormalTok{(Scale, Item, Perspective)}
+\NormalTok{  out}
+\NormalTok{\}}
+
+\NormalTok{parallel\_analysis }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(Data, n, persp, scales)\{}
+  \ControlFlowTok{if}\NormalTok{ (persp }\SpecialCharTok{==} \StringTok{"D"}\NormalTok{) \{}
+\NormalTok{    data }\OtherTok{\textless{}{-}} \FunctionTok{rm\_dmx}\NormalTok{(Data)}
+\NormalTok{    main }\OtherTok{\textless{}{-}} \FunctionTok{str\_c}\NormalTok{(}\StringTok{"Designometric Parallel Analysis of "}\NormalTok{, scales)}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{ (persp }\SpecialCharTok{==} \StringTok{"P"}\NormalTok{) \{}
+\NormalTok{    data }\OtherTok{\textless{}{-}} \FunctionTok{rm\_pmx}\NormalTok{(Data)}
+\NormalTok{    main }\OtherTok{\textless{}{-}} \FunctionTok{str\_c}\NormalTok{(}\StringTok{"Psychometric Parallel Analysis of "}\NormalTok{, scales)}
+\NormalTok{  \}}
+\NormalTok{  psych}\SpecialCharTok{::}\FunctionTok{fa.parallel}\NormalTok{(data,}
+                   \AttributeTok{fa =} \StringTok{"fa"}\NormalTok{,}
+                   \AttributeTok{fm =} \StringTok{"minres"}\NormalTok{,}
+                   \AttributeTok{nfactors=}\NormalTok{n,}
+                   \AttributeTok{main=}\NormalTok{main)}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\bookmarksetup{startatroot}
+
+\chapter{The designometric perspective and the psychometric
+fallacy}\label{the-designometric-perspective-and-the-psychometric-fallacy}
+
+\section{Introduction}\label{introduction-1}
+
+In modern industrial practice, rating scales have their place as an
+always available and cheap method for comparing or benchmarking designs.
+In the decision process, the everyday value of a rating scales stands
+and falls with two properties: validity and reliability.
+
+\emph{Developing} a valid and reliable rating scale is quite an
+undertaking. \emph{Psychometrics} is the science of assigning numbers to
+persons so that they can be compared by psychological functioning.
+Traditionally, this served to measure skills, such as mathematical
+intelligence or comprehension of language. With the time, researchers
+also became more interested in elusive properties of persons, such as
+psycho-social tendencies (known as the Big Five).
+
+After the landrush phase of the UX revolution, Bargas-Avila \& Hoernbaek
+((Old wine in new bottles)) counted hundreds of new rating scale
+instruments. Barely any of these instrument underwent the same scrutiny
+as, for example, a rating scale for psycho-pathological diagnosis would
+have to. But, frequently some psychometric tools were used at one point
+during development time, for example by reporting reliability estimates.
+Also for users of such instruments, it is common to perform basic
+psychometric sanity checks on their data. The central point of this
+paper is a certain catch that can occur when translating between
+psychological research and design research, which we call the
+\emph{psychometric fallacy}.
+
+In psychometric situations, the atomic observation is an encounter of a
+person with a test item. This is repeated with more items to improve the
+precision of the measurement. If many persons are assessed this way, the
+result is a Person X Item \emph{response matrix}, from which
+\emph{person scores} can be extracted for ranking. \emph{Item scores},
+are mostly used during scale development.
+
+The logical argument developed in this paper is that instruments in
+design research exist to rank designs and the atomic observation is an
+encounter of a design with a person and an item. This forms a box of
+data, which can be collapsed by three perspectives. We demonstrate how
+standard psychometric tools can be used correctly using the
+designometric response matrix. We call it the psychometric fallacy, when
+a psychometric matrix is used instead.
+
+\ldots{}
+
+Aim of this study is also to seek empirical evidence that the
+psychometric fallacy is not just sophistry, but can result in real
+biases when developing or using rating scales. For this purpose, data
+from five experiments was subjected to typical rating scale validation
+techniques under both perspectives, psychometric (pretending the
+fallacy) and designometric (using the proper response matrix).
+
+\subsection{Psychometrics}\label{psychometrics}
+
+When it only takes a single probe to accurately estimate the body
+temperature of a person, why are psychological tests and math exams
+composed of several items? The primarily reason is that psychological
+instruments are highly noisy, be it self-report scales, reaction times
+or physiological measures. The idea of repeated measures goes back to
+\emph{Classic Test Theory}, which solves this problem by decomposing
+every measure into a relevant \emph{systematic component} and a nuisance
+\emph{error component}. By definition, the systematic component
+re-occurs and is strengend with every measurement, whereas the error is
+fully random, cancelling itself out in the long run. When certain
+conditions are met, it is possible to create an arbitrary precise
+estimate by adding more repetitions.
+
+The primary practical uses of psychometric instruments are either about
+making cost effective \emph{prediction} about a person. A good score in
+a written drivers test predicts that a person will make fewer errors on
+the road which decreases the chance of collisions. Psycho-diagnostic
+rating scales are often used in screening tests, e.g.~for depression,
+whereas performance tests are used in competitive situations, such as
+personnel selection or education.
+
+\subsubsection{Item selection}\label{item-selection}
+
+The first challenge when designing a psychometric inventory is to
+understand the domain, ideally in terms of involved areas of
+psychological functioning. Based on the domain analysis, the researcher
+creates a candidate \emph{item pool}, which is usually much larger than
+the targeted set of items. Up to this point, the process is mostly
+qualitative, divergent and creative.
+
+Several psychometric methods can be used to successively reduce the
+initial set of items to reliable scales and to find effective
+multi-scale strucures.
+
+According to CTT, the errors of multiple items cancel each other out,
+\emph{if they fully agree} on the systematic component. This can be the
+case with extremely repetitive items, such as trials in the Stroop task.
+But in practice, item scores only agree to some degree on what they
+measure. Scale reliability by Cronbach \(\alpha\) is a statistic to
+measure the overall level of agreement. From this derives a basic
+procedure for item selection, where reliability of the full item set is
+compared to the data set \emph{excluding} item \(i\). If scale
+reliability improves by removing the item, the item is marked for
+removal.
+
+The procedure of step-wise removal is sometimes adequate, but can also
+fail, when the alleged property truly has more than one component. In
+this case, \emph{factor-analytic} methods can be used to separate
+components into multiple sub scales with good consistency.
+
+\subsubsection{Factor Structures}\label{factor-structures}
+
+In modern psychometrics, the relation between a properties of persons
+and multiple measure is known as the distinction between \emph{latent
+variables} (not observable, but true) and \emph{indicator variables}
+(observable, but imperfect).
+
+Modern instruments often carry a complex domain structure, where
+multiple latent variables are put in relation to each other. A prominent
+example is the Big 5 inventory, which claims that social behaviour can
+be predicted by five psycho-social traits, each of which is assessed by
+a main scale divided into multi-item subscales. For the five main traits
+a high level of independence can be expected by the way the Big5 was
+constructed, but the subscales should correlate more strongly.
+
+While the primary aim of domain analysis is to gain sufficient coverage
+of the domain, it often at least indicates a possible structure for a
+multi-item instrument. In some cases, a domain analysis is driven by a
+theoretical structure in the first place. For example, a rating scale
+for mental workload could very well be based on the multiple-resource
+theory, which predicts that different sensory modes are processed
+independently, translating into one scale per sensory mode.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Auditory load: \emph{It is difficult to understand the signal tones.}
+\item
+  Visual load: \emph{The amount of visual information can be
+  overwhelming}.
+\end{enumerate}
+
+Prior structures often also emerge from qualitative results in
+mixed-method psychometric processes. \ldots{}
+
+When prior structures exist, Confirmatory Factor Analysis (CFA) is the
+most recommended technique to critically assess prior assumptions about
+the latent variable structure. In the above example of the Big5
+inventory, a hierarchical CFA model can be used to verify that main
+scales correlate weakly and subscales correlate moderately. Once a good
+model is established, CFA also supercedes Cronbach \(\alpha\), as
+parameter loadings can be used to diagnose items.
+
+When a robust prior structure is not available, a common technique for
+finding new structures is Exploratory Factor Analysis, which requires
+the researcher to name the number of factors and how these factors are
+correlated. Several methods have been proposed to identify the
+\emph{optimal number of factors} before-hand. Early tools used the
+decline in Kaiser eigenvalues and the visual \emph{elbow} criterion,
+whereas modern tools use resampling techniques to determinje the optimal
+number of factors. The second choice to make is \emph{scale rotation.}
+Orthogonal rotation applies, when the components are largely
+independent, such as arithmetic skills and text comprehension. For true
+sub scales a significant correlations between underlying factors is very
+likely, and oblique rotation should be used, instead.
+
+\subsubsection{The Response Matrix}\label{the-response-matrix}
+
+All psychometric methods mentioned so far have in common that measures
+are provided in form of response matrices, where rows identify with
+participants and columns with items. A common operation during item
+selection is to estimate consistency on the full response matrix, remove
+a dubious item from the matrix to see if this improves consistency. EFA
+takes a response matrix as input and produces item loadings for it. For
+multi-scale data CFA tools take response matrix with named columns as
+input, together with a formula to group items to factors. \ldots{}
+
+The idea of response matrices is most pronounced in item response theory
+(IRT), a psychometric approach rivaling classic test theory and factors
+analysis. In IRT, each cell in the response matrix is seen as an
+encounter between an item and a participant, from which a measure
+arises. Items, like participants, are seen as individuals, with
+different response characteristics during the encounter. In the most
+basic Rasch model, the probability of success in a person-task encounter
+depends only on the difference between task difficulty and the person
+ability. More complex IRT models allow more subtle item characteristics,
+and sophisticated tools have been developed to detect and prevent
+\emph{differential item functioning}
+
+in world-spanning studies like TIMMS and PISA. IRT models take the
+person x item matrix as input and produce estimates on both margins,
+item parameters and person parameters. During the development of an IRT
+model, sophisticated tools are used to select only those items that
+strictly behave as the model states.
+
+For all levels of sophistication or schools of thought, what counts
+during scale development is that item of a test are well-behaved. In the
+same way teachers use multiple tests to estimate a student's skill with
+adequate accuracy, many responses are needed to precisely assess the
+characteristics of an item during development time. This is what creates
+the demand for the enormous sample sizes, for which psychometric
+development is most feared for.
+
+\subsubsection{Sample sizes}\label{sample-sizes}
+
+The enormous sample sizes consumed during psychometric scale validation
+have several causes:
+
+\begin{itemize}
+\tightlist
+\item
+  Psychometric techniques tend to have many parameters and by the rule
+  that the number of independent observations must at least match the
+  number of parameters, a lower boundary can be established. A 24 item
+  three-way EFA already produces 72 parameters. But, during scale
+  validation, the number of items is often three times larger, which
+  adds up.
+\item
+  With noisy data certain estimation procedures need a lot of data to
+  converge properly, for example in conditional maximum likelihood
+  estimation.
+\item
+  When a structure is desired, but no prior structure exists, EFA can be
+  used to find factors. But the consequence is that the data set is
+  consumed. To confirm the found structure by CFA, a new sample is
+  required.
+\item
+  The main areas of psychometric research are education and clinical
+  diagnosis, where a rating scale or test can have a significant impact
+  on a person's life. These instruments ought to be extra-hardened
+  against biases and require the greatest scrunity. For item in a PISA
+  test, proof is required that it has the same characteristics all
+  around the globe.
+\end{itemize}
+
+\subsection{Designometrics}\label{designometrics}
+
+Everything said above is essentially rooted in mathematical theory, and
+therefore independent of semantics. Formally, constructing rating scales
+to rank humans should be not much different to constructing a usability
+metric for websites. When a UX scale is used to decide between designs A
+and B in industrial practice, it is legit to ask how precise the
+measurements are. Indeed, designometric scales can efficiently be
+constructed and evaluated using existing psychometric tools, such as
+Cronbach \(\alpha\), factor analysis techniques ans IRT models for
+maximum rigor.
+
+There are just two differences: First, in psychometrics the entity to be
+ranked is persons, whereas designometric applications one or more
+designs get numbers attached. Second, a psychometric measure is an
+encounter of a person with an item, whereas a designometric measure is
+an encounter of a design with a person and an item. The three-way
+encounter and designs being subject to measurement is what defines
+\emph{designometric situations}.
+
+\subsubsection{The designometric
+perspective}\label{the-designometric-perspective}
+
+A complete designometric data set is a cross-product of three samples,
+designs, users and items. It forms a ``response box'', rather than a
+matrix, and can not directly be processed with psychometric tools.
+
+A practical solution is to average across one factor, which produces a
+flat response matrix to fit into psychometric tools. For designometric
+instrument validation, averaging across Person creates a design-by-item
+\emph{designometric response matrix}. This matrix takes the place of the
+psychometric response matrix and researchers can use it with standard
+psychometric tools to select proper items and find good structures.
+
+\subsubsection{Designometric sampling}\label{designometric-sampling}
+
+During psychometric scale development, This also implies that for a
+proper item selection and factorizing process a substantial sample of
+designs is required. This can be a huge problem, depending on the class
+of designs. For e-government websites a large design sample will be
+easier to come by than a sample of human-like robots or self-driving
+cars.
+
+When Design takes the place of Person, it is implied that items must now
+be well-behaved in ranking designs, and substantial samples of designs
+are now required to prove that. This can be a minor or huge problem,
+depending on the class of designs. For e-government websites a large
+design sample will be easier to come by than a sample of human-like
+robots or self-driving cars.
+
+A connected problem is that the designometric perspective
+participant-level information is reduced, but they are still involved in
+the designometric encounter. In the special case that scales are used
+for first impression ratings, it is possible to rund cross-product
+complete designometric encounters. For example, when we used the
+Eeriness scale on artificial faces, a single observation only took
+around 4 seconds, making it relatively easy to fill the designometric
+box with data, even repeatedly ((BT Robbin Koopmans)).
+
+When a real interactive experience is subject of the measure, a
+measurent can take from several minutes to hours and a complete
+designometric encounter becomes impractical. A way to mitigate this
+problem is to use an experimental design that is \emph{planned
+incomplete}. Essentially, a planned incomplete validation study has all
+participants encounter only a partition of the design sample. For
+example a study consisting of a sample of 100 designs let every
+participant encounter a different set of ten designs. As long as all
+designs are covered by at least one participant, this will result in a
+complete design-by-item matrix after collapsing along participants.
+
+A variation of planned incomplete studies is to \emph{successively}
+build the sample of designs. This is especially useful, when dealing
+with emerging classes of designs. This happened in the BUS-11 studies,
+where initially it was difficult to build a substantial sample, before
+it became more common.
+
+\subsubsection{The psychometric fallacy}\label{the-psychometric-fallacy}
+
+Designometric scales can be developed and validated with established
+psychometric tools, when using proper design x item response matrices
+and a sufficiently large sample of designs to prove that items are well
+behaved. In contrast, many designometric instruments have not been
+validated using a large sample of designs, but rather on a psychometric
+matrix. This we call the \emph{psychometric fallacy}.
+
+Formally, a designometric box can produce a psychometric response matrix
+by averaging over Design. When a scale validation study in design
+research is under the psychometric fallacy, validation metrics such as
+item reliability may be meaningless for the purpose of ranking designs.
+Rather, the metric will refer to the capability of the item to
+discriminate persons by their sensitivity to the design feature in
+question. For example, a scale for comparing designs by beauty would
+become a scale to rank persons by how critical they are with respect to
+interface beauty. This is not the same and in the next section we show
+by simulation that the differences between designometric and
+psychometric perspectives can be dramatic.
+
+During the scale development process, the psychometric fallacy appears
+in two forms, one is repairable, whereas the other is fatal. We speak of
+a repairable psychometric fallacy, when the validation study properly
+collected designometric data, but used psychometric response matrices
+for validation. This can be repaired by redoing the analysis now using a
+designometric matrix.
+
+A study that did not collect a sample of designs, but used only a single
+or very few designs fell for the \emph{fatal psychometric fallacy}. In
+these cases, researchers have failed to recognize a simple truth: The
+capacity to discriminate between designs can impossibly be validated on
+a single design. Every alleged designometric instrument, where this has
+happened during the validation phase, cannot be trusted.
+
+Recall that psychometric validations require large samples of
+participants! Similar sample sizes will be required for designs when
+validating designometric instruments. So, even validation studies that
+included multiple designs, may in practice not be repairable, because
+the sample of designs is too small for that type of analysis
+(e.g.~factor analysis). To give an example MacDorman (XY) validated the
+Godspeed Index, a common inventory to evaluate robotic designs. While
+scale reliability was assessed under a psychometric perspective,
+validity was correctly assessed using a sample of four designs. This
+allowed the authors to do a rough test on the ranking capabilities of
+their scales, but would not be suitable assess more detailed metric
+properties of the scale.
+
+As a milder form \emph{run-time psychometric fallacy} appears when an
+instrument is used in practice to take measures on a single design. The
+result will inevitable look like a psychometric response matrix and,
+given that publication rules (e.g.~APA guidelines) often require to
+report some psychometric properties, it may be tempting for the
+researcher to run a psychometric test on reliability. While the run-time
+fallacy does not have the same impact as development-time fallacies, it
+may have cause some head aches when a validated instrument seems to have
+poor reliability.
+
+In the following section, we construct a case by simulation, showing
+that psychometric and designometric perspectives can result in
+dramatically different results. In the remainder of the study, we will
+use data from past experiments to evaluate how strong the deviations are
+with several existing and commonly used rating scales.
+
+The formal argumeńt for the psychometric fallacy is that using
+psychometric response matrices would allow to construct an instrument
+for ranking designs using a single design.
+
+The aim of the present study is to assess the possible risks and
+consequences of falsely using the psychometric perspective. In the
+following section, we construct a case by data simulation, where
+psychometric and designometric perspectives result are dramatically
+different. In the remainder of the study, we will use data from past
+experiments to compare psychometric versus designometric perspective on
+several widely used UX rating scales.
+
+\section{Simulation study}\label{simulation-study}
+
+The following example demonstrates the difference by simulating an
+extreme situation, where a fictional three-item scale for Coolness is
+highly reliable for persons, but has no reliability at all for
+discerning the tested designs. Such a pattern can occur for the trivial
+reason that the sample have little or no variance with respect to
+Coolness. In the following simulation, we assume that the Coolness scale
+be tested on a sample of 50 designs and 50 participants. The key here is
+that participants vary strongly in their appreciation of Coolness
+(\(\sigma_\textrm{Part} = .2\)), whereas the sample of designs varies
+little in Coolness (\(\sigma_\textrm{Design} = .02\)), perhaps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+
+\NormalTok{n\_Design }\OtherTok{=} \DecValTok{20}
+\NormalTok{n\_Part   }\OtherTok{=} \DecValTok{20}
+\NormalTok{n\_Item  }\OtherTok{=}  \DecValTok{4}
+\NormalTok{n\_Obs }\OtherTok{=}\NormalTok{ n\_Design }\SpecialCharTok{*}\NormalTok{ n\_Part }\SpecialCharTok{*}\NormalTok{ n\_Item}
+
+\NormalTok{Designs }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Design      =} \FunctionTok{as.factor}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_Design),}
+                  \AttributeTok{cool\_Design =} \FunctionTok{rnorm}\NormalTok{(n\_Design, }\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, .}\DecValTok{02}\NormalTok{)) }\DocumentationTok{\#\# low level, little variation}
+
+\NormalTok{Parts   }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Part        =} \FunctionTok{as.factor}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_Part),}
+                  \AttributeTok{cool\_Part   =} \FunctionTok{rnorm}\NormalTok{(n\_Part, }\DecValTok{0}\NormalTok{, .}\DecValTok{2}\NormalTok{)) }\DocumentationTok{\#\# strong variance in tendency to judge sth. cool}
+
+\NormalTok{Items   }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Scale       =} \StringTok{"Coolness"}\NormalTok{,}
+                  \AttributeTok{Item        =} \FunctionTok{as.factor}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+                  \AttributeTok{cool\_Item   =} \FunctionTok{rnorm}\NormalTok{(n\_Item,  }\DecValTok{0}\NormalTok{, .}\DecValTok{2}\NormalTok{)) }\DocumentationTok{\#\# item strength: understating items get lower values}
+
+\NormalTok{Coolness     }\OtherTok{\textless{}{-}} \FunctionTok{expand\_grid}\NormalTok{(}\AttributeTok{Design =}\NormalTok{ Designs}\SpecialCharTok{$}\NormalTok{Design,}
+                       \AttributeTok{Part   =}\NormalTok{ Parts}\SpecialCharTok{$}\NormalTok{Part,}
+                       \AttributeTok{Item   =}\NormalTok{ Items}\SpecialCharTok{$}\NormalTok{Item) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(Designs) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(Parts) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(Items) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{response =}\NormalTok{ mascutils}\SpecialCharTok{::}\FunctionTok{rescale\_zero\_one}\NormalTok{(cool\_Design }\SpecialCharTok{+}\NormalTok{ cool\_Part }\SpecialCharTok{{-}}\NormalTok{ cool\_Item }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n\_Obs, }\DecValTok{0}\NormalTok{, .}\DecValTok{5}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Joining with `by = join_by(Design)`
+Joining with `by = join_by(Part)`
+Joining with `by = join_by(Item)`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{alpha\_ci}\NormalTok{(Coolness) }\SpecialCharTok{|\textgreater{}}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.
+Number of categories should be increased in order to count frequencies.
+`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+Number of categories should be increased in order to count frequencies.
+\end{verbatim}
+
+\begin{verbatim}
+Warning in psych::alpha(rm_dmx(Data), check.keys = FALSE, n.iter = 100): Some items were negatively correlated with the first principal component and probably 
+should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option
+\end{verbatim}
+
+\begin{verbatim}
+Some items ( 1 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option
+\end{verbatim}
+
+\begin{longtable}[]{@{}llrrr@{}}
+\toprule\noalign{}
+Scale & Perspective & center & lower & upper \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Coolness & designometric & 0.0745499 & -0.5345157 & 0.4836190 \\
+Coolness & psychometric & 0.9284720 & 0.8743449 & 0.9586799 \\
+\end{longtable}
+
+This simple example demonstrate that a scale can produce excellent
+reliability when measuring person sensitivity, but poor and uncertain
+reliability on designs. Under the psychometric fallacy it can happen
+that excellent reliability is reported, while it is actually unknown, or
+very poor.
+
+In the following study we use data from several previous experiments
+that had produced designometric data sets.
+
+\section{Methods}\label{methods}
+
+From a theoretical perspective the psychometric fallacy is obvious and
+we have demonstrated by simulation that the worst case is possible.
+Here, we explore the biases that can occur when a psychometric response
+matrix is used, in place of a designometric. Designometric data was
+collected from several experiments to compare three commonly used
+psychometric statistics under the correct designometric perspective and
+under the psychometric fallacy.
+
+\subsection{Data sets}\label{data-sets}
+
+The data used for analysis originates from five experiments (DK, PS, AH,
+QB, DN). While these experiments were carried out to test their own
+hypotheses, they have in common that participants saw pictures of many
+designs and were asked to respond to items taken from one or more
+scales. In QB and DN participants saw pictures of home pages and
+responded to several user experience scales, whereas in AH, DK and PS
+the stimuli were robot faces. Some of the original experiments used
+manipualtion of presentation time to collect data on subconscious
+cognitive processing. For the analysis here, only responses at
+presentation times of 500ms and 2000m were used.
+
+Per trial participants saw a single design followed by a random single
+item, resulting in a sparse designometric box. However, when collapsing
+the box to either psychometric RM or designometric RM, the result is
+completely filled response matrices.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{load}\NormalTok{(}\StringTok{"DMX\_data.Rda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ response)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Scale, }\AttributeTok{scale =} \StringTok{"free\_y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/unnamed-chunk-6-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{(Study, Design) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Study) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Design =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(D\_1 }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{distinct}\NormalTok{(Study, Part) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{group\_by}\NormalTok{(Study) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Part =} \FunctionTok{n}\NormalTok{())}\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{ungroup}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(D\_1 }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{group\_by}\NormalTok{(Study) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Obs =} \FunctionTok{n}\NormalTok{())}\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{ungroup}\NormalTok{()}
+\NormalTok{  )  }\SpecialCharTok{|\textgreater{}}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Joining with `by = join_by(Study)`
+Joining with `by = join_by(Study)`
+\end{verbatim}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\toprule\noalign{}
+Study & n\_Design & n\_Part & n\_Obs \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+AH & 20 & 45 & 10800 \\
+DK & 80 & 35 & 2800 \\
+DN & 48 & 42 & 8064 \\
+PS & 87 & 39 & 2808 \\
+QB & 76 & 25 & 1900 \\
+SP & 66 & 40 & 1440 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{(Scale, Design) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Design =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(D\_1 }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{distinct}\NormalTok{(Scale, Part) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{group\_by}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Part =} \FunctionTok{n}\NormalTok{())}\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{ungroup}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(D\_1 }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{group\_by}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Obs =} \FunctionTok{n}\NormalTok{())}\SpecialCharTok{|\textgreater{}} 
+              \FunctionTok{ungroup}\NormalTok{()}
+\NormalTok{  )  }\SpecialCharTok{|\textgreater{}}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Joining with `by = join_by(Scale)`
+Joining with `by = join_by(Scale)`
+\end{verbatim}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\toprule\noalign{}
+Scale & n\_Design & n\_Part & n\_Obs \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Attractiveness & 66 & 40 & 1440 \\
+Beauty & 48 & 42 & 2688 \\
+Credib & 76 & 25 & 500 \\
+HQI & 76 & 25 & 700 \\
+HQS & 76 & 25 & 700 \\
+Hedonism & 48 & 42 & 2688 \\
+Usability & 48 & 42 & 2688 \\
+nEeriness & 127 & 119 & 16408 \\
+\end{longtable}
+
+\subsection{Scales}\label{scales}
+
+For the following rating scales responses have been extracted from the
+original experimental data:
+
+The \emph{Eeriness} scale has been developed for measuring negative
+emotional responses towards robot faces and is a primary research tool
+on the Uncanny Valley phenomenon. Ho \& MacDorman(2017) present an
+advanced psychometric validation of the scale. The study made use of 12
+animated characters (Designs), avoiding the fatal fallacy to some
+degree, but the data analysis is under psychometric perspective.
+
+The \emph{Attractiveness} scale is part of the User Experience
+Questionnaire (UEQ) inventory. Is has been vaidated by ((Bettina
+Laugwitz, Theo Held, and Martin Schrepp. 2008. Construction and
+Evaluation of a User Experience Questionnaire. . 63--76.
+\url{https://doi.org/10.1007/978-3-540-89350-9_6})) The UEQ has
+undergone basic psychometric evaluation in six studies with a single
+design each.
+
+The two scales \emph{Hedonic Quality - Identity (HQI)} and \emph{Hedonic
+Quality - Stimulation (HQS)} are from the AttrakDiff2 inventory.
+AttrakDiff2 underwent basic evaluation using only three Designs under
+psychometric perspective (level 1 fallacy) ((Hassenzahl, M., Burmester,
+M., Koller, F., AttrakDiff: Ein Fragebogen zur Messung wahrgenommener
+hedonischer und pragmatischer Qualität)).
+
+The Credibility scale \ldots{} \#\#\#\# ((HERE))
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Study, Scale) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n\_Items =} \FunctionTok{n\_distinct}\NormalTok{(Item),}
+            \AttributeTok{n\_Part =} \FunctionTok{n\_distinct}\NormalTok{(Part),}
+            \AttributeTok{n\_Design =} \FunctionTok{n\_distinct}\NormalTok{(Design),}
+            \AttributeTok{n\_Obs =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{()  }\SpecialCharTok{|\textgreater{}}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Study'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{longtable}[]{@{}llrrrr@{}}
+\toprule\noalign{}
+Study & Scale & n\_Items & n\_Part & n\_Design & n\_Obs \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+AH & nEeriness & 8 & 45 & 20 & 10800 \\
+DK & nEeriness & 8 & 35 & 80 & 2800 \\
+DN & Beauty & 4 & 42 & 48 & 2688 \\
+DN & Hedonism & 4 & 42 & 48 & 2688 \\
+DN & Usability & 4 & 42 & 48 & 2688 \\
+PS & nEeriness & 8 & 39 & 87 & 2808 \\
+QB & Credib & 5 & 25 & 76 & 500 \\
+QB & HQI & 7 & 25 & 76 & 700 \\
+QB & HQS & 7 & 25 & 76 & 700 \\
+SP & Attractiveness & 6 & 40 & 66 & 1440 \\
+\end{longtable}
+
+\subsection{Statistics}\label{statistics}
+
+Goal of the analysis is to examine in how much the psychometric fallacy
+creates real biases. For this purpose, three basic psychometric
+techniques were applied to several data sets. Scale reliability was
+measured using Cronbach \(\alpha\). For item consistency, the corrected
+item-total correlation was used and for the number of factors parallel
+analysis was applied, which compares the eigenvalues to a baseline
+established by bootstrapping ((REF)). For all three statistics,
+functions from R package Psych were used ((REF)).
+
+\section{Results}\label{results}
+
+\subsection{Scale reliability}\label{scale-reliability}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Scale\_rel }\OtherTok{\textless{}{-}}
+\NormalTok{  D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_split}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{map\_df}\NormalTok{(alpha\_ci)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Some items ( Att4 Att6 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Scale\_rel }\SpecialCharTok{|\textgreater{}}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}llrrr@{}}
+\toprule\noalign{}
+Scale & Perspective & center & lower & upper \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Attractiveness & designometric & 0.6385208 & 0.4544574 & 0.7789188 \\
+Attractiveness & psychometric & 0.3585293 & -0.1422689 & 0.6209516 \\
+Beauty & designometric & 0.9680325 & 0.9554687 & 0.9777357 \\
+Beauty & psychometric & 0.5818252 & 0.3527609 & 0.7300696 \\
+Credib & designometric & 0.5542727 & 0.3416156 & 0.7216517 \\
+Credib & psychometric & 0.4242509 & -0.0860104 & 0.7023335 \\
+HQI & designometric & 0.6878708 & 0.4775373 & 0.7934202 \\
+HQI & psychometric & 0.6477610 & 0.0403564 & 0.8727338 \\
+HQS & designometric & 0.7377272 & 0.6009868 & 0.8189580 \\
+HQS & psychometric & 0.6746067 & 0.2204059 & 0.8448004 \\
+Hedonism & designometric & 0.9680615 & 0.9500491 & 0.9783806 \\
+Hedonism & psychometric & 0.6258834 & 0.4276357 & 0.7842923 \\
+Usability & designometric & 0.8720665 & 0.7908254 & 0.9183869 \\
+Usability & psychometric & 0.6466734 & 0.4343040 & 0.7931202 \\
+nEeriness & designometric & 0.8772948 & 0.8348933 & 0.9108219 \\
+nEeriness & psychometric & 0.8180231 & 0.7418724 & 0.8804442 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Scale\_rel }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ Scale,}
+             \AttributeTok{label =}\NormalTok{ Scale,}
+             \AttributeTok{x =}\NormalTok{ Perspective,}
+             \AttributeTok{y =}\NormalTok{ center,}
+             \AttributeTok{ymin =}\NormalTok{ lower,}
+             \AttributeTok{ymax =}\NormalTok{ upper)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ Scale)) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"std. Cronbach alpha"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_label}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/scale-reliability-1.pdf}}
+
+}
+
+\caption{Cronbach alpha item-level reliability estimates compared by
+perspective and scale}
+
+\end{figure}%
+
+\textbf{?@fig-scale-consistency} shows the Cronbach \(\alpha\) scale
+reliability estimates produced by designometric and psychometric
+response matrices. Overall scale reliabilities cover a broad range from
+excellent to unusable. All scale reliabilities improve under the
+designometric perspective, albeit, the difference ranges from barely
+noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and
+Attractiveness). The most dramatic difference can be seen in Hedonism
+and Beauty, which both have excellent dmx reliability, which drops to an
+almost unusable level under pmx.
+
+\subsection{Item consistency}\label{item-consistency}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Item\_rel }\OtherTok{\textless{}{-}}
+\NormalTok{  D\_1 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_split}\NormalTok{(Scale) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{map\_df}\NormalTok{(item\_rel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Some items ( Att4 Att6 ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option
+\end{verbatim}
+
+\begin{verbatim}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Item\_rel }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Perspective,}
+             \AttributeTok{y =}\NormalTok{ r.cor)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ Item)) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Item{-}total correlation"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_label}\NormalTok{(}\FunctionTok{aes}\NormalTok{( }\AttributeTok{label =}\NormalTok{ Item)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Scale, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{rename}\NormalTok{(Scale\_rel, }\AttributeTok{alpha =}\NormalTok{ center),}
+             \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Perspective, }
+                 \AttributeTok{y =}\NormalTok{ alpha,}
+                 \AttributeTok{col =} \StringTok{"Scale reliability"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =} \FunctionTok{rename}\NormalTok{(Scale\_rel, }\AttributeTok{alpha =}\NormalTok{ center),}
+             \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Perspective, }
+                 \AttributeTok{y =}\NormalTok{ alpha,}
+                 \AttributeTok{group =}\NormalTok{ Scale,}
+                 \AttributeTok{col =} \StringTok{"Scale reliability"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/item-reliability-1.pdf}}
+
+}
+
+\caption{Cronbach alpha item-level reliability estimates compared by
+perspective and scale}
+
+\end{figure}%
+
+\textbf{?@fig-item-reliability} shows the corrected item-total
+correlations as a measure for item consistency. Beauty and Hedonism
+stand out, because all items take a similar sharp drop in reliability
+under pmx. To some extent this also seems to hold for Usability and
+Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items drop
+under pmx, whereas others improve, with two extreme cases: Items Att4
+andf Att6 are already on a very low level of reliability under dmx, but
+under pmx, they even become negatively correlated. Items HQI5 and HQI6
+perform poorly under dmx, but are among the overall best performing
+items under pmx.
+
+\subsection{Number of factors}\label{number-of-factors}
+
+Often, different scales are used in combination to create a more
+complete picture. It is usually the aim that a scale measures exactly
+one construct (or latent variable) and that different scales measure
+different constructs.
+
+In contrast, the AttrakDiff2 questionnaire comprises two scales to
+capture supposedly different aspects.
+
+Given a response matrix, the number of factors can be estimated using
+parallel analysis. Ideally, this procedure returns exactly as many
+factors as there are separate scales. Here, we use parallel analysis to
+assess whether the two perspectives produce the expected number of
+factors, or at least agree on a number.
+
+((MacDorman)) found that the Eeriness scale decomposes into two slightly
+different aspects, summarized as ``eery'' and ``spine-tingling''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_Eer, }\DecValTok{2}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\StringTok{"Eeriness"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-eeriness-1.pdf}}
+
+}
+
+\caption{Suggested number of factors for the Eeriness scale compared by
+perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  1  and the number of components =  NA 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_Eer, }\DecValTok{2}\NormalTok{, }\StringTok{"P"}\NormalTok{, }\StringTok{"Eeriness"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-eeriness-2.pdf}}
+
+}
+
+\caption{Suggested number of factors for the Eeriness scale compared by
+perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  1  and the number of components =  NA 
+\end{verbatim}
+
+The results suggest that under dmx only one latent variables exists,
+whereas pmx produces two.
+
+On theoretical grounds, the AttrakDiff2 inventory splits hedonistic
+quality into two components, Identity and Stimulation, while the
+credibility scale is a completely separate construct. We would expect
+three factors to emerge.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_Att, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\StringTok{"AttrakDiff and Credibility"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+The estimated weights for the factor scores are probably incorrect.  Try a
+different factor score estimation method.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-attrakdiff-1.pdf}}
+
+}
+
+\caption{Suggested number of factors for AttrakDiff inventory plus
+Credibility compared by perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  5  and the number of components =  NA 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_Att, }\DecValTok{3}\NormalTok{, }\StringTok{"P"}\NormalTok{, }\StringTok{"AttrakDiff and Credibility"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-attrakdiff-2.pdf}}
+
+}
+
+\caption{Suggested number of factors for AttrakDiff inventory plus
+Credibility compared by perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  1  and the number of components =  NA 
+\end{verbatim}
+
+Under a desginometric perspective, the three scales have five underlying
+factors, but merging into one under pmx.
+
+Finally, in study DN three independent scales, Hedonism, Usability and
+Beauty, were used. But, parallel analysis suggests that these capture
+the same latent variable under both perspectives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_HUB, }\DecValTok{3}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\StringTok{"Hedonism, Usability and Beauty"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Design'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-HUB-1.pdf}}
+
+}
+
+\caption{Suggested number of factors for Hedonism, Usability and Beauty
+scales compared by perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  1  and the number of components =  NA 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{parallel\_analysis}\NormalTok{(D\_HUB, }\DecValTok{3}\NormalTok{, }\StringTok{"P"}\NormalTok{, }\StringTok{"Hedonism, Usability and Beauty"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'Part'. You can override using the
+`.groups` argument.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/nfactors-HUB-2.pdf}}
+
+}
+
+\caption{Suggested number of factors for Hedonism, Usability and Beauty
+scales compared by perspective}
+
+\end{figure}%
+
+\begin{verbatim}
+Parallel analysis suggests that the number of factors =  1  and the number of components =  NA 
+\end{verbatim}
+
+\section{Discussion}\label{discussion}
+
+Rating scales in Human Factors research are commonly used to
+discriminate between poor and good design options, rank designs, choose
+designs, or perform UX regression tests in continuous design cycles. Our
+logical argument is that the capability of a scale to rank designs can
+only be seen on multiple designs and using design-by-item response
+matrices. We called it the psychometric fallacy to use person-by-item
+response matrices in place. A simulation showed, that the worst case can
+happen under the psychometric fallacy: excellent reliability is
+reported, when it actually is very poor.
+
+We used data from five experiments to assess the severity of the
+psychometric fallacy in real practice. Overall, the results show that
+the psychometric fallacy produces dramatic biases for all tested
+methods. For practicioners using these scales the good news is that all
+scales performed better under the correct desgnometric perspective, and
+most of them even fairly well.
+
+In contrast, item consistency and factor analysis showed that the
+psychometric fallacy can lead to strong biases. Items can suddenly
+become negatively correlated, as in the case of Attractiveness. The two
+Hedonism scales from AttrakDiff and the Credibility scale showed an
+extreme pattern, where the majority of items remained relatively stable,
+whereas two items switched from poor reliability to excellent
+reliability under pmx. With these patterns in mind, it is almost not
+surprising that factor analysis can also produce quite different
+results. Most strikingly, under dmx not a single result matched the
+theoretical expectations.
+
+\subsection{Dev time implications}\label{dev-time-implications}
+
+In design research the target of all research is quickly changing and
+expanding target. A certain swiftness and pragmatism is required to keep
+up with the pace. Development of new scales is a common task, and often
+it is carried out by researchers with a basic understanding of
+psychometric principles, such as (item) reliability and exploratory
+factor analysis.
+
+Basic psychometric tools produce vastly different results under the
+psychometric fallacy. While our study used mature scales, which had
+already undergone item selection and perhaps factor analysis, we can
+interpolate the consequences for future scale development.
+
+The most severe consequence is that a scale may be developed that is not
+capable of ranking designs. According to an often cited rule-of-thumb,
+scale reliability should be at least .7. Three scales in our study,
+Attractiveness, Credibility and HQS did not meet this criterion even
+under the designometric perspective.
+
+Interestingly, on item level Credibility and HQ-I show the same pattern,
+where two items perform well under pmx, but extremely poor under dmx.
+This may be a co-incidence, but a likely outcome of developing a dmx
+scale under pmx is to \emph{false favor} items that are well-behaved in
+ranking persons, but are inefficient for designs. To make the case,
+(\textbf{Tab-rel-after-removal?}) compares dmx scale reliability on
+these three scales with and without their two ill-behaved items.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\StringTok{"TODO"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "TODO"
+\end{verbatim}
+
+A pmx perspective may also \emph{false reject} items that are actually
+well-behaved in ranking designs. Creating an item pool is by itself a
+time-consuming process, and the psychometric fallacy can make it even
+more difficult by unnecessarily rejecting items. A possible example is
+the development of the BUS-11 scale, where face validity demands (and
+factor analysis has confirmed) ((REF Simone)) that \emph{Privacy} is a
+separate construct. Unfortunately, only one item was left after item
+selection.
+
+\subsection{Run time implications}\label{run-time-implications}
+
+For practitioners, the good news are that if they were (or will be)
+under the run-time psychometric fallacy by routinely reporting scale
+reliability, they were (or will be) always better than they said. And
+when they continue to use these scales in the future, the improved
+precision will allow them to reduce sample sizes.
+
+But, practitioners may not have the most efficient rating scales, yet.
+Even if a false favored item is not directly harming reliability, it can
+make the scale inefficient. In practice, UX scales are often deployed
+during use, for example in usability tests. With a shorter scale
+measures can be taken in quicker succession, for example once per task,
+or everyday in a longitudinal study. It is therefore not uncommon for
+practitioners to create a reduced scale, for example, when many latent
+variables are involved. For some scales (Hedonism, Beauty) it is safe to
+just pick three items at random, Other scales are quite mixed bags, with
+the highest ranked item under pmx being the lowest ranked under dmx. If
+, as is good practice, the creators of scales published pmx item-level
+reliability, it becomes almost inevitable that a researcher seeking for
+the three best items, will pick two of the worst.
+
+\subsection{Criticism of individual
+scales}\label{criticism-of-individual-scales}
+
+One can rightfully argue that we used the rating scales outside their
+specification, as the encounters were brief and without interaction.
+This depends on the scale and on the purpose. Face processing is one of
+the fastest complex mechanisms in the human mind, which makes it legit
+to test it in quick succession on a screen. Similarly, the beauty
+judgement of a website is known to stabilize within 500ms, and the same
+can be expected for attractiveness. For more longitudinal feelings about
+designs, like hedonism, usability and credibility, these encounters were
+not valid. We will therefore not criticize these instruments, the point
+still standing that the two perspectives produce different results.
+
+\begin{itemize}
+\tightlist
+\item
+  Eeriness
+\item
+  Beauty
+\item
+  Attractiveness
+\end{itemize}
+
+TODO
+
+\subsection{Future Applications}\label{future-applications}
+
+A founding idea in usability engineering is that a good designers has
+learned to bridge the gap between the system model and the users mental
+model, cognitive skills and feelings. Emerging domains are often
+characterized by an innovation phase, where multiple design paths are
+explored, before this diversity converges into an oligarchy of mature
+sibling frameworks with established best practices and quality
+principles.\\
+Two emerging domains of human-technology interaction are currently
+gaining significant momentum: interactive deep learning models, such as
+chatbots and social robots. Both fields have in common that they tap
+much stronger into the social mind of users, which, next to being a cave
+of snakes, is mostly uncharted terrain. We can expect a wild growth of
+theoretical concepts and instruments to measure the respective latent
+variables.
+
+((Simone))
+
+\subsection{Towards Deep
+Designometrics}\label{towards-deep-designometrics}
+
+By comparing the two perspectives, we illustrated that designometric
+analysis can fully be done with standard psychometric tools, as long as
+one uses the correct response matrix. However, by reducing the
+designometric box to a flat matrix, we loose all information on users.
+Formally, it would even be possible to evaluate a designometric model on
+the responses of a \emph{single user}, while the situation
+
+If the cube is collapsed to a psychometric matrix, which can be used to
+estimate \emph{user sensitivity}. Legitimate cases exist to use a
+designometric scale for psychometric purposes. For example, an
+instrument to measure trustworthiness of designs could be used to
+estimate faithfulness levels of participants in a study (or a training)
+on cyber security.
+
+By flattening the designometric box one way, then the other, we still
+loose information that is needed to secure that items are truly
+well-behaved. In educational psychometrics \emph{differential item
+functioning} is the idea that items must be fair and function the same
+for every tested person. This also is a desirable property for a
+designometric scale, but a statistical model for verification would need
+individual parameters for participants, designs and items,
+simultaneously. Schmettow(2021) proposed multi-level models for
+capturing designometric situations in their full dimension, which could
+be well-suited for run-time use or basic scale development.
+
+Another consideration is that the designometric encounter may not be end
+of story. For example, for comparing multi-purpose designs a researcher
+may want to add tasks as fourth population of interest. With the
+mentioned limitations, multi-level models extend to such a case
+(Schmettow, 2016, Egan's assumption). For development-time purposes,
+Generalizability Theory may provide \ldots{}
+
+An unsolved issue is to identify exploratory methods that can operate on
+deep designometric data. EFA is often used with CFA to find and confirm
+candidate structures.
+
+\bookmarksetup{startatroot}
+
+\chapter*{References}\label{references}
+\addcontentsline{toc}{chapter}{References}
+
+\markboth{References}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\end{CSLReferences}
+
+
+
+
+\end{document}

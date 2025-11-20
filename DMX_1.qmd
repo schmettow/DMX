@@ -337,7 +337,6 @@ D_1 <- D_1 |>
 #| paged-print: true
 #| tbl-cap: "Summary of data sets used for analysis"
 
-library(kableExtra)
 
 D_1 |> 
   group_by(Study, Scale) |> 
@@ -355,13 +354,23 @@ D_1 |>
          `$N_\\textrm{Part}$` = n_Part,
          `$N_\\textrm{Item}$` = n_Item,
          `$N_\\textrm{Obs}$` = n_Obs) |> 
-  select(ID, Scale, Designs, 3:6, Reference) # |> 
-  #knitr::kable() #|> 
-  #column_spec(column = c(1,3:6), width = "12mm") |> 
-  #column_spec(column = c(2, 8),  width = "25mm") |> 
-  #column_spec(column = c(7),     width = "30mm")
-  #flextable() |> 
-  #add_header_row(colwidths = c(1, 2, 1,1,1,1,3, 2))
+  select(ID, Scale, Designs, 3:6, Reference)
+
+## Using column_spec, i you may think, does not 
+## work because references and kableExtra do not get along well.
+## Use following specification in DMX_1.tex:
+##
+## @{}
+#  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.05}}
+#  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.17}}
+#  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2}}
+#  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
+#  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
+#  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
+#  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
+#  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.4}}@{}
+
+
 ```
 
 In total, eight rating scales were applied to four design samples. The bipolar *Eeriness* scale is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces (see @sec-dmx-scale-dev). Factor structure and reliability were originally established under psychometric perspective [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added.
@@ -490,8 +499,8 @@ Item_rel <-
 
 ```{r}
 #| label: fig-item-reliability
-#| fig.height: 8
-#| fig.width: 8
+#| fig.height: 9
+#| fig.width: 7
 #| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale"
 
 Item_rel |> 
@@ -499,7 +508,7 @@ Item_rel |>
              y = r.cor)) +
   geom_line(aes(group = Item)) +
   ylab("Item-total correlation") +
-  geom_label(aes( label = Item)) +
+  geom_label(aes( label = Item, label_size = 0.05)) +
   facet_wrap(~Scale, ncol = 2) +
   geom_point(data = rename(Scale_rel, alpha = center),
              aes(x = Perspective, 
@@ -509,7 +518,8 @@ Item_rel |>
              aes(x = Perspective, 
                  y = alpha,
                  group = Scale,
-                 col = "Scale reliability"))
+                 col = "Scale reliability")) +
+  guides(col="none")
 
 
 ```
