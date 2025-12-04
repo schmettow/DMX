@@ -2,15 +2,17 @@
 title: "The Designometric Perspective and the Psychometric Fallacy in Developing User Experience Rating Scales"
 author:
   - name: Martin Schmettow
-    id: ms
+    id: ut
     orcid: 0000-0003-0240-4087
     email: m.schmettow@utwente.nl
     affiliation: 
       - name: University of Twente
         city: Enschede, NL
         url: www.utwente.nl
+    attributes:
+        corresponding: true
   - name: Simone Borsci
-    id: sb
+    id: ut
     orcid: 0000-0002-3591-3577
     email: s.borsci@utwente.nl
     affiliation: 
@@ -18,7 +20,7 @@ author:
         city: Enschede, NL
         url: www.utwente.nl
   - name: Stéphanie M. van den Berg
-    id: smb
+    id: ut
     orcid: 0000-0001-8154-1068
     email: stephanie.vandenberg@utwente.nl
     affiliation: 
@@ -29,24 +31,16 @@ keywords:
   - Psychometrics
   - User Experience
   - Human Factors
-#format:
-#  latex:
-#    documentclass: scrarticle
-#    classoption: [twocolumn, portrait]
-#    lof: false
-#    lot: false
 format:
-  pdf:
-    documentclass: scrarticle
-    classoption: [portrait]
-    lof: false
-    lot: false
+  elsevier-pdf:
     keep-tex: true
-# format: html
-# format: docx
-editor: visual
+    journal:
+      name: PsyRxiv
+      formatting: preprint
+      #model: 1p # Don't set a model with preprint
+      cite-style: authoryear
 bibliography: dmx.bib
-csl: apa.csl
+date: last-modified
 execute:
   echo: false
   warning: false
@@ -54,8 +48,9 @@ execute:
   cache: true
 
 abstract: |
-    Rating scales are widely used in user experience (UX) research to compare and rank design alternatives, yet their development typically relies on psychometric procedures originally created for assessing stable individual traits. We argue that this practice commits the psychometric fallacy: evaluating designometric instruments—tools intended to discriminate between designs—using person × item response matrices that exclude the essential third dimension of design. Because design evaluation inherently forms a design × person × item data structure, valid scale development requires samples of designs large enough to assess how well items rank design alternatives. We show that collapsing the data cube along persons yields a design × item matrix that allows psychometric tools to be applied meaningfully, whereas collapsing along designs yields misleading psychometric results about person sensitivity rather than design discriminability. A simulation study demonstrates that scales can appear highly reliable psychometrically while being effectively unusable for ranking designs. Secondary analyses of eight commonly used UX scales across large design samples reveal systematic distortions in reliability estimates, item performance, and dimensionality when instruments are evaluated under the psychometric fallacy. We establish the designometric measurement perspective, provide principles for proper designometric scale development, and illustrate how misuse of psychometric validation leads to faulty instruments and incorrect inferences in UX research.  
-      
+    Rating scales are widely used in user experience (UX) research to compare and rank design alternatives, yet their development typically relies on psychometric procedures originally created for assessing stable individual traits. We argue that this practice commits the psychometric fallacy: evaluating designometric instruments—tools intended to discriminate between designs—using person × item response matrices that exclude the essential third dimension of design. Because design evaluation inherently forms a design × person × item data structure, valid scale development requires samples of designs large enough to assess how well items rank design alternatives. We show that collapsing the data cube along persons yields a design × item matrix that allows psychometric tools to be applied meaningfully, whereas collapsing along designs yields misleading psychometric results about person sensitivity rather than design discriminability. A simulation study demonstrates that scales can appear highly reliable psychometrically while being effectively unusable for ranking designs. 
+    Secondary analyses of eight commonly used UX scales across large design samples reveal systematic distortions in reliability estimates, item performance, and dimensionality when instruments are evaluated under the psychometric fallacy.
+    We assess the impact of the psychometric  fallacy for present users and designers of future rating scales and discuss more advanced methods in designometric modelling.
 ---
 
 # Introduction
@@ -163,6 +158,7 @@ library(mascutils)
 library(printr)
 #library(lavaan)
 options(mc.cores = 8)
+ggplot2::theme_set(theme_minimal())
 
 purp.analysis <- T
 
@@ -306,12 +302,12 @@ Rel_Coolness <- alpha_ci(Coolness)
 
 ```{r}
 #| label: tbl-simulated-reliability
-#| tbl-cap: "Reliability under both perspectives using simulated data (fictional Coolness scale)"
+#| tbl-cap: "Reliability under both perspectives using simulated data (fictional Coolness scale) with 95% confidence limits"
 
 Rel_Coolness |> knitr::kable(digits = 2)
 ```
 
-This simple example demonstrates that psychometric reliability (person sensitivity) can be excellent ($.93$, see @tbl-simulated-reliability), whereas designometric reliability is poor ($.60$). In the following study we examine how severe the psychometric fallacy is in real practice.
+This simple example demonstrates that psychometric reliability (person sensitivity) can be excellent ($.93$, see @tbl-simulated-reliability), whereas designometric reliability is poor ($.60$). In the following study we examine how severe the psychometric fallacy is in real data sets.
 
 # Empirical demonstration
 
@@ -319,7 +315,7 @@ In order to assess the biases introduced by the psychometric fallacy, a secondar
 
 ## Methods
 
-In QB, JK, SP and DN participants saw screen shots of home pages and responded to several user experience scales, whereas in AH, DK and PS the stimuli were robot faces (see @tbl-data-summary for abbreviations). All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
+In studies QB, JK, SP and DN \[\@tbl-data-summary\] participants saw screen shots of home pages and responded to several user experience scales [@QB, @JK, @SP, @DN], whereas in AH, DK and PS the stimuli were robot faces \[@AH, @DK, @PS\], with original research questions related to the Uncanny Valley effect. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
 DN used OpenSesame for stimulus presentation and implemented the collection as graded responses [@OpenSesame]. All other experiments used the same PsychoPy program and collected continuous responses using a visual analog scale [@Peirce2008].
 
@@ -335,8 +331,8 @@ D_1 <- D_1 |>
 #| message: false
 #| warning: false
 #| paged-print: true
+#| tbl-colwidths: [15, 25, 25, 10, 10, 10, 10]
 #| tbl-cap: "Summary of data sets used for analysis"
-
 
 D_1 |> 
   group_by(Study, Scale) |> 
@@ -354,7 +350,7 @@ D_1 |>
          `$N_\\textrm{Part}$` = n_Part,
          `$N_\\textrm{Item}$` = n_Item,
          `$N_\\textrm{Obs}$` = n_Obs) |> 
-  select(ID, Scale, Designs, 3:6, Reference)
+  select(ID, Scale, Designs, 3:6)
 
 ## Using column_spec, i you may think, does not 
 ## work because references and kableExtra do not get along well.
@@ -373,7 +369,7 @@ D_1 |>
 
 ```
 
-In total, eight rating scales were applied to four design samples. The bipolar *Eeriness* scale is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces (see @sec-dmx-scale-dev). Factor structure and reliability were originally established under psychometric perspective [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added.
+In total, eight rating scales were applied to four design samples. The bipolar *Eeriness* scale is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces (see @sec-dmx-scale-dev). For the purpose of rendering the Uncanny Valley effect, it has been inverted, hence *n*Eeriness. Factor structure and reliability were originally established under a psychometric perspective [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added in PS.
 
 All other scales were applied a sample of commercial home pages collected by @Tuch2012 (a subset in DN):
 
@@ -441,13 +437,13 @@ D_1 |>
   )  |> knitr::kable()
 ```
 
+Goal of the analysis was to examine how the psychometric fallacy compromises the evaluation of rating scales. For this purpose, each of the data sets was collapsed into a psychometric and a designometric response matrix. Subsequently, three basic psychometric techniques were applied to both perspectives and compared. Scale reliability was computed using Cronbach’s alpha. Item consistency was studied by inspecting corrected item-total correlations [@Psych].
 
-Goal of the analysis was to examine how the psychometric fallacy compromises the evaluation of rating scales. For this purpose, each of the data sets was collapsed into a psychometric and a designometric response matrix. Subsequently, three basic psychometric techniques were applied to both perspectives and compared. Scale reliability was computed using Cronbach’s alpha. Item consistency was studied by inspecting corrected item-total correlations [@Psych].  
-
-The number of factors (dimensionality) was determined based on a parallel analysis based on minimized residuals, using the fa.parallel function from the  psych R package. 
-*Number of factors* was identified using parallel analysis with `psych::fa.parallel`. This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained from randomized data. The number of factors is determined as the point before the the real eigenvalue drops below the simulated level.
+The number of factors (dimensionality) was determined based on a parallel analysis based on minimized residuals, using the fa.parallel function from the psych R package. *Number of factors* was identified using parallel analysis with `psych::fa.parallel`. This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained from randomized data. The number of factors is determined as the point before the the real eigenvalue drops below the simulated level.
 
 ## Results
+
+In the following scale and item reliability, as well as factor structures of eight rating scales are compared by perspective.
 
 ### Scale reliability
 
@@ -462,8 +458,8 @@ Scale_rel <-
 
 ```{r}
 #| label: fig-scale-reliability
-#| fig.height: 8
-#| fig.width: 8
+#| fig.height: 4
+#| fig.width: 6
 #| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale"
 
 Scale_rel |> 
@@ -476,16 +472,16 @@ Scale_rel |>
   geom_point() +
   geom_line(aes(group = Scale)) +
   ylab("std. Cronbach alpha") +
-  geom_label() +
-  ylim(0,1)
+  geom_label(alpha = .7) +
+  ylim(0.2,1) +
+  theme_minimal()
 ```
 
 Overall scale reliabilities cover a broad range from excellent to unusable [@fig-scale-reliability]. All scales look better under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent designometric reliability, but poor reliability from a psycvhometric perspective.
 
 ### Item consistency
 
-@fig-item-reliability shows corrected item-total correlations reflecting item consistency. Beauty and Hedonism stand out, because all items show higher designometric item reliabilities. To some extent this also seems to hold for Usability and Eeriness. 
-For Credibility, HQ-I, HQ-S and Attractiveness some items perform poorer under the psychometric perspective, whereas others improve, with one extreme cases: Item Att6 is already on a very low level on designometric performance, showing even a negatively correlation under the psychometric perspective. Items HQI5 and HQI6 show poor designometric performance, but are among the overall best performing psychometric items.
+@fig-item-reliability shows corrected item-total correlations reflecting item consistency. Beauty and Hedonism stand out, because all items show higher designometric item reliabilities. To some extent this also seems to hold for Usability and Eeriness. For Credibility, HQ-I, HQ-S and Attractiveness some items perform poorer under the psychometric perspective, whereas others improve, with one extreme cases: Item Att6 is already on a very low level on designometric performance, showing even a negatively correlation under the psychometric perspective. Items HQI5 and HQI6 show poor designometric performance, but are among the overall best performing psychometric items.
 
 ```{r}
 #| include: false
@@ -508,7 +504,6 @@ Item_rel |>
              y = r.cor)) +
   geom_line(aes(group = Item)) +
   ylab("Item-total correlation") +
-  geom_label(aes( label = Item, label_size = 0.05)) +
   facet_wrap(~Scale, ncol = 2) +
   geom_point(data = rename(Scale_rel, alpha = center),
              aes(x = Perspective, 
@@ -519,7 +514,9 @@ Item_rel |>
                  y = alpha,
                  group = Scale,
                  col = "Scale reliability")) +
-  guides(col="none")
+  geom_label(aes( label = Item, label_size = 0.05), alpha = 0.7) +
+  guides(col="none") +
+  theme_minimal()
 
 
 ```
@@ -527,7 +524,6 @@ Item_rel |>
 ### Number of factors
 
 Given a response matrix, the number of factors were estimated using parallel analysis. Ideally, this procedure returns exactly as many factors as there are separate scales in every data set.
-
 
 ```{r}
 #| include: false
@@ -573,42 +569,70 @@ plot.nfactors <- function(x) {
     ylab("Eigenvalue") +
     xlab("number of factors") +
     geom_hline(yintercept = 1)+
-    geom_label(data = n_factors, aes(x = N, y = data, label = N), nudge_y = .2)
+    geom_label(data = n_factors, aes(x = N, y = data, label = N), nudge_y = .2) +
+    ylim(0,6) + xlim(1,8) +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          legend.position.inside = c(0.7, 0.7),
+          legend.title = element_blank())
 
 }
 ```
 
-The Eeriness scale is part of a larger Godspeed Index inventory and is supposed to represent a single latent variable. However, @Ho2017 found that the scale decomposes into two slightly different aspects, summarized as "eerie" and "spine-tingling". This was established using principal component analysis, whereas a dedicated identification of the number of factors has not been reported. Since this was tested with only 12 designs, most likely it was under psychometric perspective. The results in @fig-nfactors-eeriness show that for both perspectives the eigenvalue drops below the simulated eigenvalue with two factors under both perspectives.
+
+The Eeriness scale is part of a larger Godspeed Index inventory and is supposed to represent a single latent variable. However, @Ho2017 found that the scale decomposes into two slightly different aspects, summarized as "eerie" and "spine-tingling". This was established using principal component analysis, whereas a dedicated identification of the number of factors has not been reported. Since this was tested with only 12 designs, most likely it was under psychometric perspective. The results in @fig-nfactors-1 show that for both perspectives the eigenvalue drops below the simulated eigenvalue with two factors under both perspectives.
 
 ```{r}
 #| label: fig-nfactors-eeriness
-#| fig-cap: "Number of factors under designometric and psychometric perspectives for the Eeriness scale using parallel analysis"
-#| fig-width: 5
+#| eval: false
+#| fig-cap: Number of factors under designometric and psychometric perspectives for the Eeriness scale using parallel analysis
 #| fig-height: 4
+#| fig-width: 6
+#| include: false
 
 plot.nfactors(PA_Eer) + ylim(0,6) + xlim(1,8) + ggtitle("Eeriness scale")
 ```
 
-On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is a completely separate construct. We would expect three factors to emerge. As @fig-nfactors-att shows the two perspectives deviate in opposite directions: for the psychometric perspective, the eigenvalues drop below their simulated counterparts at two factors, whereas for the designometric perspective stays above this line with five factors.
+On theoretical grounds, the AttrakDiff2 inventory splits hedonistic quality into two components, Identity and Stimulation, while the credibility scale is a completely separate construct. We would expect three factors to emerge. As @fig-nfactors-2 shows the two perspectives deviate in opposite directions: for the psychometric perspective, the eigenvalues drop below their simulated counterparts at two factors, whereas for the designometric perspective stays above this line with five factors.
 
 ```{r}
 #| label: fig-nfactors-att
+#| eval: false
 #| fig-cap: "Number of factors under designometric and psychometric perspectives for the AttrakDiff  inventory using parallel analysis"
-#| fig-width: 5
+#| fig-width: 4
 #| fig-height: 4
 
 plot.nfactors(PA_Att) + ylim(0,6) + xlim(1,8)+ ggtitle("AttrakDiff and Credibility")
 ```
 
-Finally, in study DN three independent scales, Hedonism, Usability and Beauty, were used und we expect three factors. In contrast, the eigenvalues drop below even the simulated eigenvalues with two factors, suggesting that the same latent variable is captured by all three scales under both perspectives (@fig-nfactors-hub).
+Finally, in study DN three independent scales, Hedonism, Usability and Beauty, were used und we expect three factors. In contrast, the eigenvalues drop below even the simulated eigenvalues with two factors, suggesting that the same latent variable is captured by all three scales under both perspectives (@fig-nfactors-3).
 
 ```{r}
 #| label: fig-nfactors-hub
+#| eval: false
 #| fig-cap: "Number of factors for Hedonic value, Usability and Beauty using parallel analysis"
 #| fig-width: 5
 #| fig-height: 4
 
 plot.nfactors(PA_HUB) + ylim(0,6) + xlim(1,8) + ggtitle("Hedonism, Usability and Beauty")
+```
+
+
+```{r}
+#| fig-height: 6
+#| fig-width: 4
+#| layout-ncol: 2
+#| label: fig-nfactors
+#| fig-cap: "Parallel analysis results for identification of the number of factors under designometric and psychometric perspectives."
+#| fig-subcap:
+#|  - "Eeriness scale"
+#|  - "AttrakDiff and Credibility"
+#|  - "Hedonism, Usability and Beauty"
+
+plot.nfactors(PA_Eer) + ylim(0,6) + xlim(1,8) # + ggtitle("Eeriness scale")
+plot.nfactors(PA_Att) + ylim(0,6) + xlim(1,8) #+ ggtitle("AttrakDiff and Credibility")
+plot.nfactors(PA_HUB) + ylim(0,6) + xlim(1,8)# + ggtitle("Hedonism, Usability and Beauty")
+
 ```
 
 # Discussion
@@ -659,7 +683,7 @@ When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may
 
 ## Towards Deep Designometrics
 
-By comparing the two perspectives, we illustrated that designometrics can be accomplished with standard psychometric tools by flattening the response box across participants. In principle averaging across users is legit, except in situations where users did not evaluate the same set of designs. But even when all users were evaluating the same set of designs, this averaging across users results in information loss. More specifically we lose information about the users, which would be interesting in its own right. For instance, it would be possible to evaluate a designometric model on the basis of responses of a single user. Formally, this would be a valid designometric measure, reflecting a single person’s sensitivity to differences in a design attribute. 
+By comparing the two perspectives, we illustrated that designometrics can be accomplished with standard psychometric tools by flattening the response box across participants. In principle averaging across users is legit, except in situations where users did not evaluate the same set of designs. But even when all users were evaluating the same set of designs, this averaging across users results in information loss. More specifically we lose information about the users, which would be interesting in its own right. For instance, it would be possible to evaluate a designometric model on the basis of responses of a single user. Formally, this would be a valid designometric measure, reflecting a single person’s sensitivity to differences in a design attribute.
 
 Designometric scales are commonly used to measure a populations reaction to a design, which implies that on some level the psychometric matrix is useful, for example to study the distribution of user sensitivity to a feature. Imaginable cases exist where one could use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness of participants in a study (or a training) on cyber security.
 

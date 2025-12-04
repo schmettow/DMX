@@ -5,13 +5,11 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod,
-  portrait]{scrarticle}
+  authoryear,
+  preprint]{elsarticle}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -94,39 +92,6 @@
 \makeatother
 
 
-% definitions for citeproc citations
-\NewDocumentCommand\citeproctext{}{}
-\NewDocumentCommand\citeproc{mm}{%
-  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
-\makeatletter
- % allow citations to break across lines
- \let\@cite@ofmt\@firstofone
- % avoid brackets around text for \cite:
- \def\@biblabel#1{}
- \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
-\makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
- {\begin{list}{}{%
-  \setlength{\itemindent}{0pt}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\parsep}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-   \setlength{\leftmargin}{\cslhangindent}
-   \setlength{\itemindent}{-1\cslhangindent}
-  \fi
-  % set entry spacing
-  \setlength{\itemsep}{#2\baselineskip}}}
- {\end{list}}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 
 
@@ -138,23 +103,10 @@
 
 
  
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-harv}
 
 
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
-\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -196,6 +148,7 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+\journal{PsyRxiv}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -211,13 +164,33 @@
   pdfcreator={LaTeX via pandoc}}
 
 
+\setlength{\parindent}{6pt}
+\begin{document}
+
+\begin{frontmatter}
 \title{The Designometric Perspective and the Psychometric Fallacy in
 Developing User Experience Rating Scales}
-\author{Martin Schmettow \and Simone Borsci \and Stéphanie M. van den
-Berg}
-\date{}
-\begin{document}
-\maketitle
+\author[1]{Martin Schmettow%
+\corref{cor1}%
+}
+ \ead{m.schmettow@utwente.nl} 
+\author[1]{Simone Borsci%
+%
+}
+ \ead{s.borsci@utwente.nl} 
+\author[1]{Stéphanie M. van den Berg%
+%
+}
+ \ead{stephanie.vandenberg@utwente.nl} 
+
+\affiliation[1]{organization={University of Twente},city={Enschede,
+NL},postcodesep={}}
+
+\cortext[cor1]{Corresponding author}
+
+
+
+        
 \begin{abstract}
 Rating scales are widely used in user experience (UX) research to
 compare and rank design alternatives, yet their development typically
@@ -238,12 +211,21 @@ psychometrically while being effectively unusable for ranking designs.
 Secondary analyses of eight commonly used UX scales across large design
 samples reveal systematic distortions in reliability estimates, item
 performance, and dimensionality when instruments are evaluated under the
-psychometric fallacy. We establish the designometric measurement
-perspective, provide principles for proper designometric scale
-development, and illustrate how misuse of psychometric validation leads
-to faulty instruments and incorrect inferences in UX research.
+psychometric fallacy. We assess the impact of the psychometric fallacy
+for present users and designers of future rating scales and discuss more
+advanced methods in designometric modelling.
 \end{abstract}
 
+
+
+
+
+\begin{keyword}
+    Psychometrics \sep User Experience \sep 
+    Human Factors
+\end{keyword}
+\end{frontmatter}
+    
 
 \section{Introduction}\label{introduction}
 
@@ -264,8 +246,8 @@ to encompass measurement of latent psychological constructs, including
 personality dimensions (e.g., the Five-Factor Model).
 
 Following the rapid expansion of user experience (UX) research,
-Bargas-Avila \& Hornbæk (2011) documented the proliferation of hundreds
-of novel rating scale instruments. However, the majority of these
+\citet{Bargas-Avila2011} documented the proliferation of hundreds of
+novel rating scale instruments. However, the majority of these
 instruments have not undergone the rigorous psychometric validation
 procedures typically required for clinical assessment tools.
 Nevertheless, psychometric methodologies are occasionally employed
@@ -329,9 +311,9 @@ Development}\label{principles-of-psychometric-test-development}
 Psychometric instruments serve primarily as cost-effective predictive
 tools for human performance and psychological attributes.
 Psychodiagnostic rating scales function as screening instruments for
-conditions such as depression (Kroenke et al., 2001), while performance
+conditions such as depression \citep{Kroenke2001}, while performance
 assessments facilitate decision-making in personnel selection and
-educational contexts (Schmidt \& Hunter, 1998).
+educational contexts \citep{Schmidt1998}.
 
 Three psychometric schools of thought provide the theoretical framework
 under which multi-item instruments yield reliable individual rankings:
@@ -355,7 +337,7 @@ to identify relevant psychological processes and behavioral dimensions.
 Following domain specification, researchers develop extensive item pools
 that typically exceed the target scale length. This initial phase
 employs qualitative, divergent methodologies emphasizing content
-validity and theoretical coverage (Hinkin, 1998).
+validity and theoretical coverage \citep{Hinkin1998}.
 
 Subsequent item selection procedures employ quantitative criteria
 including item-total correlations, factor loadings, and reliability
@@ -363,15 +345,15 @@ coefficients. The iterative selection process aims to optimize
 measurement accuracy while maintaining domain representativeness.
 According to CTT principles, measurement errors across multiple items
 cancel--provided systematic variance components demonstrate strong
-intercorrelation (Cronbach, 1951).
+intercorrelation \citep{Cronbach1951}.
 
 Cronbach's \(\alpha\) quantifies internal consistency by measuring
-inter-item agreement within the response matrix (Cronbach, 1951). Item
-selection procedures compare full-scale reliability against reliability
-estimates with individual items removed. Items whose removal improves
-overall reliability are identified for elimination. Similar procedures
-examine item-total correlations to identify poorly performing indicators
-(Clark \& Watson, 1995).
+inter-item agreement within the response matrix \citep{Cronbach1951}.
+Item selection procedures compare full-scale reliability against
+reliability estimates with individual items removed. Items whose removal
+improves overall reliability are identified for elimination. Similar
+procedures examine item-total correlations to identify poorly performing
+indicators \citep{Clark1995}.
 
 \subsubsection{Factor Structures and Latent Variable
 Models}\label{factor-structures-and-latent-variable-models}
@@ -380,49 +362,51 @@ Step-wise item removal procedures prove adequate for unidimensional
 constructs but may produce unstable results when the measured domain is
 more complex. Factor-analytic methods therefore serve to identify and
 separate distinct components into psychometrically sound subscales
-(Fabrigar et al., 1999).
+\citep{Fabrigar1999}.
 
 Contemporary psychometric theory distinguishes between latent variables
 (unobservable true scores) and indicator variables (observable but
 imperfect measurements). Complex instruments often incorporate multiple
 latent variables representing distinct domain aspects. As an example,
 the Five-Factor Model proposes that personality can be assessed through
-five primary traits, each measured via multi-item subscales (McAdams,
-1992). While primary factors demonstrate relative independence by
-design, subscales within factors exhibit stronger intercorrelations.
+five primary traits, each measured via multi-item subscales
+\citep{McAdams1992}. While primary factors demonstrate relative
+independence by design, subscales within factors exhibit stronger
+intercorrelations.
 
 Domain analysis often suggests potential factor structures, particularly
 when theoretical frameworks guide instrument development. For example,
 mental workload assessment scales may derive from Multiple Resource
 Theory, which predicts independent processing of sensory channels,
-thereby supporting a separate subscale for each channel (Wickens, 2002).
+thereby supporting a separate subscale for each channel
+\citep{Wickens2002}.
 
 When theoretical structures exist a prior, Confirmatory Factor Analysis
 (CFA) provides the optimal approach for testing structural assumptions
-about latent variable relationships (Brown, 2015). Hierarchical CFA
+about latent variable relationships \citep{Brown2015}. Hierarchical CFA
 models can verify independence among primary scales while confirming
 stronger correlations among subscales.
 
 Exploratory Factor Analysis (EFA) serves to identify novel factor
-structures when robust theoretical frameworks are unavailable (Costello
-\& Osborne (2005)). EFA requires researchers to specify the number of
-factors and their correlation structure. This is inconvenient because an
-unknown factor structure implies an unknown number of factors.
+structures when robust theoretical frameworks are unavailable
+(\citet{Costello2005}). EFA requires researchers to specify the number
+of factors and their correlation structure. This is inconvenient because
+an unknown factor structure implies an unknown number of factors.
 
 Finding the number of factors is possible by successively increasing the
 number of factors as long as a factor retention criterion is met. Common
 criteria include the Kaiser-Guttman rule (eigenvalues \textgreater{} 1)
 and scree plot inspection, but these have been criticized for being to
-lenient and subjective (Hayton et al., 2004). A more accurate
-alternative is parallel analysis, which compares observed eigenvalues to
-those obtained from data of identical size but randomized through
-resampling (Lim \& Jahng, 2019).
+lenient and subjective \citep{Hayton2004}. A more accurate alternative
+is parallel analysis, which compares observed eigenvalues to those
+obtained from data of identical size but randomized through resampling
+\citep{Lim2019}.
 
 Another decision to make is factor rotation which depends on theoretical
 expectations: orthogonal rotation applies when components are
 independent (e.g., mathematical and verbal abilities), while oblique
-rotation accommodates correlated factors typical of subscales (Fabrigar
-et al., 1999).
+rotation accommodates correlated factors typical of subscales
+\citep{Fabrigar1999}.
 
 \subsubsection{Response Matrix Structure and Item Response
 Theory}\label{response-matrix-structure-and-item-response-theory}
@@ -435,15 +419,15 @@ analyses on participant × item data structures.
 
 Item Response Theory (IRT) represents an alternative framework that
 treats response matrices as collections of person-item encounters
-(Embretson \& Reise, 2013). Unlike CTT, IRT models both person and item
+\citep{Embretson2013}. Unlike CTT, IRT models both person and item
 parameters simultaneously, allowing formal specification and empirical
 testing of item characteristics. The Rasch model, representing the
 simplest case of unidimensional and dichotomous responses, specifies
 that response probability depends solely on the difference between
-person ability and item difficulty (Rasch, 1960). Advanced IRT
+person ability and item difficulty \citep{Rasch1960}. Advanced IRT
 applications include differential item functioning detection to identify
-and prevent measurement bias across demographic groups (Penfield \& Lam,
-2000).
+and prevent measurement bias across demographic groups
+\citep{Penfield2000}.
 
 \subsubsection{Sample Size Requirements in Psychometric
 Development}\label{sample-size-requirements-in-psychometric-development}
@@ -460,21 +444,21 @@ question, with the general rule that heterogeneous populations require
 larger sample sizes. During statistical analysis, sample size must at
 least match the number of free parameters in the analytic model to
 ensure identifiability, but in practice this is usually not sufficient
-(Bollen, 1990). For example, in Confirmatory Factor Analysis, each item
-contributes two free parameters (intercept and factor loading),
-requiring participant-to-parameter ratios of 5:1 to 20:1 (Brown, 2015).
-Contemporary simulation studies suggest 200-500 participants typically
-suffice for well-specified models with strong factor loadings, while
-complex structures may require 1000 or more participants (Wolf et al.,
-2013).
+\citep{Bollen1990}. For example, in Confirmatory Factor Analysis, each
+item contributes two free parameters (intercept and factor loading),
+requiring participant-to-parameter ratios of 5:1 to 20:1
+\citep{Brown2015}. Contemporary simulation studies suggest 200-500
+participants typically suffice for well-specified models with strong
+factor loadings, while complex structures may require 1000 or more
+participants \citep{Wolf2013}.
 
 When theoretical structures are absent, Exploratory Factor Analysis can
 be used to identify suitable subscales. However, these procedures are
 sample-dependent, with solutions potentially capitalizing on chance or
-researchers' degrees of freedom (Simmons et al., 2011). Cross-validation
+researchers' degrees of freedom \citep{Simmons2011}. Cross-validation
 procedures therefore necessitate data splitting: EFA on one subsample
 followed by CFA on another, effectively doubling sample requirements
-(Anderson et al., 1988).
+\citep{Anderson1988}.
 
 \subsection{Designometrics}\label{designometrics}
 
@@ -496,9 +480,9 @@ perspective}\label{the-designometric-perspective}
 A practical implication of the designometric perspective is that
 psychometric tools take flat response matrices as input and are unfit to
 process higher-dimensional data. While ``deep'' designometric models can
-be constructed using multi-level models (Schmettow, 2021b, pp.
-307--323), a practical solution exists to put psychometric tools to use.
-By averaging over Person, a two-dimensional response matrix can be
+be constructed using multi-level models \citep[307-323]{Schmettow2021},
+a practical solution exists to put psychometric tools to use. By
+averaging over Person, a two-dimensional response matrix can be
 constructed from a designometric box. This produces a
 \emph{designometric response matrix} (design x item), which in turn is
 needed to assess the item properties with respect to ranking designs.
@@ -540,7 +524,7 @@ A variation of planned incomplete studies is to \emph{successively}
 build the sample of designs. This is especially useful, when dealing
 with emerging classes of designs. This happened in the BUS-11 studies,
 where initially it was difficult to build a substantial sample, before
-large language models broke through (Borsci \& Schmettow, 2024).
+large language models broke through \citep{Borsci2024}.
 
 \subsubsection{The psychometric fallacy}\label{the-psychometric-fallacy}
 
@@ -576,15 +560,15 @@ between designometric and psychometric perspectives can be dramatic.
 Recall that psychometric validations require large samples of
 participants! When swapping roles, validation studies that included
 multiple, but only a few, designs, may not be repairable. One example is
-the study by Ho \& MacDorman (2010) validating the Godspeed Index, a
-common multi-scale inventory to evaluate robot designs. Their
-designometric study included 38 items and 30 participants, but only 12
-designs. While they did not specify how the designometric box was
-collapsed, the fact that they were still able to report exploratory
-factor analysis results, suggests that they used a psychometric response
-matrix, as the designometric matrix would have been too small to produce
-stable estimates. To be fair, the study tested validity correctly
-comparing designs, although with simple ANOVA models.
+the study by \citet{Ho2010} validating the Godspeed Index, a common
+multi-scale inventory to evaluate robot designs. Their designometric
+study included 38 items and 30 participants, but only 12 designs. While
+they did not specify how the designometric box was collapsed, the fact
+that they were still able to report exploratory factor analysis results,
+suggests that they used a psychometric response matrix, as the
+designometric matrix would have been too small to produce stable
+estimates. To be fair, the study tested validity correctly comparing
+designs, although with simple ANOVA models.
 
 As a milder form \emph{run-time psychometric fallacy} appears when an
 existing instrument is used in practice to take measures on a single
@@ -618,7 +602,8 @@ sample of designs varies much less in Coolness
 \begin{longtable}[]{@{}llrrr@{}}
 
 \caption{\label{tbl-simulated-reliability}Reliability under both
-perspectives using simulated data (fictional Coolness scale)}
+perspectives using simulated data (fictional Coolness scale) with 95\%
+confidence limits}
 
 \tabularnewline
 
@@ -637,7 +622,7 @@ This simple example demonstrates that psychometric reliability (person
 sensitivity) can be excellent (\(.93\), see
 Table~\ref{tbl-simulated-reliability}), whereas designometric
 reliability is poor (\(.60\)). In the following study we examine how
-severe the psychometric fallacy is in real practice.
+severe the psychometric fallacy is in real data sets.
 
 \section{Empirical demonstration}\label{empirical-demonstration}
 
@@ -650,31 +635,31 @@ encounters, with large samples of designs.
 
 \subsection{Methods}\label{methods}
 
-In QB, JK, SP and DN participants saw screen shots of home pages and
-responded to several user experience scales, whereas in AH, DK and PS
-the stimuli were robot faces (see Table~\ref{tbl-data-summary} for
-abbreviations). All experiments used manipulation of presentation time
-to collect data on subconscious cognitive processing. For the analysis
+In studies QB, JK, SP and DN {[}@tbl-data-summary{]} participants saw
+screen shots of home pages and responded to several user experience
+scales \citep[\citet{JK}, \citet{SP}, \citet{DN}]{QB}, whereas in AH, DK
+and PS the stimuli were robot faces {[}\citet{AH}, \citet{DK},
+\citet{PS}{]}, with original research questions related to the Uncanny
+Valley effect. All experiments used manipulation of presentation time to
+collect data on subconscious cognitive processing. For the analysis
 here, presentation times lower than 500ms were discarded. All
 experiments used a (mildly) incomplete design in that participants
 encountered all designs and items several times, but not in every
 possible combination.
 
 DN used OpenSesame for stimulus presentation and implemented the
-collection as graded responses (Mathôt et al., 2012). All other
-experiments used the same PsychoPy program and collected continuous
-responses using a visual analog scale (Peirce, 2008).
-
+collection as graded responses \citep{OpenSesame}. All other experiments
+used the same PsychoPy program and collected continuous responses using
+a visual analog scale \citep{Peirce2008}.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.05}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.17}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.07}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.4}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1400}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2400}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2400}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1000}}@{}}
 
 \caption{\label{tbl-data-summary}Summary of data sets used for analysis}
 
@@ -695,71 +680,60 @@ Designs
 \(N_\textrm{Part}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 \(N_\textrm{Obs}\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Reference
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-SP & Attractiveness & Homepages & 66 & 6 & 40 & 1440 &
-Polst \& Schmettow (2014) \\
-DN & Beauty & Homepages & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014) \\
-JK & Credib & Homepages & 76 & 5 & 25 & 500 &
-Kuurstra \& Schmettow (2013) \\
-QB & HQI & Homepages & 76 & 7 & 25 & 700 &
-Boom \& Schmettow (2013) \\
-QB & HQS & Homepages & 76 & 7 & 25 & 700 &
-Boom \& Schmettow (2013) \\
-DN & Hedonism & Homepages & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014) \\
-DN & Usability & Homepages & 48 & 4 & 42 & 2688 &
-Nazareth \& Schmettow (2014) \\
-AH & nEeriness & Robot faces & 20 & 8 & 45 & 10800 &
-Haeske \& Schmettow (2016) \\
-DK & nEeriness & Robot faces & 80 & 8 & 35 & 2800 &
-Keeris \& Schmettow (2016) \\
-PS & nEeriness & Robot faces & 87 & 8 & 39 & 2808 &
-Slijkhuis \& Schmettow (2017) \\
+SP & Attractiveness & Homepages & 66 & 6 & 40 & 1440 \\
+DN & Beauty & Homepages & 48 & 4 & 42 & 2688 \\
+JK & Credib & Homepages & 76 & 5 & 25 & 500 \\
+QB & HQI & Homepages & 76 & 7 & 25 & 700 \\
+QB & HQS & Homepages & 76 & 7 & 25 & 700 \\
+DN & Hedonism & Homepages & 48 & 4 & 42 & 2688 \\
+DN & Usability & Homepages & 48 & 4 & 42 & 2688 \\
+AH & nEeriness & Robot faces & 20 & 8 & 45 & 10800 \\
+DK & nEeriness & Robot faces & 80 & 8 & 35 & 2800 \\
+PS & nEeriness & Robot faces & 87 & 8 & 39 & 2808 \\
 
 \end{longtable}
 
 In total, eight rating scales were applied to four design samples. The
 bipolar \emph{Eeriness} scale is a primary research tool on the Uncanny
 Valley phenomenon and measures negative emotional responses towards
-artificial faces (see Section~\ref{sec-dmx-scale-dev}). Factor structure
-and reliability were originally established under psychometric
-perspective (Ho \& MacDorman, 2017). AH used morphing levels between
-human and robot faces as stimuli, whereas the other two experiments used
-a subset of Mathur \& Reichling (2016), with a few new designs added.
+artificial faces (see Section~\ref{sec-dmx-scale-dev}). For the purpose
+of rendering the Uncanny Valley effect, it has been inverted, hence
+\emph{n}Eeriness. Factor structure and reliability were originally
+established under a psychometric perspective \citep{Ho2017}. AH used
+morphing levels between human and robot faces as stimuli, whereas the
+other two experiments used a subset of \citet{Mathur2016}, with a few
+new designs added in PS.
 
 All other scales were applied a sample of commercial home pages
-collected by Tuch et al. (2012) (a subset in DN):
+collected by \citet{Tuch2012} (a subset in DN):
 
 \begin{itemize}
 \item
   The \emph{Attractiveness} scale is unipolar subscale of the User
   Experience Questionnaire (UEQ) inventory and has undergone basic
-  psychometric evaluation in six studies with a single design each (Theo
-  et al., 2008).
+  psychometric evaluation in six studies with a single design each
+  \citep{Laugwitz2008}.
 \item
   The two 7-item bipolar scales \emph{Hedonic Quality - Identity (HQI)}
   and \emph{Hedonic Quality - Stimulation (HQS)} are from the
   AttrakDiff2 inventory, which underwent primary psychometric validation
-  on three designs (Hassenzahl et al., 2003). The scales \emph{Hedonism}
-  and \emph{Usability} in Nazareth \& Schmettow (2014) were taken from
-  the short version of AttrakDiff2, but will be considered separately in
-  this analysis.
+  on three designs \citep{Hassenzahl2003}. The scales \emph{Hedonism}
+  and \emph{Usability} in \citet{DN} were taken from the short version
+  of AttrakDiff2, but will be considered separately in this analysis.
 \item
-  DN composed the Beauty scale from the item used in Hassenzahl \& Monk
-  (2010) and three items representing classic aesthetics from Tractinsky
-  et al. (2006).
+  DN composed the Beauty scale from the item used in
+  \citet{Hassenzahl2010} and three items representing classic aesthetics
+  from \citet{Tractinsky2006}.
 \item
   The \emph{Credibility} scale was originally designed to compare
   people's attitude towards media (newspapers, TV, radio). The
   validation study used exploratory factor analysis for psychometric
-  item selection with 1468 participants (McGrath \& Gaziano, 1986).
+  item selection with 1468 participants \citep{Gaziano1986}.
 \end{itemize}
 
 Participants were sampled by convenience with sizes between 25 and 45
@@ -772,7 +746,7 @@ the data sets was collapsed into a psychometric and a designometric
 response matrix. Subsequently, three basic psychometric techniques were
 applied to both perspectives and compared. Scale reliability was
 computed using Cronbach's alpha. Item consistency was studied by
-inspecting corrected item-total correlations (William Revelle, 2025).
+inspecting corrected item-total correlations \citep{Psych}.
 
 The number of factors (dimensionality) was determined based on a
 parallel analysis based on minimized residuals, using the fa.parallel
@@ -784,6 +758,9 @@ The number of factors is determined as the point before the the real
 eigenvalue drops below the simulated level.
 
 \subsection{Results}\label{results}
+
+In the following scale and item reliability, as well as factor
+structures of eight rating scales are compared by perspective.
 
 \subsubsection{Scale reliability}\label{scale-reliability}
 
@@ -842,70 +819,72 @@ parallel analysis. Ideally, this procedure returns exactly as many
 factors as there are separate scales in every data set.
 
 The Eeriness scale is part of a larger Godspeed Index inventory and is
-supposed to represent a single latent variable. However, Ho \& MacDorman
-(2017) found that the scale decomposes into two slightly different
-aspects, summarized as ``eerie'' and ``spine-tingling''. This was
-established using principal component analysis, whereas a dedicated
-identification of the number of factors has not been reported. Since
-this was tested with only 12 designs, most likely it was under
-psychometric perspective. The results in
-Figure~\ref{fig-nfactors-eeriness} show that for both perspectives the
-eigenvalue drops below the simulated eigenvalue with two factors under
-both perspectives.
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-eeriness-1.pdf}}
-
-}
-
-\caption{\label{fig-nfactors-eeriness}Number of factors under
-designometric and psychometric perspectives for the Eeriness scale using
-parallel analysis}
-
-\end{figure}%
+supposed to represent a single latent variable. However, \citet{Ho2017}
+found that the scale decomposes into two slightly different aspects,
+summarized as ``eerie'' and ``spine-tingling''. This was established
+using principal component analysis, whereas a dedicated identification
+of the number of factors has not been reported. Since this was tested
+with only 12 designs, most likely it was under psychometric perspective.
+The results in Figure~\ref{fig-nfactors-1} show that for both
+perspectives the eigenvalue drops below the simulated eigenvalue with
+two factors under both perspectives.
 
 On theoretical grounds, the AttrakDiff2 inventory splits hedonistic
 quality into two components, Identity and Stimulation, while the
 credibility scale is a completely separate construct. We would expect
-three factors to emerge. As Figure~\ref{fig-nfactors-att} shows the two
+three factors to emerge. As Figure~\ref{fig-nfactors-2} shows the two
 perspectives deviate in opposite directions: for the psychometric
 perspective, the eigenvalues drop below their simulated counterparts at
 two factors, whereas for the designometric perspective stays above this
 line with five factors.
 
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-att-1.pdf}}
-
-}
-
-\caption{\label{fig-nfactors-att}Number of factors under designometric
-and psychometric perspectives for the AttrakDiff inventory using
-parallel analysis}
-
-\end{figure}%
-
 Finally, in study DN three independent scales, Hedonism, Usability and
 Beauty, were used und we expect three factors. In contrast, the
 eigenvalues drop below even the simulated eigenvalues with two factors,
 suggesting that the same latent variable is captured by all three scales
-under both perspectives (Figure~\ref{fig-nfactors-hub}).
+under both perspectives (Figure~\ref{fig-nfactors-3}).
 
 \begin{figure}
 
+\begin{minipage}{0.50\linewidth}
+
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-hub-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-1.pdf}}
 
 }
 
-\caption{\label{fig-nfactors-hub}Number of factors for Hedonic value,
-Usability and Beauty using parallel analysis}
+\subcaption{\label{fig-nfactors-1}Eeriness scale}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-2.pdf}}
+
+}
+
+\subcaption{\label{fig-nfactors-2}AttrakDiff and Credibility}
+
+\end{minipage}%
+\newline
+\begin{minipage}{0.50\linewidth}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{DMX_1_files/figure-pdf/fig-nfactors-3.pdf}}
+
+}
+
+\subcaption{\label{fig-nfactors-3}Hedonism, Usability and Beauty}
+
+\end{minipage}%
+
+\caption{\label{fig-nfactors}Parallel analysis results for
+identification of the number of factors under designometric and
+psychometric perspectives.}
 
 \end{figure}%
 
@@ -977,7 +956,7 @@ rejecting good items and selecting inefficient ones. A recent example is
 the development of the BUS-11 scale, where face validity demands (and
 factor analysis has confirmed) that \emph{Privacy} is a separate
 construct, but only one item was left after item selection under
-psychometric perspective (Borsci et al., 2022).
+psychometric perspective \citep{Borsci2022}.
 
 \subsection{Implications for users}\label{implications-for-users}
 
@@ -1018,7 +997,7 @@ When Social Experience (SX) or Virtual Experience (VX) become the new
 UX, it may start with the same abundance of new instruments trying to
 map the uncharted design space. This space is huge and effective
 designometric instruments are needed to guide critical design decisions
-in hyper-excited times (Gartner, 2023). Our results show, that the
+in hyper-excited times \citep{hypecycle2023}. Our results show, that the
 psychometric fallacy is harmful during scale development, leading to
 inefficient item sets and factor structures. It must not be purported.
 
@@ -1052,12 +1031,12 @@ functioning} is the idea that items must be fair and function the same
 for every tested person. This is a desirable property for a
 designometric scale, but a statistical model for verification would need
 individual parameters for participants, designs and items,
-simultaneously. Schmettow (2021a) proposed multi-level models for
-capturing designometric situations in their full dimension, which could
-be well-suited for run-time use or basic scale development.
+simultaneously. \citet{Schmettow2021_multilevel} proposed multi-level
+models for capturing designometric situations in their full dimension,
+which could be well-suited for run-time use or basic scale development.
 
 Such a multi-level approach is well in line with the established field
-of generalizability theory (Brennan, 2001). In that approach, the
+of generalizability theory \citep{Brennan2001}. In that approach, the
 variance in responses is partitioned into multiple sources. Thus,
 suppose we have a data collection design where multiple users judge
 several designs, on multiple items, the variance in responses can be
@@ -1066,17 +1045,19 @@ differences in designs, and differences in items. This can be done for
 the response box, but can straightforwardly be extended to hyperboxes.
 The designometric encounter may not be end of story. For example, for
 comparing multi-purpose designs a researcher may want to add tasks as
-fourth population of interest (Schmettow \& Havinga, 2013).
+fourth population of interest \citep{Schmettow2013s}.
 
 Such variance decomposition can be implemented in multi-level models,
 where the estimated variances can be used to compute reliability,
 whether it relates to measuring differences in users or differences in
 designs, while controlling for all other relevant sources of variation.
-By extending the modelling to multi-level IRT models Berg et al. (2007)
-the discrete nature of the item response data can be taken into account.
+By extending the modelling to multi-level IRT models
+\citep[\citet{vandenBerg2007}]{Fox2001} the discrete nature of the item
+response data can be taken into account.
 
 Multi-dimensional exploratory methods have been well developed in
-chemometrics and sensory science Harshman (1970), but have seen little
+chemometrics and sensory science
+\citep[\citet{Harshman1970}]{Tucker1966}, but have seen little
 integration into mainstream psychometric or UX-scale validation
 workflows. Bridging this gap---by extending factor-analytic methods to
 multi-dimensional designometric data---constitutes a critical next step
@@ -1088,284 +1069,9 @@ are possible, which robustly perform in more than one perspective.
 Understanding how to develop such scales is an important next step in
 developing a deeper designometric methodology.
 
-\section*{References}\label{references}
-\addcontentsline{toc}{section}{References}
 
-\phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-Anderson1988}
-Anderson, J. C., Kellogg, J. L., \& Gerbing, D. W. (1988). Structural
-equation modeling in practice: A review and recommended two-step
-approach. \emph{Psychological Bulletin}, \emph{103}, 411--423.
-
-\bibitem[\citeproctext]{ref-Bargas-Avila2011}
-Bargas-Avila, J. A., \& Hornbæk, K. (2011). Old wine in new bottles or
-novel challenges. \emph{Proceedings of the SIGCHI Conference on Human
-Factors in Computing Systems}, 2689--2698.
-\url{https://doi.org/10.1145/1978942.1979336}
-
-\bibitem[\citeproctext]{ref-vandenBerg2007}
-Berg, S. M. van den, Glas, C. A. W., \& Boomsma, D. I. (2007). Variance
-decomposition using an IRT measurement model. \emph{Behavior Genetics},
-\emph{37}, 604--616. \url{https://doi.org/10.1007/s10519-007-9156-1}
-
-\bibitem[\citeproctext]{ref-Bollen1990}
-Bollen, K. A. (1990). Overall fit in covariance structure models: Two
-types of sample size effects. \emph{Psychological Bulletin}, \emph{107},
-256--259.
-
-\bibitem[\citeproctext]{ref-QB}
-Boom, Q., \& Schmettow, M. (2013). \emph{Hedonic quality: The inference
-and perspective processing approach} {[}B.S. thesis{]}. University of
-Twente.
-
-\bibitem[\citeproctext]{ref-Borsci2022}
-Borsci, S., Malizia, A., Schmettow, M., Velde, F. van der,
-Tariverdiyeva, G., Balaji, D., \& Chamberlain, A. (2022). The chatbot
-usability scale: The design and pilot of a usability scale for
-interaction with AI-based conversational agents. \emph{Personal and
-Ubiquitous Computing}, \emph{26}, 95--119.
-\url{https://doi.org/10.1007/S00779-021-01582-9/TABLES/9}
-
-\bibitem[\citeproctext]{ref-Borsci2024}
-Borsci, S., \& Schmettow, M. (2024). Re-examining the chatBot usability
-scale (BUS-11) to assess user experience with customer relationship
-management chatbots. \emph{Personal and Ubiquitous Computing},
-\emph{28}, 1033--1044. \url{https://doi.org/10.1007/s00779-024-01834-4}
-
-\bibitem[\citeproctext]{ref-Brennan2001}
-Brennan, R. L. (2001). \emph{Generalizability theory}. Springer New
-York. \url{https://doi.org/10.1007/978-1-4757-3456-0}
-
-\bibitem[\citeproctext]{ref-Brown2015}
-Brown, T. A. (2015). \emph{Confirmatory factor analysis for applied
-research} (p. 482). The Guilford Press.
-
-\bibitem[\citeproctext]{ref-Clark1995}
-Clark, L. A., \& Watson, D. (1995). Scale-validity. \emph{Psychological
-Assessment}, \emph{7}.
-
-\bibitem[\citeproctext]{ref-Costello2005}
-Costello, A. B., \& Osborne, J. W. (2005). Best practices in exploratory
-factor analysis: Four recommendations for getting the most from your
-analysis. \emph{Practical Assessment, Research \& Evaluation},
-\emph{10}. https://doi.org/\url{https://doi.org/10.7275/jyj1-4868}
-
-\bibitem[\citeproctext]{ref-Cronbach1951}
-Cronbach, L. J. (1951). Coefficient alpha and the internal structure of
-tests. \emph{Psychometrika}, \emph{16}, 297--334.
-\url{https://doi.org/10.1007/BF02310555}
-
-\bibitem[\citeproctext]{ref-Embretson2013}
-Embretson, S. E., \& Reise, S. P. (2013). \emph{Item response theory}.
-Psychology Press. \url{https://doi.org/10.4324/9781410605269}
-
-\bibitem[\citeproctext]{ref-Fabrigar1999}
-Fabrigar, L. R., Wegener, D. T., Maccallum, R. C., \& Strahan, E. J.
-(1999). Evaluating the use of exploratory factor analysis in
-psychological research. \emph{Psychological Methods}, \emph{4},
-272--299.
-
-\bibitem[\citeproctext]{ref-Fox2001}
-Fox, J.-P., \& Glas, C. A. W. (2001). Bayesian estimation of a
-multilevel IRT model using gibbs sampling. \emph{Psychometrika},
-\emph{66}, 271--288. \url{https://doi.org/10.1007/BF02294839}
-
-\bibitem[\citeproctext]{ref-hypecycle2023}
-Gartner, Inc. (2023). \emph{Hype cycle for emerging technologies, 2023}.
-Gartner, Inc.
-
-\bibitem[\citeproctext]{ref-AH}
-Haeske, A. B., \& Schmettow, M. (2016). \emph{The uncanny valley :
-Involvement of fast and slow evaluation systems} (pp. 1--49) {[}B.S.
-thesis{]}. University of Twente.
-
-\bibitem[\citeproctext]{ref-Harshman1970}
-Harshman, R. A. (1970). Foundations of the PARAFAC procedure: Models and
-conditions for an "explanatory" multi-modal factor analysis. \emph{UCLA
-Working Papers in Phonetics}, 1--84.
-
-\bibitem[\citeproctext]{ref-Hassenzahl2003}
-Hassenzahl, M., Burmester, M., \& Koller, F. (2003). AttrakDiff: Ein
-fragebogen zur messung wahrgenommener hedonischer und pragmatischer
-qualität. \emph{Mensch \& Computer 2003}, 187--196.
-\url{http://link.springer.com/chapter/10.1007/978-3-322-80058-9_19}
-
-\bibitem[\citeproctext]{ref-Hassenzahl2010}
-Hassenzahl, M., \& Monk, A. (2010). The inference of perceived usability
-from beauty. \emph{Human--Computer Interaction}, \emph{25}, 235--260.
-\url{https://doi.org/10.1080/073700242010500139}
-
-\bibitem[\citeproctext]{ref-Hayton2004}
-Hayton, J. C., Allen, D. G., \& Scarpello, V. (2004). Factor retention
-decisions in exploratory factor analysis: A tutorial on parallel
-analysis. \emph{Organizational Research Methods}, \emph{7}, 191--205.
-\url{https://doi.org/10.1177/1094428104263675}
-
-\bibitem[\citeproctext]{ref-Hinkin1998}
-Hinkin, T. R. (1998). A brief tutorial on the development of measures
-for use in survey questionnaires. \emph{Organizational Research
-Methods}, \emph{1}, 104--121.
-\url{https://doi.org/10.1177/109442819800100106}
-
-\bibitem[\citeproctext]{ref-Ho2017}
-Ho, C. C., \& MacDorman, K. F. (2017). Measuring the uncanny valley
-effect: Refinements to indices for perceived humanness, attractiveness,
-and eeriness. \emph{International Journal of Social Robotics}, \emph{9},
-129--139. \url{https://doi.org/10.1007/s12369-016-0380-9}
-
-\bibitem[\citeproctext]{ref-Ho2010}
-Ho, C.-C., \& MacDorman, K. F. (2010). Revisiting the uncanny valley
-theory: Developing and validating an alternative to the godspeed
-indices. \emph{Computers in Human Behavior}, \emph{26}, 1508--1518.
-\url{https://doi.org/10.1016/j.chb.2010.05.015}
-
-\bibitem[\citeproctext]{ref-DK}
-Keeris, D., \& Schmettow, M. (2016). \emph{Replicating the uncanny
-valley across conditions using morphed and robotic faces} (pp. 1--57)
-{[}M.S. thesis{]}. University of Twente.
-
-\bibitem[\citeproctext]{ref-Kroenke2001}
-Kroenke, K., Spitzer, R. L., \& Williams, J. B. W. (2001). The PHQ-9.
-\emph{Journal of General Internal Medicine}, \emph{16}, 606--613.
-\url{https://doi.org/10.1046/j.1525-1497.2001.016009606.x}
-
-\bibitem[\citeproctext]{ref-JK}
-Kuurstra, J., \& Schmettow, M. (2013). \emph{The influence of visual
-complexity and prototypicality on credibility judgments of websites}
-{[}B.S. thesis{]}. University of Twente.
-
-\bibitem[\citeproctext]{ref-Lim2019}
-Lim, S., \& Jahng, S. (2019). Determining the number of factors using
-parallel analysis and its recent variants. \emph{Psychological Methods},
-\emph{24}, 452--467. \url{https://doi.org/10.1037/met0000230}
-
-\bibitem[\citeproctext]{ref-OpenSesame}
-Mathôt, S., Schreij, D., \& Theeuwes, J. (2012). OpenSesame: An
-open-source, graphical experiment builder for the social sciences.
-\emph{Behavior Research Methods}, \emph{44}, 314--324.
-\url{https://doi.org/10.3758/s13428-011-0168-7}
-
-\bibitem[\citeproctext]{ref-Mathur2016}
-Mathur, M. B., \& Reichling, D. B. (2016). Navigating a social world
-with robot partners: A quantitative cartography of the uncanny valley.
-\emph{Cognition}, \emph{146}, 22--32.
-\url{https://doi.org/10.1016/j.cognition.2015.09.008}
-
-\bibitem[\citeproctext]{ref-McAdams1992}
-McAdams, D. P. (1992). The five‐factor model personality: A critical
-appraisal. \emph{Journal of Personality}, \emph{60}, 329--361.
-\url{https://doi.org/10.1111/j.1467-6494.1992.tb00976.x}
-
-\bibitem[\citeproctext]{ref-Gaziano1986}
-McGrath, C., \& Gaziano, K. (1986). Measuring the concept of
-credibility. \emph{Journalism Quarterly}, \emph{63}, 451--462.
-
-\bibitem[\citeproctext]{ref-DN}
-Nazareth, D., \& Schmettow, M. (2014). \emph{The fluency effect as the
-underlying variable for judging beauty and usability} {[}M.S. thesis{]}.
-University of Twente.
-
-\bibitem[\citeproctext]{ref-Peirce2008}
-Peirce, J. W. (2008). Generating stimuli for neuroscience using
-PsychoPy. \emph{Frontiers in Neuroinformatics}, \emph{2}, 10.
-\url{https://doi.org/10.3389/neuro.11.010.2008}
-
-\bibitem[\citeproctext]{ref-Penfield2000}
-Penfield, R. D., \& Lam, T. C. M. (2000). Assessing differential item
-functioning in performance assessment: Review and recommendations.
-\emph{Educational Measurement: Issues and Practice}, \emph{19}, 5--15.
-\url{https://doi.org/10.1111/J.1745-3992.2000.TB00033.X}
-
-\bibitem[\citeproctext]{ref-SP}
-Polst, S., \& Schmettow, M. (2014). \emph{The user experience
-questionnaire and the impact of early information processing} {[}B.S.
-thesis{]}. University of Twente.
-\url{https://purl.utwente.nl/essays/65768}
-
-\bibitem[\citeproctext]{ref-Rasch1960}
-Rasch, G. (1960). Studies in mathematical psychology: I. Probabilistic
-models for some intelligence and attainment tests. In \emph{Studies in
-mathematical psychology: I. Probabilistic models for some intelligence
-and attainment tests.} (pp. 184, xiii, 184--xiii). Nielsen \& Lydiche.
-
-\bibitem[\citeproctext]{ref-Schmettow2021_multilevel}
-Schmettow, M. (2021a). Multilevel models. In \emph{New statistics for
-design researchers} (pp. 267--322). Springer.
-\url{https://doi.org/10.1007/978-3-030-46380-9_6}
-
-\bibitem[\citeproctext]{ref-Schmettow2021}
-Schmettow, M. (2021b). \emph{New statistics for design researchers}.
-Springer International Publishing.
-\url{https://doi.org/10.1007/978-3-030-46380-9}
-
-\bibitem[\citeproctext]{ref-Schmettow2013s}
-Schmettow, M., \& Havinga, J. (2013). Are users more diverse than
-designs? Testing and extending a 25 years old claim . In S. Love, K.
-Hone, \& T. McEwan (Eds.), \emph{Proceedings of BCS HCI 2013- the
-internet of things XXVII}. BCS Learning; Development Ltd.
-
-\bibitem[\citeproctext]{ref-Schmidt1998}
-Schmidt, F. L., \& Hunter, J. E. (1998). The validity and utility of
-selection methods in personnel psychology: Practical and theoretical
-implications of 85 years of research findings. \emph{Psychological
-Bulletin}, \emph{124}, 262--274.
-
-\bibitem[\citeproctext]{ref-Simmons2011}
-Simmons, J. P., Nelson, L. D., \& Simonsohn, U. (2011). False-positive
-psychology: Undisclosed flexibility in data collection and analysis
-allows presenting anything as significant. \emph{Psychological Science},
-\emph{22}, 1359--1366. \url{https://doi.org/10.1177/0956797611417632}
-
-\bibitem[\citeproctext]{ref-PS}
-Slijkhuis, P. J. H., \& Schmettow, M. (2017). \emph{The uncanny valley
-phenomenon a replication with short exposure times} {[}M.S. thesis{]}.
-University of Twente. \url{http://essay.utwente.nl/72507/}
-
-\bibitem[\citeproctext]{ref-Laugwitz2008}
-Theo, Bettina, S. M. L., \& Held. (2008). Construction and evaluation of
-a user experience questionnaire. In A. Holzinger (Ed.), \emph{HCI and
-usability for education and work} (pp. 63--76). Springer Berlin
-Heidelberg.
-
-\bibitem[\citeproctext]{ref-Tractinsky2006}
-Tractinsky, N., Cokhavi, A., Kirschenbaum, M., \& Sharfi, T. (2006).
-Evaluating the consistency of immediate aesthetic perceptions of web
-pages. \emph{International Journal of Human-Computer Studies},
-\emph{64}, 1071--1083. \url{https://doi.org/10.1016/j.ijhcs.2006.06.009}
-
-\bibitem[\citeproctext]{ref-Tuch2012}
-Tuch, A. N., Presslaber, E. E., Stöcklin, M., Opwis, K., \&
-Bargas-Avila, J. a. (2012). The role of visual complexity and
-prototypicality regarding first impression of websites: Working towards
-understanding aesthetic judgments. \emph{International Journal of
-Human-Computer Studies}, \emph{70}, 794--811.
-\url{https://doi.org/10.1016/j.ijhcs.2012.06.003}
-
-\bibitem[\citeproctext]{ref-Tucker1966}
-Tucker, L. R. (1966). Some mathematical notes on three-mode factor
-analysis. \emph{Psychometrika}, \emph{31}, 279--311.
-\url{https://doi.org/10.1007/BF02289464}
-
-\bibitem[\citeproctext]{ref-Wickens2002}
-Wickens, C. D. (2002). Multiple resources and performance prediction.
-\emph{Theoretical Issues in Ergonomics Science}, \emph{3}, 159--177.
-\url{https://doi.org/10.1080/14639220210123806}
-
-\bibitem[\citeproctext]{ref-Psych}
-William Revelle. (2025). \emph{Psych: Procedures for psychological,
-psychometric, and personality research}. Northwestern University.
-\url{https://CRAN.R-project.org/package=psych}
-
-\bibitem[\citeproctext]{ref-Wolf2013}
-Wolf, E. J., Harrington, K. M., Clark, S. L., \& Miller, M. W. (2013).
-Sample size requirements for structural equation models: An evaluation
-of power, bias, and solution propriety. \emph{Educational and
-Psychological Measurement}, \emph{73}, 913--934.
-\url{https://doi.org/10.1177/0013164413495237}
-
-\end{CSLReferences}
-
+\renewcommand\refname{References}
+\bibliography{dmx.bib}
 
 
 
