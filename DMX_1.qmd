@@ -315,7 +315,7 @@ In order to assess the biases introduced by the psychometric fallacy, a secondar
 
 ## Methods
 
-In studies QB, JK, SP and DN \[\@tbl-data-summary\] participants saw screen shots of home pages and responded to several user experience scales [@QB, @JK, @SP, @DN], whereas in AH, DK and PS the stimuli were robot faces \[@AH, @DK, @PS\], with original research questions related to the Uncanny Valley effect. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
+In studies QB, JK, SP and DN (@tbl-data-summary) participants saw screen shots of home pages and responded to several user experience scales [@QB, @JK, @SP, @DN], whereas in AH, DK and PS the stimuli were robot faces \[@AH, @DK, @PS\], with original research questions related to the Uncanny Valley effect. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
 DN used OpenSesame for stimulus presentation and implemented the collection as graded responses [@OpenSesame]. All other experiments used the same PsychoPy program and collected continuous responses using a visual analog scale [@Peirce2008].
 
