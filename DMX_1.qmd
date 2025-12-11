@@ -311,11 +311,11 @@ This simple example demonstrates that psychometric reliability (person sensitivi
 
 # Empirical demonstration
 
-In order to assess the biases introduced by the psychometric fallacy, a secondary data analysis was conducted using data from seven prior experiments, which were originally testing original hypotheses on User Experience and Human-Robot Interaction (@tbl-data-summary). What was common is that data was obtained in complete designometric encounters, with large samples of designs.
+In order to assess the biases introduced by the psychometric fallacy, a secondary data analysis was conducted using data from seven prior experiments, which were originally testing hypotheses on User Experience and Human-Robot Interaction (@tbl-data-summary). A commonanlity of these studies is that data was obtained in complete designometric encounters, with large samples of designs.
 
 ## Methods
 
-In studies QB, JK, SP and DN (@tbl-data-summary) participants saw screen shots of home pages and responded to several user experience scales [@QB, @JK, @SP, @DN], whereas in AH, DK and PS the stimuli were robot faces \[@AH, @DK, @PS\], with original research questions related to the Uncanny Valley effect. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
+In studies QB, JK, SP and DN (@tbl-data-summary) participants saw screen shots of home pages and responded to several user experience scales [@QB, @JK, @SP, @DN], whereas in AH, DK and PS the stimuli were robot faces [@AH, @DK, @PS], with original research questions related to the Uncanny Valley effect. All experiments used manipulation of presentation time to collect data on subconscious cognitive processing. For the analysis here, presentation times lower than 500ms were discarded. All experiments used a (mildly) incomplete design in that participants encountered all designs and items several times, but not in every possible combination.
 
 DN used OpenSesame for stimulus presentation and implemented the collection as graded responses [@OpenSesame]. All other experiments used the same PsychoPy program and collected continuous responses using a visual analog scale [@Peirce2008].
 
@@ -371,7 +371,7 @@ D_1 |>
 
 In total, eight rating scales were applied to four design samples. The bipolar *Eeriness* scale is a primary research tool on the Uncanny Valley phenomenon and measures negative emotional responses towards artificial faces (see @sec-dmx-scale-dev). For the purpose of rendering the Uncanny Valley effect, it has been inverted, hence *n*Eeriness. Factor structure and reliability were originally established under a psychometric perspective [@Ho2017]. AH used morphing levels between human and robot faces as stimuli, whereas the other two experiments used a subset of @Mathur2016, with a few new designs added in PS.
 
-All other scales were applied a sample of commercial home pages collected by @Tuch2012 (a subset in DN):
+All other scales were applied to a sample of commercial home pages collected by @Tuch2012 (a subset in DN):
 
 -   The *Attractiveness* scale is unipolar subscale of the User Experience Questionnaire (UEQ) inventory and has undergone basic psychometric evaluation in six studies with a single design each [@Laugwitz2008].
 
@@ -439,11 +439,11 @@ D_1 |>
 
 Goal of the analysis was to examine how the psychometric fallacy compromises the evaluation of rating scales. For this purpose, each of the data sets was collapsed into a psychometric and a designometric response matrix. Subsequently, three basic psychometric techniques were applied to both perspectives and compared. Scale reliability was computed using Cronbach’s alpha. Item consistency was studied by inspecting corrected item-total correlations [@Psych].
 
-The number of factors (dimensionality) was determined based on a parallel analysis based on minimized residuals, using the fa.parallel function from the psych R package. *Number of factors* was identified using parallel analysis with `psych::fa.parallel`. This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained from randomized data. The number of factors is determined as the point before the the real eigenvalue drops below the simulated level.
+The number of factors (dimensionality) was determined based on a parallel analysis based on minimized residuals, using the fa.parallel function from the psych R package. *Number of factors* was identified using parallel analysis with `psych::fa.parallel`. This produces an eigenvalue obtained on real data and compares it to eigenvalues obtained from simulated data obtained from randomized data. The number of factors is determined as the point before the real eigenvalue drops below the simulated level.
 
 ## Results
 
-In the following scale and item reliability, as well as factor structures of eight rating scales are compared by perspective.
+In the following scale, item reliability and factor structures of eight rating scales are compared by perspective.
 
 ### Scale reliability
 
@@ -477,7 +477,7 @@ Scale_rel |>
   theme_minimal()
 ```
 
-Overall scale reliabilities cover a broad range from excellent to unusable [@fig-scale-reliability]. All scales look better under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent designometric reliability, but poor reliability from a psycvhometric perspective.
+Overall scale reliabilities cover a broad range from excellent to unusable [@fig-scale-reliability]. All scales perform better under the designometric perspective, albeit, the difference ranges from barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty and Attractiveness). The most dramatic difference can be seen in Hedonism and Beauty, which both have excellent designometric reliability, but poor reliability from a psychometric perspective.
 
 ### Item consistency
 
@@ -497,7 +497,7 @@ Item_rel <-
 #| label: fig-item-reliability
 #| fig.height: 9
 #| fig.width: 7
-#| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale"
+#| fig-cap: "Cronbach alpha item-level reliability estimates compared by perspective and scale. Scale reliability repeated in Red"
 
 Item_rel |> 
   ggplot(aes(x = Perspective,
@@ -639,13 +639,13 @@ plot.nfactors(PA_HUB) + ylim(0,6) + xlim(1,8)# + ggtitle("Hedonism, Usability an
 
 Rating scales in Human Factors research are commonly used to discriminate between poor and good design options, rank designs, choose designs, or perform UX regression tests in continuous design cycles. Our logical argument is that the capability of a scale to rank designs can only be seen on multiple designs and using design-by-item response matrices. We called it the psychometric fallacy to use person-by-item response matrices in place. A simulation showed, that the worst case can happen under the psychometric fallacy: excellent reliability is reported, when it actually is poor.
 
-With empirical data from five experiments we showed that the psychometric fallacy has real-world implicitations and produces wrong interpretations across the board, sometimes dramatic. In many cases, scale reliability is very different between the two perspectives, with designometric reliability being generally higher. While the differences in reliability were large across scales, on designometric level they were all in a useful range, ranging from just useful (Credibility) to excellent (Hedonism, Beauty). But, many differences exist on item level, going in both directions. Accordingly, the factor cardinality differs from theoretical expectations in all but one cases (Eeriness).
+With empirical data from five experiments we showed that the psychometric fallacy has real-world implicitations and produces wrong interpretations across the board, sometimes dramatic. In many cases, scale reliability is very different between the two perspectives, with designometric reliability being generally higher. While the differences in reliability were large across scales, on designometric level they were all in a useful range, ranging from just useful (Credibility) to excellent (Hedonism, Beauty). But, many differences exist on item level, going in both directions. Accordingly, the factor numbers differ from theoretical expectations in all but one cases (Eeriness).
 
 In the following we discuss the details and implications of our findings for scale developers and users, before we outline an agenda for more advanced (deep) designometric methods.
 
 ## Implications for scale development
 
-In design research the target of all research is quickly changing and expanding target. A certain swiftness and pragmatism is required to keep up with the pace. Development of new scales is a common task, and often it is carried out by researchers with a basic understanding of psychometric principles, such as (item) reliability and exploratory factor analysis.
+In design research the target of all research is quickly changing and expanding. A certain swiftness and pragmatism is required to keep up with the pace. Development of new scales is a common task, and often it is carried out by researchers with a basic understanding of psychometric principles, such as (item) reliability and exploratory factor analysis.
 
 Basic psychometric tools produce vastly different results under the psychometric fallacy. While our study used mature scales, which had already undergone item selection and perhaps factor analysis, we can interpolate the consequences for future scale development.
 
@@ -677,13 +677,13 @@ But, practitioners may not yet have the most efficient rating scales. Even if a 
 
 ## Applications
 
-A key idea in usability engineering is that interaction designers learn to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market and several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, receiving a lot of attention for intelligent agent design. Humanoid and animalistic robot design is coming out of its niche, and virtual reality applications are already mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality.
+A key idea in usability engineering is that interaction designers learn to bridge the gap between the system model and the users mental model, cognitive skills and feelings. Emerging technologies are often characterized by an innovation phase, where multiple design paths are explored in a rush to the market. Several domains of human-technology interaction are currently gaining momentum: large language model technology is, as of writing, receiving a lot of attention for intelligent agent design. Humanoid and animalistic robot design is coming out of its niche, and virtual reality applications are already mainstream. These three domains have in common that, compared to classic computer applications, they are tapping into new territories of the users mind, the social mind and the sensation of physical reality.
 
 When Social Experience (SX) or Virtual Experience (VX) become the new UX, it may start with the same abundance of new instruments trying to map the uncharted design space. This space is huge and effective designometric instruments are needed to guide critical design decisions in hyper-excited times [@hypecycle2023]. Our results show, that the psychometric fallacy is harmful during scale development, leading to inefficient item sets and factor structures. It must not be purported.
 
 ## Towards Deep Designometrics
 
-By comparing the two perspectives, we illustrated that designometrics can be accomplished with standard psychometric tools by flattening the response box across participants. In principle averaging across users is legit, except in situations where users did not evaluate the same set of designs. But even when all users were evaluating the same set of designs, this averaging across users results in information loss. More specifically we lose information about the users, which would be interesting in its own right. For instance, it would be possible to evaluate a designometric model on the basis of responses of a single user. Formally, this would be a valid designometric measure, reflecting a single person’s sensitivity to differences in a design attribute.
+By comparing the two perspectives, we illustrated that designometrics can be accomplished with standard psychometric tools by flattening the response box across participants. In principle averaging across users is legit, except in situations where users did not evaluate the same set of designs. But even when all users were evaluating the same set of designs, this averaging across users results in information loss. More specifically we lose information about the users, which would be interesting in its own right. For instance, it would be possible to evaluate a designometric model on the basis of responses of a single user. Formally, this would be a valid designometric measure, reflecting a single person’s ranking of designs.
 
 Designometric scales are commonly used to measure a populations reaction to a design, which implies that on some level the psychometric matrix is useful, for example to study the distribution of user sensitivity to a feature. Imaginable cases exist where one could use a designometric scale for psychometric purposes. For example, an instrument to measure trustworthiness of designs could be used to estimate faithfulness of participants in a study (or a training) on cyber security.
 

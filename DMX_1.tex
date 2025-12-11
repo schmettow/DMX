@@ -107,6 +107,20 @@
 \bibliographystyle{elsarticle-harv}
 
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -628,24 +642,23 @@ severe the psychometric fallacy is in real data sets.
 
 In order to assess the biases introduced by the psychometric fallacy, a
 secondary data analysis was conducted using data from seven prior
-experiments, which were originally testing original hypotheses on User
-Experience and Human-Robot Interaction (Table~\ref{tbl-data-summary}).
-What was common is that data was obtained in complete designometric
-encounters, with large samples of designs.
+experiments, which were originally testing hypotheses on User Experience
+and Human-Robot Interaction (Table~\ref{tbl-data-summary}). A
+commonanlity of these studies is that data was obtained in complete
+designometric encounters, with large samples of designs.
 
 \subsection{Methods}\label{methods}
 
 In studies QB, JK, SP and DN (Table~\ref{tbl-data-summary}) participants
 saw screen shots of home pages and responded to several user experience
 scales \citep[\citet{JK}, \citet{SP}, \citet{DN}]{QB}, whereas in AH, DK
-and PS the stimuli were robot faces {[}\citet{AH}, \citet{DK},
-\citet{PS}{]}, with original research questions related to the Uncanny
-Valley effect. All experiments used manipulation of presentation time to
-collect data on subconscious cognitive processing. For the analysis
-here, presentation times lower than 500ms were discarded. All
-experiments used a (mildly) incomplete design in that participants
-encountered all designs and items several times, but not in every
-possible combination.
+and PS the stimuli were robot faces \citep[\citet{DK}, \citet{PS}]{AH},
+with original research questions related to the Uncanny Valley effect.
+All experiments used manipulation of presentation time to collect data
+on subconscious cognitive processing. For the analysis here,
+presentation times lower than 500ms were discarded. All experiments used
+a (mildly) incomplete design in that participants encountered all
+designs and items several times, but not in every possible combination.
 
 DN used OpenSesame for stimulus presentation and implemented the
 collection as graded responses \citep{OpenSesame}. All other experiments
@@ -709,7 +722,7 @@ morphing levels between human and robot faces as stimuli, whereas the
 other two experiments used a subset of \citet{Mathur2016}, with a few
 new designs added in PS.
 
-All other scales were applied a sample of commercial home pages
+All other scales were applied to a sample of commercial home pages
 collected by \citet{Tuch2012} (a subset in DN):
 
 \begin{itemize}
@@ -754,13 +767,13 @@ function from the psych R package. \emph{Number of factors} was
 identified using parallel analysis with \texttt{psych::fa.parallel}.
 This produces an eigenvalue obtained on real data and compares it to
 eigenvalues obtained from simulated data obtained from randomized data.
-The number of factors is determined as the point before the the real
+The number of factors is determined as the point before the real
 eigenvalue drops below the simulated level.
 
 \subsection{Results}\label{results}
 
-In the following scale and item reliability, as well as factor
-structures of eight rating scales are compared by perspective.
+In the following scale, item reliability and factor structures of eight
+rating scales are compared by perspective.
 
 \subsubsection{Scale reliability}\label{scale-reliability}
 
@@ -778,12 +791,12 @@ reliability estimates compared by perspective and scale}
 \end{figure}%
 
 Overall scale reliabilities cover a broad range from excellent to
-unusable Figure~\ref{fig-scale-reliability}. All scales look better
+unusable Figure~\ref{fig-scale-reliability}. All scales perform better
 under the designometric perspective, albeit, the difference ranges from
 barely noticable (HQS, HQI) to very strong (Hedonism, Usability, Beauty
 and Attractiveness). The most dramatic difference can be seen in
 Hedonism and Beauty, which both have excellent designometric
-reliability, but poor reliability from a psycvhometric perspective.
+reliability, but poor reliability from a psychometric perspective.
 
 \subsubsection{Item consistency}\label{item-consistency}
 
@@ -808,7 +821,8 @@ items.
 }
 
 \caption{\label{fig-item-reliability}Cronbach alpha item-level
-reliability estimates compared by perspective and scale}
+reliability estimates compared by perspective and scale. Scale
+reliability repeated in Red}
 
 \end{figure}%
 
@@ -908,8 +922,8 @@ designometric reliability being generally higher. While the differences
 in reliability were large across scales, on designometric level they
 were all in a useful range, ranging from just useful (Credibility) to
 excellent (Hedonism, Beauty). But, many differences exist on item level,
-going in both directions. Accordingly, the factor cardinality differs
-from theoretical expectations in all but one cases (Eeriness).
+going in both directions. Accordingly, the factor numbers differ from
+theoretical expectations in all but one cases (Eeriness).
 
 In the following we discuss the details and implications of our findings
 for scale developers and users, before we outline an agenda for more
@@ -919,11 +933,10 @@ advanced (deep) designometric methods.
 development}\label{implications-for-scale-development}
 
 In design research the target of all research is quickly changing and
-expanding target. A certain swiftness and pragmatism is required to keep
-up with the pace. Development of new scales is a common task, and often
-it is carried out by researchers with a basic understanding of
-psychometric principles, such as (item) reliability and exploratory
-factor analysis.
+expanding. A certain swiftness and pragmatism is required to keep up
+with the pace. Development of new scales is a common task, and often it
+is carried out by researchers with a basic understanding of psychometric
+principles, such as (item) reliability and exploratory factor analysis.
 
 Basic psychometric tools produce vastly different results under the
 psychometric fallacy. While our study used mature scales, which had
@@ -984,7 +997,7 @@ A key idea in usability engineering is that interaction designers learn
 to bridge the gap between the system model and the users mental model,
 cognitive skills and feelings. Emerging technologies are often
 characterized by an innovation phase, where multiple design paths are
-explored in a rush to the market and several domains of human-technology
+explored in a rush to the market. Several domains of human-technology
 interaction are currently gaining momentum: large language model
 technology is, as of writing, receiving a lot of attention for
 intelligent agent design. Humanoid and animalistic robot design is
@@ -1014,7 +1027,7 @@ specifically we lose information about the users, which would be
 interesting in its own right. For instance, it would be possible to
 evaluate a designometric model on the basis of responses of a single
 user. Formally, this would be a valid designometric measure, reflecting
-a single person's sensitivity to differences in a design attribute.
+a single person's ranking of designs.
 
 Designometric scales are commonly used to measure a populations reaction
 to a design, which implies that on some level the psychometric matrix is
