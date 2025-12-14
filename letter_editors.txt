@@ -1,0 +1,21 @@
+Dear Editors,
+
+Please consider our manuscript, 
+“The Designometric Perspective and the Psychometric Fallacy in Developing User Experience Rating Scales” 
+for publication in the International Journal of Human-Computer Studies.
+
+The paper argues that many UX rating scales are validated using psychometric procedures 
+that are inappropriate for their actual purpose: ranking and comparing design alternatives. 
+We term this mismatch the psychometric fallacy and show that design evaluation inherently requires a design × person × item data structure. 
+Using simulations and secondary analyses of eight widely used UX scales, we demonstrate that psychometric validation can produce misleading conclusions about reliability, item quality, and dimensionality. 
+We further show how standard psychometric tools can be meaningfully applied within a designometric perspective by using design × item response matrices, and we outline implications for scale development and use in HCI research.
+
+We believe this contribution addresses a foundational measurement issue of direct relevance to IJHCS readers concerned with UX evaluation, experimental methodology, and emerging interaction paradigms.
+
+This manuscript is original, not under review elsewhere, and approved by all authors.
+
+Sincerely,
+
+Martin Schmettow
+Simone Borsci
+Stéphanie M. van den Berg
