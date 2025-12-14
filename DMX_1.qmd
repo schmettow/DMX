@@ -31,11 +31,12 @@ keywords:
   - Psychometrics
   - User Experience
   - Human Factors
+#format: docx
 format:
   elsevier-pdf:
     keep-tex: true
     journal:
-      name: PsyRxiv
+      name: PsyArxiv
       formatting: preprint
       #model: 1p # Don't set a model with preprint
       cite-style: authoryear
@@ -137,7 +138,7 @@ Analog to psychometric scale evaluation, substantial samples of designs are requ
 
 When a real interactive experience is subject of the measure, a measurement can take from several minutes to hours and a complete experimental design with every possible encounter becomes impractical. A way to mitigate this problem is to use *planned incomplete* experimental designs. Essentially, a planned incomplete validation study has all participants encounter only a partition of the design sample. For example, a sample of 100 designs can be tested by letting every participant encounter overlapping subsets. As long as all designs are covered by at least one participant, this will result in a complete design-by-item matrix after collapsing along participants.
 
-A variation of planned incomplete studies is to *successively* build the sample of designs. This is especially useful, when dealing with emerging classes of designs. This happened during the development of the BUS-11 scale for chatbot aveluation, where initially it was difficult to build a substantial sample, before large language models broke through [@Borsci2024].
+A variation of planned incomplete studies is to *successively* build the sample of designs. This is especially useful, when dealing with emerging classes of designs. This happened during the development of the BUS-11 scale for chatbot evaluation, where initially it was difficult to build a substantial sample, before large language models broke through [@Borsci2024].
 
 ### The psychometric fallacy
 
