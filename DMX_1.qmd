@@ -31,14 +31,15 @@ keywords:
   - Psychometrics
   - User Experience
   - Human Factors
-format:
-  elsevier-pdf:
-    keep-tex: true
-    journal:
-      name: PsyRxiv
-      formatting: preprint
-      #model: 1p # Don't set a model with preprint
-      cite-style: authoryear
+format: docx
+#format:
+#  elsevier-pdf:
+#    keep-tex: true
+#    journal:
+#      name: PsyRxiv
+#      formatting: preprint
+#      #model: 1p # Don't set a model with preprint
+#      cite-style: authoryear
 bibliography: dmx.bib
 date: last-modified
 execute:
