@@ -1,0 +1,13 @@
+Highlights for Review
+
+1. Introduces the designometric perspective, distinguishing design evaluation 
+  from psychometric measurement of individual differences in UX research.
+2. Identifies and defines the psychometric fallacy: validating design-focused rating scales 
+  using person × item response matrices that omit the design dimension.
+3. Demonstrates via simulation that psychometric reliability can be high 
+  even when a scale fails to discriminate between designs.
+4. Provides empirical evidence from secondary analyses of eight widely used UX scales, 
+  showing substantial distortions in reliability, item performance, and factor structure under the psychometric fallacy.
+5. Shows how standard psychometric tools can be correctly repurposed for 
+  designometric scale development using design × item response matrices, 
+  and outlines implications for future UX scale development and use.

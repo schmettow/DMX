@@ -1,116 +1,80 @@
 ---
-title: "Advanced DMX"
+title: "Designometric Rating Scales for Emerging Technologies: Lessons Learned in three projects"
+author:
+  - name: Martin Schmettow
+    id: ut
+    orcid: 0000-0003-0240-4087
+    email: m.schmettow@utwente.nl
+    affiliation: 
+      - name: University of Twente
+        city: Enschede, NL
+        url: www.utwente.nl
+    attributes:
+        corresponding: true
+  - name: Simone Borsci
+    id: ut
+    orcid: 0000-0002-3591-3577
+    email: s.borsci@utwente.nl
+    affiliation: 
+      - name: University of Twente
+        city: Enschede, NL
+        url: www.utwente.nl
+
+keywords:
+  - Psychometrics
+  - User Experience
+  - Human Factors
+format: docx
+#format:
+#  elsevier-pdf:
+#    keep-tex: true
+#    journal:
+#      name: PsyRxiv
+#      formatting: review
+#      #model: 1p # Don't set a model with preprint
+#      cite-style: authoryear
+bibliography: dmx.bib
+date: last-modified
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: true
+
+abstract: |
+    
 ---
 
-# Confirmatory Factor Analysis on Inventories
+# Introduction
 
-Several of the original studies employed more than one scale (QB, DN, SP). CFA is commonly used on multi-scale inventories to assess advanced psychometric qualities.
+Use experience rating scales provide cost-effective and readily accessible methods to evaluate design artifacts. The designometric perspective posits that the primary function of designometric instruments is to establish rank orderings among design alternatives. Consequently, the development of designometric instruments necessitates evaluation across extensive design samples to assess the ranking capabilities. In classic psychometric instrument validation the basic observatiuon is an encounter of a person with an item, resulting in a psychometric response matrix. The designometric basic measurement is a three-way encounter of a design, an item and a person, resulting in a three-dimensional data structure, which is an extension of the response matrices used in psychometric analyses.
 
-```{r eval = purp.mcmc}
-library(blavaan)
+Designometric scale evaluation can make use of common psychometric tools and concepts, but it requires a considerable sample of designs. We coined it the *psychometric fallacy*, when an instrument intended to rank designs has been developed without an extensive sample of designs.  While collecting samples may be feasible for classes of designs with a large population, such as university website [Schmettow & Havinga], it generally is more  difficult than a psychometric sample for several reasons.
 
-tbl_post.blavaan <- function(x, model = NA){
-  x %>% 
-    blavaan::standardizedposterior() %>% 
-    coda::as.mcmc() %>% 
-    coda::as.mcmc.list() %>% 
-    tidybayes::tidy_draws() %>% 
-    rename(chain = .chain, iter = .iteration) %>% 
-    select(-.draw) %>% 
-    gather(parameter, value, -chain, -iter) %>% 
-    mutate(type = case_when(str_detect(parameter, "=~") ~ "std.coef",
-                            str_detect(parameter, "~~") ~ "std.vcov")) %>% 
-    separate(parameter, into = c("lhs", "rhs"), remove = F)
-}
+Generally, rating scale instruments to rank designs are rarely developed with the same standards as psychometric tests [@Bargas-Avila2011]. To our knowledge, only three recent development projects respected the principle of using a large sample of designs to establish good designometric measurement characteristics. In this paper, we summarize our experience in the development of designometric instruments across these three projects.
 
-F_6 <- "nEeriness =~ nE1 + nE2 + nE3 + nE4 + nE5 + nE6 + nE7 + nE8"
++ the BUS-11 scale for chatbot evaluation [@Borsci2024]
++ the Consistency & Plausibility scale for VR environments [@Catar2026]
++ UX4CA for the evaluation of conversational agents [@Atzmon2026]
 
-M_6_psycho <- 
-  bcfa(model = F_6,
-  data = rm_psycho(D_Eer) ,
-  n.chains = 5,
-  burnin = 12000,
-  sample = 2000)
+We will trace the development of these three instruments, as it has progressed this far, and the challenges we faced in collecting design samples and evaluate item sets. Each project has taught us different lessons and required different strategies to mitigate the challenges. 
+In the end, we derive best practices, concerning both the sampling strategies and effective data analysis techniques. Designometrics is a formal framework, which the promise that UX scales --or whatever follows UX--, can have the same reliability standards as psychometric instruments. We close the paper with a discussion of unresolved issues, such as which perspective to choose for the factors structure: designometric or psychometric, as well as deep designometrics.
 
-save(M_6_psycho, file = "M_6.Rda")
+# Beyond UX
+
+A main  driver behind the UX revolution was the insight that users are psychologically much deeper than the classic usability framework can capture, which depicted the economic user, which strives for measurable productivity. Since psychological concepts tend to become multi-faceted very soon, the UX revolution was accompanied by a proliferation of rating scales, which are supposed to capture the psychological richness of user experience. However, the development of these scales has not followed the same rigorous standards as psychometric instruments, and many of them have not been validated using large samples of designs. This has led to a situation where many UX scales may not be reliable for ranking designs, which is their primary purpose.
+
+UX is all long mainstream, but there are new challenge ahead of us, with huge design spaces are huge and accurate instrument are necessary . In the following sections we will discuss the development of three designometric instruments, that attempt to capture a glimpse of the psychological richness of emerging technology, i.e. conversational agents and virtual reality. 
+
+## BUS-11
+
+## Consistency & Plausibility
+
+## UX4CA
 
 
-M_6_design <- 
-  bcfa(model = F_6,
-       data = rm_design(D_Eer),
-       n.chains = 5,
-       burnin = 20000,
-       sample = 2000)
+# AI Statement
 
+During the preparation of this work the authors used ChatGPT in order to improve language and structure. After using this service, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
-
-
-save(M_6_design, M_6_psycho, file = "M_6.Rda")
-
-
-
-
-P_6 <- 
-  bind_rows(
-    tbl_post.blavaan(M_6_design) %>% mutate(model = "designometric"),
-    tbl_post.blavaan(M_6_psycho) %>% mutate(model = "psychometric")
-  ) 
-
-save(M_6_design, M_6_psycho, P_6, file = "M_6.Rda")
-```
-
-```{r}
-load("M_6.Rda")
-```
-
-```{r}
-clu <- function(x)
-  x %>% 
-  group_by(model, parameter, type, lhs, rhs) %>% 
-  summarize(center = median(value),
-            lower = quantile(value, .025),
-            upper = quantile(value, .025)) %>% 
-  ungroup()
-
-
-P_6 %>% 
-  mutate(parameter = NA) %>% 
-  filter(type == "std.coef") %>% 
-  clu() %>% 
-  mascutils::discard_redundant() %>% 
-  rename(Item = rhs)
-
-
-```
-
-```{r}
-CLU_6 <- 
-  P_6 %>% 
-  filter(type == "std.coef") %>% 
-  clu() %>% 
-  rename(Item = rhs)
-
-CLU_6
-
-P_6 %>% 
-  filter(type == "std.coef") %>% 
-  rename(Item = rhs) %>% 
-  ggplot(aes(x = Item, color = model, fill = model, y = value)) +
-  geom_violin() +
-  geom_point(data = CLU_6, aes(y = center)) +
-  geom_line(data = CLU_6, aes(y = center, group = model))
-```
-
-# Using designometric scales as psychometrics
-
-Up to this point we have taken a purely designometric stance, that such rating scales must primarily discriminate between designs. In some research situations, however, a designometric scale could well be used psychometrically. For example, a common stereotype is that male adolescents expose themselves more to imagery of robots, zombies and humanoid extraterrestrians than young women. One could assume that the feeling of eeriness wears off, which would then produce weaker responses of male respondents averaged over monster designs.
-
-```{r}
-AH %>% 
-  group_by(Part, Item, Gender) %>%
-  summarize(nEeriness = mean(response)) %>% 
-  ggplot(aes(x = Item, color = Gender, y = nEeriness)) +
-  geom_boxplot()
-
-
-```
+# References
