@@ -72,6 +72,24 @@ UX is all long mainstream, but there are new challenge ahead of us, with huge de
 
 ## UX4CA
 
+# Discussion
+
+The main argument of this paper is that designometric instruments must be developed and evaluated using samples of designs. This makes the process of scale development more challenging. When a designometric item response box is established on a sufficiently large sample of designs and participants, we propose that common psychometric tools can be applied, under the designometric perspective, i.e. a design-by-item matrix through averaging across participants. Yet, a few questions still arouse from the three studies.
+
+The designometric perspective is a necessity to establish the ranking capabilities of an instrument, but that does not imply to abandon the psychometric perspective. The requirement of a sufficient design sample can be a strongly delaying factor during scale development, while the number of participants piles up much faster. Checking psychometric reliability on this data is useful, because items that participants do not use consistently will add noise to the designometric signal. This can be taken as an early sign for unreliable items. However, there is an important caveat: reliability is a correlation measure, which is a standardized co-variance. Therefore psychometric reliability is a valid criterion, only if there is sufficient variance in the participant sample. If the measured construct varies in the design population, but barely in the participant population, psychometric reliability becomes low for a trivial reasons, and should not be used for item selection. 
+In the BUS-11 project,  over-reliance on psychometric reliability possibly led to the exclusion of items on the Privacy sub-scale, which in consequence was under-represented. And as we have shown in @schmettow2025, item reliability can dramatically differ between perspectives.
+
+Another question is whether the factor structure of an instrument should be evaluated from the designometric or psychometric perspective. In @schmettow2025 [Figure 3], we have already established that factor structures can differ between perspectives, with the disconcerting observation that factor structures in common UX scales frequently not align with the alleged structures of the instrument. This went in both directions: Sometimes the elicited factor structure contains fewer factors than the number of scales implies, sometimes more factors were found than expected. 
+
+The CaP project is an interesting case for two reasons: it was strictly derived from cognitive theory and we were able to obtain a complete item response box with just one study, which allowed us to evaluate the factor structure from both perspectives. While the psychometric factor structure was in line with the theoretically structure of the instrument, the designometric factor structure was not.
+Technically, this is an example of the Simpson's paradox in factor or regression analysis, but it probably has the following explanation. On the psychometric level, the two factor solution emerged, because the underlying theory was bearing enough truth: The appreciations of consistency and plausibility are partly independent, which confirms the underlying theory, which assuming separate cognitive processes. On the designometric level the two factor solution would occur only if there is an analog independence in the design process, implying that efforts and skills in designing for plausibility and consistency are separated. While it is easily imaginable that algorithmic efforts leading to plausibility (e.g. the physics engine) are separate from developing narratives and scenario design (consistency), in the sample of designs this was simply not the case. While one can speculate about potential forces in common design processes, that produce an alignment between the two factors, the bottom line is that factor structures depend strongly on the composition of the samples. One plausible explanation in the case of CaP is that the design sample emerged from a survey on gamers, resulting in a sample of mature and successful designs. Perhaps, the two-factor structure would appear in a more curated sample, containing designs in various stages of development.
+
+Despite the different factor structures, CaP has been evaluated as a *universal* designometric scale, as it allows to measure design attributes and participant sensitivity to these attributes with very good reliability.
+
+
+Finally, almost all analyses so far are still employing standard psychometric tools on flattened response boxes. The potential of deep designometrics, where both perspectives are regarded simultaneously (i.e. in a single model) has not yet been explored.
+
+
 
 # AI Statement
 
