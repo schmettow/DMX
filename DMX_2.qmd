@@ -47,24 +47,39 @@ abstract: |
 
 # Introduction
 
-Use experience rating scales provide cost-effective and readily accessible methods to evaluate design artifacts. The designometric perspective posits that the primary function of designometric instruments is to establish rank orderings among design alternatives. Consequently, the development of designometric instruments necessitates evaluation across extensive design samples to assess the ranking capabilities. In classic psychometric instrument validation the basic observatiuon is an encounter of a person with an item, resulting in a psychometric response matrix. The designometric basic measurement is a three-way encounter of a design, an item and a person, resulting in a three-dimensional data structure, which is an extension of the response matrices used in psychometric analyses.
+Use experience rating scales provide cost-effective and readily accessible instruments to evaluate design artifacts, provided they are valid and reliable. [Old wine new bottles] reviewed how UX attributes are commonly measured in the, at the time, emerging field and found rating scales to be a dominant method. However, the review also revealed that the these scales often were ad-hoc, with little to no evidence of validity. 
 
-Designometric scale evaluation can make use of common psychometric tools and concepts, but it requires a considerable sample of designs. We coined it the *psychometric fallacy*, when an instrument intended to rank designs has been developed without an extensive sample of designs.  While collecting samples may be feasible for classes of designs with a large population, such as university website [Schmettow & Havinga], it generally is more  difficult than a psychometric sample for several reasons.
+Here we only address the class of rating scale instruments that actually have been validated, borrowing methods from the field of psychometrics, which is the discipline concerned with accurately measuring attributes of humans, such as their math and language skills, or the individual internal tendencies, such as being open-minded, neurotic or their fear of spiders.
 
-Generally, rating scale instruments to rank designs are rarely developed with the same standards as psychometric tests [@Bargas-Avila2011]. To our knowledge, only three recent development projects respected the principle of using a large sample of designs to establish good designometric measurement characteristics. In this paper, we summarize our experience in the development of designometric instruments across these three projects.
+The purpose of *designometric* workflow and analysis is to make sure a UX scale measures attributes of designs correctly. While this appears to be an equivalent problem to psychometric scale development, there is a crucial twist in the transfer: For the evaluation of psychometric instruments, a large sample of participants is required to accurately assess the characteristics of each item, and the contribution it makes to the combined scores for a person (the latent variable).
+
+Evaluation of designometric instruments also is likewise on evaluating item characteristics, but the latent variables are design attributes. Therefore, designometric validation requires extensive design samples to assess the ranking capabilities.
+We coined it the *psychometric fallacy*, when an instrument intended to rank designs has been developed without an extensive sample of designs.  While collecting samples may be feasible for classes of designs with a large population, such as university website [Schmettow & Havinga], it generally is more  difficult than a psychometric sample for several reasons, which we will discuss below.
+
+Psychometric tools can easily be re-purposed for designometric analysis, as we will illustrate in this report, but there is structural limitation. 
+In psychometrics the basic measurement is an encounter of a person with an item, resulting in a psychometric response matrix. The designometric basic measurement is a three-way encounter of a design, an item and a person, resulting in a three-dimensional data structure, the designometric response box. To make designometric data fit into psychometric tools, the box can be collapsed into a design x item response matrix, hence *flat designometrics*.
+We will illustrate the use of psychometric tools in more detail, discuss the limitations of flat designometrics, and propose two directions for deep designometrics.
+
+Generally, rating scale instruments to rank designs are rarely developed with the same standards as psychometric tests [@Bargas-Avila2011]. To our knowledge, only three recent instrument development projects respected the principle of using a large sample of designs to establish designometric scale reliability. In this paper, we summarize our experience in the development of designometric instruments across these three projects.
 
 + the BUS-11 scale for chatbot evaluation [@Borsci2024]
 + the Consistency & Plausibility scale for VR environments [@Catar2026]
 + UX4CA for the evaluation of conversational agents [@Atzmon2026]
 
-We will trace the development of these three instruments, as it has progressed this far, and the challenges we faced in collecting design samples and evaluate item sets. Each project has taught us different lessons and required different strategies to mitigate the challenges. 
-In the end, we derive best practices, concerning both the sampling strategies and effective data analysis techniques. Designometrics is a formal framework, which the promise that UX scales --or whatever follows UX--, can have the same reliability standards as psychometric instruments. We close the paper with a discussion of unresolved issues, such as which perspective to choose for the factors structure: designometric or psychometric, as well as deep designometrics.
+By retracing the development of these three instruments, we report our lessons learned with regard to the following issues:
 
-# Beyond UX
+1. The challenges of collecting design samples for scale development
+2. The correct use of psychometric tools for (flat) designometric analysis
+3. The role of the psychometric perspective in designometric scale development
 
-A main  driver behind the UX revolution was the insight that users are psychologically much deeper than the classic usability framework can capture, which depicted the economic user, which strives for measurable productivity. Since psychological concepts tend to become multi-faceted very soon, the UX revolution was accompanied by a proliferation of rating scales, which are supposed to capture the psychological richness of user experience. However, the development of these scales has not followed the same rigorous standards as psychometric instruments, and many of them have not been validated using large samples of designs. This has led to a situation where many UX scales may not be reliable for ranking designs, which is their primary purpose.
+# Rating Scales Beyond UX
 
-UX is all long mainstream, but there are new challenge ahead of us, with huge design spaces are huge and accurate instrument are necessary . In the following sections we will discuss the development of three designometric instruments, that attempt to capture a glimpse of the psychological richness of emerging technology, i.e. conversational agents and virtual reality. 
+A main  driver behind the UX revolution was the insight that users are psychologically much deeper than the classic usability framework represents. Usability, as defined in the [ISO 9241-11] depicts the "economic" user, mainly striving for measurable productivity. 
+Since psychological concepts tend to become multi-faceted very soon, the UX revolution was accompanied by a proliferation of rating scales, which are supposed to capture the psychological richness of user experience. However, the development of these scales has not followed the same rigorous standards as psychometric instruments, and many of them have not been validated using large samples of designs. This has led to a situation where many UX scales may not be reliable for ranking designs, which is their primary purpose.
+
+As of writing, UX is mainstream, but its dominance may soon decline with the emergence of new design paradigms, such as conversational agents, virtual reality and social robots. These technologies are expected to have a much richer psychological impact on users than traditional interfaces, which means that new designometric instruments will be needed to capture this richness. These domains come with huge, largely unexplored design spaces, for which to navigate effectively, provenly accurate instruments are absolutely necessary. 
+
+In the following sections we will discuss the development of three designometric instruments, that attempt to capture a glimpse of the psychological richness of emerging technology, i.e. conversational agents and virtual reality. 
 
 ## BUS-11
 
