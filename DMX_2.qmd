@@ -85,29 +85,94 @@ In the following sections we will discuss the development of three designometric
 
 ## Consistency & Plausibility
 
+The Consistency & Plausibility (CaP) scale was developed to evaluate the design of XR environments. What sets it apart is that the scale design is theory-based, assuming that the degree of immersion in XR environments mainly depends on two cognitive processes, separating the visuo-spatial consistency of the environment and the plausibility of scenario or narrative. The initial item pool of [xx] could therefore be derived from the theory, and was initially divided into two subscales. This theory-derived structure could directly be tested for reliability, needing no separate exploratory step.
+
+The initiative for the development of the CaP came from the naval research institute MARIN, where VR simulators are used for research. An experiment where the same naval scenario was simulated with varying degree of visuo-spatial realism 
+under four different conditions with different degrees of visuo-spatial realism was conducted. This allowed to test specifically whether the two subscales were independent.
+
+The second study was conducted to create a design pool large enough to estimate dmx item characteristics. Fortunately, the CaP is intentionally designed to cover XR devices, which encompasses VR simulators, AR systems and even desktop VR, such as many modern gaming titles. This allowed us to obtain a substantial sample of retrospective ratings through a survey on gaming enthusiasts.
+
+The collected measures allowed it to test the theory-derived structure and perform item analysis under both perspectives. The structure were tested per perspective using a Confirmatory Factor Analysis (CFA) model. By using a Bayesian approach, also the variance-covariance parameters could be estimated with precise credibility intervals, which allows to use probabilistic criteria for item selection.
+
+The subscale structure was tested by comparing two-factor models with a one-factor model and prefer the model with the superior predictive power, using the Widely Available Information Criterion (WAIC) [CHECK IC]. The results validated the two-factor structure on the psychometric level. A relatively low correlation between the two subscales confirms the theory of separate cognitive processes. Under the designometric perspective, the one-factor solution prevailed.
+
+Under both perspectives, very good reliability levels could be achieved, with one noteworthy exception: Two of 24 [CHECK] items were intentionally formulated in reverse direction, but after all stood out with such low reliability levels, that they were discarded.
+
+
 ## UX4CA
+
+UX4CA is in development as a UX scale for LLM-driven chatbots. 
+
++ How was the item pool created?
++ How was the sub-scale structure defined or explored?
++ How was validation by experts performed?
++ How were the design sampled?
++ Use of multi-level models, i.e. deep designometrics.
 
 # Discussion
 
-The main argument of this paper is that designometric instruments must be developed and evaluated using samples of designs. This makes the process of scale development more challenging. When a designometric item response box is established on a sufficiently large sample of designs and participants, we propose that common psychometric tools can be applied, under the designometric perspective, i.e. a design-by-item matrix through averaging across participants. Yet, a few questions still arouse from the three studies.
+The main argument of this paper is that designometric instruments must be developed and evaluated using samples of designs, large enough to estimate item characteristics with respect to ranking designs.
+In a proper psychometric development process, a large initial item pool is required, as well as one or more large samples of participants to evaluate the item characteristics. Adding a design sample not just adds to the required number of measurements, it starts with defining the design-level target population.
 
-The designometric perspective is a necessity to establish the ranking capabilities of an instrument, but that does not imply to abandon the psychometric perspective. The requirement of a sufficient design sample can be a strongly delaying factor during scale development, while the number of participants piles up much faster. Checking psychometric reliability on this data is useful, because items that participants do not use consistently will add noise to the designometric signal. This can be taken as an early sign for unreliable items. However, there is an important caveat: reliability is a correlation measure, which is a standardized co-variance. Therefore psychometric reliability is a valid criterion, only if there is sufficient variance in the participant sample. If the measured construct varies in the design population, but barely in the participant population, psychometric reliability becomes low for a trivial reasons, and should not be used for item selection. 
-In the BUS-11 project,  over-reliance on psychometric reliability possibly led to the exclusion of items on the Privacy sub-scale, which in consequence was under-represented. And as we have shown in @schmettow2025, item reliability can dramatically differ between perspectives.
+What we can clearly advise against is a very narrow definition, with the worst case that the instrument targets an emerging technology. This is best represented by the BUS-11 project, which focused on the first generation of chatbots, when it had just emerged. Designing a rating scale for emergent technology is very risky for two reasons: First, the population of designs is small and has not yet settled. Second, the fate of algorithmic chatbots demonstrates th Lindy effect: The best estimate for the useful lifetime of a technology is how long it has existed. After years of careful validation  and translation to XX languages, the useful lifetime of the BUS-11 scale is declining with the rapid emerge of LLM-based agents.
 
-Another question is whether the factor structure of an instrument should be evaluated from the designometric or psychometric perspective. In @schmettow2025 [Figure 3], we have already established that factor structures can differ between perspectives, with the disconcerting observation that factor structures in common UX scales frequently not align with the alleged structures of the instrument. This went in both directions: Sometimes the elicited factor structure contains fewer factors than the number of scales implies, sometimes more factors were found than expected. 
+The most efficient case in terms of sampling was the CaP study, where the design population was broad and, most importantly, contained designs of everyday use, which allowed for retrospective ratings. Compared to ratings directly after use, retrospective ratings are a spectacular opportunity to validate dmx scales efficiently. 
+However, a few caveats apply: 
+Most importantly, the subset of everyday use designs must show a strong variation in the measured construct, and must not be too far from the target domain. 
+In the CaP case, the moving-platform condition was clearly in a class of its own, but at least two simulator condition would be rated as desktop-level VR. 
+A negative example is given in [schmettow2025], which is to evaluate a rating scale for Coolness on a sample of premier law firm homepages.
+Next to that, the retrospective rating approach inevitably leads to opportunistic sampling strategies and incomplete data. In the sample of gamers, most participants had experience with only a few titles. 
+
+For latent variable models (CFA, IRM) on sparse data,  is crucial that there are multple observations per participant, and that there is overlap between participants. 
+For the same reason, the BUS-11 project developed their design samples incrementally over multiple studies, but *with overlap*.
+Building samples incrementally will often be unavoidable in dmx scale development. What should be avoided for specifically is to let disjunct groups of participant rate disjunct sets of designs.
+
+A strong approach to testing specific assumptions about design traits is adding controlled experiments to the workflow, as in the CaP project. Creating a design sample by pure manipulation of design parameters will usually be impossible at scale, but it is useful to observe directly how the designometric signal responds to clearly defined design choices. The experimental results of CaP indicated that the scale is not very sensitive to visual rendering quality, but clearly distinguishes a moving-platform. It is not surprising that adding two new senses (vestibular and proprioceptive) adds considerabl to the experience of a naval boat simulator, but it also shows the limits in discrimating levels of visual fidelity.
+
+Generally, a sampled designs (as opposed to manipulated designs) only carries an instrument to the point where structure and reliability are established, but these are merely internal criteria.
+It is not guaranteed that the scale is valid, which means that the scale predicts what the scale user intends to predict.
+
+Proving validity experimentally is the gold standard, but may not always be practical. Using expert ratings is another way to establish validation by external criteria. The UX4CA project used this to validate the scale long before a design sample could be obtained, sufficient for dmx analysis.
+Under some restrictions, this is a legit approach, because the predictive value of an instrument is limited by the level of noise. If the predictive value can be demonstrated with external criteria, the actual level of noise becomes secondary. 
+
+While we strongly advocate against an ad-hoc culture of rating scale development as it has happened before [old-wine_new_bottles], using validation early in the process can produce useful preliminary instruments, especially when timeliness matters more than rigor.
+After all, design populations tend to emerge, change and perish much faster than human populations, and dedicated instruments are particularly useful in early stages of a design paradigm, when the design space is yet to be fully explored.
+As a concrete example, a provisional instrument that approximates emotional reactions to chatbot design can have much more impact than a rigorously validated instrument for measuring usability of commercial websites.
+From this perspective, the development of rating scale instruments should rather be seen as a continuous process of revision and improvement, than a one-shot project. Unfortunately, this does not seem to be common practice, maybe because it is not common for psychometric scales. To re-iterate the difference: The human mind has evolved over millions of years, and structurally is not expected to change much in the foreseeable future, while design paradigms can emerge, develop and disappear within a few years.
+
+All three projects also used or analyzed the psychometric perspective at one point or another. The strategy to focus on the psychometric perspective first, as in the BUS-11 project, is not sufficient, but it also is not useless. Items that participants do not use consistently will inevitably add noise to the designometric signal.
+Still, early item selection based on psychometric reliability can be a double-edged sword. In the BUS-11 project,  over-reliance on psychometric reliability possibly led to the exclusion of items on the Privacy sub-scale, which in consequence was under-represented. And as we have shown in @schmettow2025, item reliability can dramatically differ between perspectives.
+
+Another question is whether the factor structure of an instrument should be evaluated from the designometric or psychometric perspective. In @schmettow2025 [Figure 3], we have already established that factor structures can differ between perspectives and only occasionally align with the gicen subscale structures of the instrument. This went in both directions: Sometimes the elicited factor structure contains fewer factors than the number of scales implies, sometimes more factors were found than expected.
 
 The CaP project is an interesting case for two reasons: it was strictly derived from cognitive theory and we were able to obtain a complete item response box with just one study, which allowed us to evaluate the factor structure from both perspectives. While the psychometric factor structure was in line with the theoretically structure of the instrument, the designometric factor structure was not.
-Technically, this is an example of the Simpson's paradox in factor or regression analysis, but it probably has the following explanation. On the psychometric level, the two factor solution emerged, because the underlying theory was bearing enough truth: The appreciations of consistency and plausibility are partly independent, which confirms the underlying theory, which assuming separate cognitive processes. On the designometric level the two factor solution would occur only if there is an analog independence in the design process, implying that efforts and skills in designing for plausibility and consistency are separated. While it is easily imaginable that algorithmic efforts leading to plausibility (e.g. the physics engine) are separate from developing narratives and scenario design (consistency), in the sample of designs this was simply not the case. While one can speculate about potential forces in common design processes, that produce an alignment between the two factors, the bottom line is that factor structures depend strongly on the composition of the samples. One plausible explanation in the case of CaP is that the design sample emerged from a survey on gamers, resulting in a sample of mature and successful designs. Perhaps, the two-factor structure would appear in a more curated sample, containing designs in various stages of development.
+Technically, this is an example of the Simpson's paradox in factor or regression analysis, but it probably has the following explanation. On the psychometric level, the two factor solution emerged, because the underlying theory was bearing enough truth: The appreciations of consistency and plausibility are independent.
 
-Despite the different factor structures, CaP has been evaluated as a *universal* designometric scale, as it allows to measure design attributes and participant sensitivity to these attributes with very good reliability.
+On the designometric level the two factor solution would occur only if there is an analog independence (or separation of concerns) in the design process, implying that efforts and skills in designing for plausibility and consistency are separated. 
+While it is easily imaginable that development efforts leading to plausibility (e.g. the physics engine) are separate from developing narratives and scenario design (consistency), in the sample of designs this was simply not the case. 
+While one can speculate about potential forces in common design processes, that produce an alignment between the two factors, the bottom line is that factor structures depend strongly on the composition of the samples. One plausible explanation in the case of CaP is that the design sample emerged from a survey on gamers, resulting in a sample of mature and successful designs. 
+Perhaps, the two-factor structure would appear in a more curated sample, containing designs in various stages of development.
+
+A rating scale that can serve both perspective, is called a *universal* scale. Two instruments so far fall into this category: The Eeriness scale (Ho & MacDorman) has been shown to be unidimensional and reliable from both perspectives. The CaP scale delivers high reliability for both perspectives, too, but with different factor structures.
+The question arises: Should a researcher use the CaP scale for designometric purposes as a uni-dimensional or two-factor scale? Given the early stage of designometrics as a field, as well as limited data, a definite answer cannot yet been given.
+
+The potential of deep designometrics, where both perspectives are regarded simultaneously (i.e. in a single model) has not yet been explored, but two approaches can already be outlined. The first approach is to use multi-level models.
+While there are numerous dedicated software packages available for item response models (IRM), some of them can also be formulated as a multi-level common multi-level logistic regression with person and item random effects. While IRMs are designed for psychometric data only, a multi-level model can arbitrarily be extended by adding further ramdom effects levels, including designs, but possibly also tasks or situations. 
 
 
-Finally, almost all analyses so far are still employing standard psychometric tools on flattened response boxes. The potential of deep designometrics, where both perspectives are regarded simultaneously (i.e. in a single model) has not yet been explored.
+Multi-level models were used in the UX4CA project ...
 
+# Conclusion
+
+1. Designometric data is a response box. Nevertheless a variety of psychometric and other statistical tools are available for designometric analysis, either flat or deep.
+
+1. The requirement to test a scale against a large sample of designs is a major challenge for designometric scale development, but strategies exist to make this more efficient, such as using retrospective ratings of everyday use designs, or validating against external criteria.
+
+1. ... 
 
 
 # AI Statement
 
-During the preparation of this work the authors used ChatGPT in order to improve language and structure. After using this service, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+During the preparation of this work the authors used ChatGPT exclusively to improve language quality. After using this service, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 # References
